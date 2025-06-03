@@ -1,0 +1,232 @@
+
+/* Main Container */
+@font-face {
+  font-family: 'Montserrat Armenian';
+  src: url('../fonts/web_font/Montserratarm-Regular.woff2') format('woff2'),
+      url('../fonts/web_font/Montserrat-Armenian-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat Armenian bold';
+  src:
+      url('../fonts/web_font/Montserratarm-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat Armenian semiBold';
+  src:
+      url('../fonts/web_font/Montserratarm-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat Armenian light';
+  src:
+      url('../fonts/web_font/Montserratarm-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+.jobs-section {
+  background: rgba(22, 32, 42, 1);
+  color: white;
+  padding: 60px 10%;
+  text-align: left;
+}
+
+.jobs-section h2 {
+  font-size: 46px;
+  margin-bottom: 10px;
+  margin-left: 20px;
+}
+
+.jobs-title-line {
+  height: 2px;
+  width: calc(100% - 8%);
+  margin-left: -25%;
+  margin-bottom: 40px;
+  border: none;
+  background: linear-gradient(
+    to right,
+    #609AC4 0%,
+    #16202A 60%,
+    rgba(22, 32, 42, 0) 100%
+  );
+  position: relative;
+}
+
+.jobs-gallery {
+  display: grid;
+  grid-auto-flow: column; /* տեղադրում է item-ները հորիզոնական */
+  grid-template-rows: repeat(2, 1fr); /* 2 rows */
+  gap: 40px 77px;
+  overflow-x: auto; /* enable horizontal scroll */
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  scroll-padding-left: 10px;
+}
+
+.jobs-gallery::-webkit-scrollbar {
+  height: 8px;
+}
+
+.jobs-gallery::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.jobs-gallery::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+}
+.job-item {
+  width: 220px;
+  flex-shrink: 0; /* չնեղանա երբ շատ item կա */
+}
+
+
+.jobs-gallery img {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  height: 220px;
+}
+
+/* Jobs Section Overrides */
+.jobs-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 77px;
+}
+
+.job-card img {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  height: 220px;
+}
+
+.job-text {
+  margin-top: 15px;
+  font-family: 'Montserrat Armenian';
+}
+
+.job-text p:first-child {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.job-text p:last-child {
+  font-size: 14px;
+  color: #ccc;
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+/* kap */
+
+.contact-section {
+background: rgba(22, 32, 42, 1);
+color: white;
+padding: 60px 10%;
+font-family: Arial, sans-serif;
+}
+
+.contact-section h2 {
+font-size: 36px;
+margin-left: 8px;
+padding-bottom: 7px;
+
+}
+
+.contact-title-line {
+height: 2px;
+width: calc(100% - 17%);
+margin-left: -25%;
+margin-bottom: 38px;
+background: linear-gradient(to right, #609AC4 0%, #16202A 60%, rgba(22, 32, 42, 0) 100%);
+}
+
+.contact-container {
+display: flex;
+justify-content: space-between;
+flex-wrap: wrap;
+gap: 40px;
+}
+
+.contact-info {
+flex: 1;
+min-width: 300px;
+}
+
+.contact-info ul {
+list-style: none;
+padding: 0;
+margin-bottom: 20px;
+}
+
+.contact-info li {
+margin: 10px 0;
+font-size: 16px;
+}
+
+.contact-info li span {
+margin-right: 10px;
+font-size: 18px;
+}
+
+.contact-map img {
+width: 100%;
+border-radius: 12px;
+margin-top: 10px;
+}
+
+.contact-form {
+flex: 1;
+min-width: 300px;
+display: flex;
+flex-direction: column;
+gap: 15px;
+padding-top: 30px;
+}
+
+.form-row {
+display: flex;
+gap: 10px;
+}
+
+.contact-form input,
+.contact-form textarea {
+width: 100%;
+padding: 14px;
+background: transparent;
+border: 1px solid #ffffff77;
+border-radius: 8px;
+color: white;
+font-size: 15px;
+}
+
+.contact-form textarea {
+min-height: 120px;
+resize: vertical;
+}
+
+.contact-form button {
+padding: 14px;
+background: linear-gradient(to right, #609AC4, #86b3d7);
+border: none;
+border-radius: 8px;
+color: white;
+font-size: 16px;
+cursor: pointer;
+transition: 0.3s;
+}
+
+.contact-form button:hover {
+opacity: 0.9;
+}

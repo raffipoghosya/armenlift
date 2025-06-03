@@ -1,0 +1,124 @@
+/* Main Container */
+@font-face {
+  font-family: 'Montserrat Armenian';
+  src: url('../fonts/web_font/Montserratarm-Regular.woff2') format('woff2'),
+      url('../fonts/web_font/Montserrat-Armenian-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat Armenian bold';
+  src:
+      url('../fonts/web_font/Montserratarm-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat Armenian semiBold';
+  src:
+      url('../fonts/web_font/Montserratarm-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat Armenian light';
+  src:
+      url('../fonts/web_font/Montserratarm-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-color: rgba(22, 32, 42, 1); /* Բոլոր չլցված տարածքներն այս գույնն են ունենում */
+    font-family: 'Montserrat Armenian';
+  }
+  
+
+body {
+    overflow-x: hidden;
+    
+  }
+  
+
+.about-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: rgba(22, 32, 42, 1);
+    color: white;
+    padding: 20px 10%;
+    position: relative;
+    flex-wrap: wrap;
+  }
+  
+  .about-text {
+    flex: 1 1 60%;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .about-text h2 {
+    font-size:64px;
+    margin-bottom: 10px;
+  }
+  
+  /* .decor-line {
+    height: 2px;
+    width: 100%;
+    margin-bottom: 20px;
+    border: none;
+    background: linear-gradient(90deg, #609AC4 0%, #16202A 100%);
+    position: relative;
+  } */
+  .decor-line {
+    height: 2px;
+    width: calc(100% - 28%); /* որ երկարությունը էլի մեծացնենք */
+    margin-left: -25%; /* ձախից հանի padding-ը */
+    margin-bottom: 20px;
+    border: none;
+    background: linear-gradient(90deg, #609AC4 0%, #16202A 100%);
+    position: relative;
+  }
+  
+  
+  .about-text p {
+    font-size: 16px;
+    line-height: 1.8;
+    text-align: justify;
+  }
+  
+  /* ԱՅՍ ՄԱՍՆ է նոր */
+  .about-image {
+    position: relative;
+    flex: 1 1 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .about-image img {
+    position: absolute;
+    /* right: -300px; */
+    top: 0;
+    z-index: 1;
+    max-width: none;
+    height: auto;
+    /* height:50%; 
+    width: 50%; */
+  }
+  
+  /* այս դեպքում տեքստը պիտի լինի ծնող դիվի մեջ, որը ավելի բարձր z-index ունի */
+  .about-text {
+    position: relative;
+    z-index: 2;
+    background: rgba(22, 32, 42, 0.8); /* փոքր թափանցիկ ֆոն տեքստի համար */
+    padding: 20px;
+  }
+  
