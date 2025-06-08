@@ -2,46 +2,43 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AboutUsController;
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
+// Հիմնական կայքի գլխավոր էջ
 Route::get('/', [HomeController::class, 'index']);
 
-// Jetstream/Breeze-ի արդեն առկա route
-Route::post('/logout', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'destroy'])
-    ->name('logout');
+// Logout ռոութ (պարտադիր Jetstream / Breeze-ի համար)
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
+// Authentication ռոութներ (Jetstream / Breeze ստեղծած)
+require __DIR__ . '/auth.php';
 
+// Admin panel — մուտք գործած օգտատերերի համար
+Route::middleware(['auth'])->prefix('admin')->group(function () {
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+    // Վահանակ / Dashboard
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('admin.dashboard');
 
-require __DIR__.'/auth.php';
+    // Մեր մասին
+    Route::get('/about', [AboutUsController::class, 'index'])->name('admin.about');
+    Route::post('/about', [AboutUsController::class, 'update'])->name('admin.about.update');
 
-// About Us
-Route::get('/admin/about', [AboutUsController::class, 'index'])->name('admin.about');
-Route::post('/admin/about', [AboutUsController::class, 'update'])->name('admin.about.update');
-Route::get('/admin/dashboard', function () {
-    return view('dashboard');
-})->name('admin.dashboard');
+    // Ծառայություններ
+    Route::get('/services', [ServiceController::class, 'index'])->name('admin.services.index');
+    Route::post('/services', [ServiceController::class, 'store'])->name('admin.services.store');
+    Route::get('/services/{id}/edit', [ServiceController::class, 'edit'])->name('admin.services.edit');
+    Route::put('/services/{id}', [ServiceController::class, 'update'])->name('admin.services.update');
+    Route::delete('/services/{id}', [ServiceController::class, 'destroy'])->name('admin.services.destroy');
 
-
-
-
-// services
-Route::get('/admin/services', [ServiceController::class, 'index'])->name('admin.services.index');
-Route::post('/admin/services', [ServiceController::class, 'store'])->name('admin.services.store');
-Route::get('/admin/services/{id}/edit', [ServiceController::class, 'edit'])->name('admin.services.edit');
-Route::put('/admin/services/{id}', [ServiceController::class, 'update'])->name('admin.services.update');
-Route::delete('/admin/services/{id}', [ServiceController::class, 'destroy'])->name('admin.services.destroy');
-
-
-// jobs
-Route::get('/admin/jobs', [JobController::class, 'index'])->name('admin.jobs.index');
-Route::post('/admin/jobs', [JobController::class, 'store'])->name('admin.jobs.store');
-Route::get('/admin/jobs/{id}/edit', [JobController::class, 'edit'])->name('admin.jobs.edit');
-Route::put('/admin/jobs/{id}', [JobController::class, 'update'])->name('admin.jobs.update');
-Route::delete('/admin/jobs/{id}', [JobController::class, 'destroy'])->name('admin.jobs.destroy');
+    // Աշխատանքներ
+    Route::get('/jobs', [JobController::class, 'index'])->name('admin.jobs.index');
+    Route::post('/jobs', [JobController::class, 'store'])->name('admin.jobs.store');
+    Route::get('/jobs/{id}/edit', [JobController::class, 'edit'])->name('admin.jobs.edit');
+    Route::put('/jobs/{id}', [JobController::class, 'update'])->name('admin.jobs.update');
+    Route::delete('/jobs/{id}', [JobController::class, 'destroy'])->name('admin.jobs.destroy');
+});
