@@ -40,6 +40,11 @@ html, body {
     font-family: 'Montserrat Armenian';
   }
   
+  body {
+    font-family: 'Montserrat';
+    font-weight: 300;
+  }
+  
 
 body {
     overflow-x: hidden;
@@ -86,13 +91,13 @@ body {
     background: linear-gradient(90deg, #609AC4 0%, #16202A 100%);
     position: relative;
   }
-  
-  
-  .about-text p {
-    font-size: 16px;
-    line-height: 1.8;
-    text-align: justify;
+  .decor-line p{
+    font-family: 'Montserrat';
+    font-weight: 300;
+
   }
+  
+
   
   /* ԱՅՍ ՄԱՍՆ է նոր */
   .about-image {
@@ -106,8 +111,8 @@ body {
   .about-image img {
     position: absolute;
     /* right: -300px; */
-    top: 0;
-    z-index: 1;
+    top: 100px;
+    z-index: 10;
     max-width: none;
     height: auto;
     /* height:50%; 

@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="{{ asset('css/job.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/kap.css') }}" />
     <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900&display=swap"
+        rel="stylesheet" />
+
 </head>
 
 <body>
@@ -19,28 +24,29 @@
 
 
             <nav class="menu">
-    <a href="#">
-        <img src="{{ asset('css/svg/aboute1.svg') }}" width="164" height="50" alt="ՄԵՐ ՄԱՍԻՆ" />
-    </a>
-    <a href="#">
-        <img src="{{ asset('css/svg/services1.svg') }}" width="214" height="50" alt="ԾԱՌԱՅՈՒԹՅՈՒՆՆԵՐ" />
-    </a>
-    <a href="#">
-        <img src="{{ asset('css/svg/job1.svg') }}" width="184" height="50" alt="ԱՇԽԱՏԱՆՔՆԵՐ" />
-    </a>
-    <a href="#">
-        <img src="{{ asset('css/svg/kap1.svg') }}" width="112" height="50" alt="ԿԱՊ" />
-    </a>
-</nav>
+                <a href="#about">
+                    <img src="{{ asset('css/svg/aboute1.svg') }}" width="164" height="50" alt="ՄԵՐ ՄԱՍԻՆ" />
+                </a>
+                <a href="#services">
+                    <img src="{{ asset('css/svg/services1.svg') }}" width="214" height="50" alt="ԾԱՌԱՅՈՒԹՅՈՒՆՆԵՐ" />
+                </a>
+                <a href="#job">
+                    <img src="{{ asset('css/svg/job1.svg') }}" width="184" height="50" alt="ԱՇԽԱՏԱՆՔՆԵՐ" />
+                </a>
+                <a href="#kap">
+                    <img src="{{ asset('css/svg/kap1.svg') }}" width="112" height="50" alt="ԿԱՊ" />
+                </a>
+            </nav>
 
 
 
 
 
             <div class="languages">
-                <button>Հայ</button>
-                <button>EN</button>
-                <button>RU</button>
+                <button>ՀԱՅ</button>
+                <button>РУС</button>
+                <button>ENG</button>
+
             </div>
         </header>
 
@@ -49,27 +55,12 @@
         </main>
     </div>
 
-    <section class="about-section">
+    <section id="about" class="about-section">
         <div class="about-text">
-            <h2>ՄԵՐ ՄԱՍԻՆ</h2>
+            <h2 style="color: #D9EAF2;">ՄԵՐ ՄԱՍԻՆ</h2>
             <div class="decor-line"></div>
-            <p>
-                <strong> «Արմենլիֆտ» ՀՁ ՍՊԸ-ն հիմնադրվել է 1998 թվականի օգոստոսի 15-ին:</strong> <br><br>
-
-                Կազմակերպության հիմնադիր են հանդիսանում Գևորգ Բաղդասարի Մուրադխանյանը
-                և Գոռ Բաղդասարի Մուրադխանյանը: Առաջին իսկ օրերից ընկերությունը հավաքագրել է իր կազմում փորձառու
-                մասնագետների և շատ կարճ ժամանակում իր հաստատուն տեղն է գրավել վերելակների տեղադրման և տեխնիկական
-                սպասարկման Հայաստանյան շուկայում:<br><br>
-
-                2001 թվականի դեկտեմբերի 17-ին «Արմենլիֆտ» ՀՁ ՍՊԸ-ն ՀՀ Քաղաքաշինության նախարարության կողմից ստացել է թիվ
-                - 6520 պետական լիցենզիան:<br><br>
-
-                2008 թվականի ապրիլի 7-ին «Արմենլիֆտ» ՀՁ ՍՊԸ-ն ՀՀ քաղաքաշինության նախարարության կողմից ստացել է թիվ -
-                11893 պետական լիցենզիան:<br><br>
-
-                2001 թվականից «Արմենլիֆտ» ՀՁ ՍՊԸ-ն հանդիսանում է OTIS ֆիրմայի
-                պաշտոնական ներկայացուցիչը Հայաստանի Հանրապետությունում:
-            </p>
+            <p style="font-family: 'Montserrat Armenian'; font-size: 17px; font-weight:300 ;">
+                {!! nl2br(e($about->description)) !!}</p>
         </div>
         <div class="about-image">
             @if ($about->image)
@@ -78,34 +69,76 @@
                 <img src="{{ asset('img/placeholder.jpg') }}" alt="Default Image" />
             @endif
         </div>
-
     </section>
 
 
-    <section class="services-section">
-    <h2>ԾԱՌԱՅՈՒԹՅՈՒՆՆԵՐ</h2>
-    <div class="services-title-line"></div>
-
-    <div class="services-cards" id="services-cards">
-        @foreach ($services as $service)
-            <div class="service-card">
-                <img src="{{ asset('storage/' . $service->main_image) }}" alt="service Image" />
-                <div class="service-text">
-                    <div class="card-inner-line"></div>
-                    <p>{{ $service->title }}</p>
-                    @if ($service->description)
-                        <p>{{ $service->description }}</p>
-                    @endif
+    <section id="services" class="services-section">
+        <h2 style="color: #2E4A5E;">ԾԱՌԱՅՈՒԹՅՈՒՆՆԵՐ</h2>
+        <div class="services-title-line"></div>
+        <div class="services-cards" id="services-cards">
+            @foreach ($services as $service)
+                <div class="service-card">
+                    <img src="{{ asset('storage/' . $service->main_image) }}" alt="service Image" />
+                    <div class="service-text">
+                        <div class="card-inner-line"></div>
+                        <p>{{ $service->title }}</p>
+                        @if ($service->description)
+                            <!-- <p>{{ $service->description }}</p> -->
+                        @endif
+                    </div>
                 </div>
-            </div>
-        @endforeach
-    </div>
-</section>
+            @endforeach
+        </div>
+        <div class="scroll-buttons">
+            <button id="scroll-left" class="scroll-btn">
+                <img src="{{ asset('css/svg/left.svg') }}" alt="Ձախ">
+            </button>
+            <button id="scroll-right" class="scroll-btn">
+                <img src="{{ asset('css/svg/left.svg') }}" style="transform: rotate(180deg);" alt="Աջ">
+            </button>
+        </div>
+    </section>
+
+    <script>
+        const container = document.getElementById('services-cards');
+        const scrollLeftBtn = document.getElementById('scroll-left');
+        const scrollRightBtn = document.getElementById('scroll-right');
+
+        let scrollDirection = 1; // 1՝ աջ, -1՝ ձախ
+
+        function startInfiniteAutoScroll() {
+            setInterval(() => {
+                container.scrollLeft += scrollDirection;
+
+                // Հասել ենք աջ ծայրին
+                if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+                    scrollDirection = -1; // փոխում ենք դեպի ձախ
+                }
+
+                // Հասել ենք ձախ ծայրին
+                if (container.scrollLeft <= 0) {
+                    scrollDirection = 1; // փոխում ենք դեպի աջ
+                }
+            }, 20); // արագությունը կարելի է կարգավորել
+        }
+
+        // Ուղղության ձեռքով կառավարում
+        scrollLeftBtn.addEventListener('click', () => {
+            scrollDirection = -1;
+        });
+
+        scrollRightBtn.addEventListener('click', () => {
+            scrollDirection = 1;
+        });
+
+        // Սկսում ենք ավտոմատ սքրոլը
+        startInfiniteAutoScroll();
+    </script>
 
 
 
-    <section class="jobs-section">
-        <h2>ԱՇԽԱՏԱՆՔՆԵՐ</h2>
+    <section id="job" class="jobs-section">
+        <h2 style="color:#D9EAF2;">ԱՇԽԱՏԱՆՔՆԵՐ</h2>
         <div class="jobs-title-line"></div>
 
         <div class="jobs-gallery">
@@ -121,30 +154,11 @@
             @endforeach
         </div>
     </section>
-    <!-- <section class="jobs-section">
-        <h2>ԱՇԽԱՏԱՆՔՆԵՐ</h2>
-        <div class="jobs-title-line"></div>
-
-        <div class="services-cards jobs-cards">
-            @foreach ($jobs as $job)
-                <div class="service-card job-card">
-                    <img src="{{ asset('storage/' . $job->main_image) }}" alt="{{ $job->title }}" />
-                    <div class="service-text job-text">
-                        <div class="card-inner-line"></div>
-                        <p>{{ $job->title }}</p>
-                        @if ($job->description)
-                            <p>{{ $job->description }}</p>
-                        @endif
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </section> -->
 
 
 
-    <section class="contact-section">
-        <h2>ԿԱՊ ՄԵԶ ՀԵՏ</h2>
+    <section id="kap" class="contact-section">
+        <h2 style="color: #D9EAF2;">ԿԱՊ ՄԵԶ ՀԵՏ</h2>
         <div class="contact-title-line"></div>
 
         <div class="contact-container">
@@ -188,113 +202,6 @@
             </form>
         </div>
     </section>
-
-
-    <!-- <script>
-        document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll('.menu svg').forEach(svg => {
-        const text = svg.querySelector('text');
-        const bbox = text.getBBox();
-        const padding = 40;
-        const newWidth = bbox.width + padding;
-
-        // Միայն լայնությունը հաշվարկում ենք, բարձրությունը թողնում ենք ֆիքսված
-        svg.setAttribute('width', newWidth);
-        svg.setAttribute('viewBox', `0 0 ${newWidth} 50`);
-
-        const image = svg.querySelector('image');
-        if (image) {
-            image.setAttribute('width', newWidth);
-            image.setAttribute('height', '50'); // ֆիքսված բոյ
-            image.setAttribute('preserveAspectRatio', 'xMidYMid meet'); // նոր ավելացված
-        }
-
-        text.setAttribute('x', newWidth / 2);
-    });
-});
-
-    </script> -->
-
-<script>
-  const container = document.getElementById('services-cards');
-
-  // Կլոնավորում երկու անգամ անսահման սքրոլի համար
-  function cloneCards() {
-    const cards = Array.from(container.children);
-    cards.forEach(card => {
-      const clone = card.cloneNode(true);
-      container.appendChild(clone);
-    });
-  }
-  cloneCards();
-  cloneCards();
-
-  let scrollSpeed = 1; // px per frame
-  let isAutoScrolling = true;
-
-  // Drag variables
-  let isDragging = false;
-  let startX;
-  let scrollStart;
-
-  // Ավտոմատ սքրոլ ֆունկցիա
-  function autoScroll() {
-    if (isAutoScrolling && !isDragging) {
-      container.scrollLeft += scrollSpeed;
-      // Վերադարձ սկիզբ եթե հասնի կեսին
-      if (container.scrollLeft >= container.scrollWidth / 2) {
-        container.scrollLeft = 0;
-      }
-    }
-    requestAnimationFrame(autoScroll);
-  }
-
-  // Սկսում ենք ավտոսքրոլը
-  autoScroll();
-
-  // Մկնիկի շարժման հսկողություն (drag to scroll)
-  container.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    isAutoScrolling = false;
-    startX = e.pageX - container.offsetLeft;
-    scrollStart = container.scrollLeft;
-    container.classList.add('active');  // Էֆեկտ
-  });
-
-  container.addEventListener('mouseleave', () => {
-    if(isDragging) {
-      isDragging = false;
-      isAutoScrolling = true;
-      container.classList.remove('active');
-    }
-  });
-
-  container.addEventListener('mouseup', () => {
-    if(isDragging) {
-      isDragging = false;
-      isAutoScrolling = true;
-      container.classList.remove('active');
-    }
-  });
-
-  container.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - container.offsetLeft;
-    const walk = (startX - x); // Calculate how far mouse moved
-    container.scrollLeft = scrollStart + walk;
-
-    // Loop scroll backward
-    if (container.scrollLeft <= 0) {
-      container.scrollLeft = container.scrollWidth / 2;
-    }
-    // Loop scroll forward
-    if (container.scrollLeft >= container.scrollWidth / 2) {
-      container.scrollLeft = 0;
-    }
-  });
-</script>
-
 
 
 </body>
