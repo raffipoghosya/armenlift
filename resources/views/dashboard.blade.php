@@ -150,6 +150,12 @@
         <div class="card-desc">Կառավարիր Աշխատանքների բաժինը</div>
       </a>
 
+      <a href="{{ route('admin.products.index') }}" class="card">
+        <div class="card-icon">📦</div>
+        <div class="card-title">ԱՊՐԱՆՔՆԵՐ</div>
+        <div class="card-desc">Կառավարիր Ապրանքների բաժինը</div>
+      </a>
+
     </div>
   </main>
 

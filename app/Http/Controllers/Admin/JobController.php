@@ -11,9 +11,16 @@ class JobController extends Controller
     // Աշխատանքների ցուցակ
     public function index()
     {
-        $jobs = Job::latest()->get();
+        $jobs = Job::latest()->paginate(3); 
         return view('admin.jobs', compact('jobs'));
     }
+    public function show(Job $job)
+    {
+        $jobs = Job::latest()->paginate(3); // կամ ->get()
+        return view('job_show', compact('job', 'jobs'));
+    }
+    
+    
 
     // Աշխատանքի պահպանում
     public function store(Request $request)

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/services.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/job.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/kap.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/product.css') }}" />
     <title>Document</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,8 +22,6 @@
         <header class="top-bar">
             <div class="logo"> <img src="{{ asset('css/images/logo.png') }}" alt="Ներսի նկար" class="inner-image" />
             </div>
-
-
             <nav class="menu">
                 <a href="#about">
                     <img src="{{ asset('css/svg/aboute1.svg') }}" width="164" height="50" alt="ՄԵՐ ՄԱՍԻՆ" />
@@ -33,20 +32,24 @@
                 <a href="#job">
                     <img src="{{ asset('css/svg/job1.svg') }}" width="184" height="50" alt="ԱՇԽԱՏԱՆՔՆԵՐ" />
                 </a>
+                <a href="#products">
+                    <img src="{{ asset('css/svg/jobs.svg') }}" width="160" height="50" alt="Ապրանքներ" />
+                </a>
                 <a href="#kap">
                     <img src="{{ asset('css/svg/kap1.svg') }}" width="112" height="50" alt="ԿԱՊ" />
                 </a>
             </nav>
-
-
-
-
-
             <div class="languages">
                 <button>ՀԱՅ</button>
                 <button>РУС</button>
                 <button>ENG</button>
 
+                <div class="languagess">
+                    <img src="{{ asset('css/svg/viber.svg') }}" height="21px" width="23px" alt="Viber"
+                        class="social-icon" />
+                    <img src="{{ asset('css/svg/whatsapp.svg') }}" height="21px" width="23px" alt="WhatsApp"
+                        class="social-icon" />
+                </div>
             </div>
         </header>
 
@@ -60,7 +63,8 @@
             <h2 style="color: #D9EAF2;">ՄԵՐ ՄԱՍԻՆ</h2>
             <div class="decor-line"></div>
             <p style="font-family: 'Montserrat Armenian'; font-size: 17px; font-weight:300 ;">
-                {!! nl2br(e($about->description)) !!}</p>
+                {!! nl2br(e($about->description)) !!}
+            </p>
         </div>
         <div class="about-image">
             @if ($about->image)
@@ -144,16 +148,48 @@
         <div class="jobs-gallery">
             @foreach ($jobs as $job)
                 <div class="job-item">
-                    <img src="{{ asset('storage/' . $job->main_image) }}" alt="{{ $job->title }}">
-                    <!-- <p>{{ $job->title }}</p> -->
+                    <a style="text-decoration: none;" href="{{ route('jobs.show', $job->id) }}">
+                        <img src="{{ asset('storage/' . $job->main_image) }}" alt="{{ $job->title }}">
 
-                    {{-- Ցանկության դեպքում կարող ես ավելացնել մանրամասն կոճակ --}}
-                    {{-- <a href="{{ route('job.show', $job->id) }}">Տեսնել ավելին</a> --}}
+                    </a>
+                    <h3>{{ $job->title }}</h3>
+                </div>
+            @endforeach
+        </div>
 
+    </section>
+
+
+
+    <section id="products" class="product-section">
+        <h2>ՄԵՐ ԱՊՐԱՆՔՆԵՐԸ</h2>
+        <div class="decor-line"></div>
+    
+        <div class="product-grid">
+            @foreach ($products as $product)
+                <div class="product-card">
+                    <div class="header">{{ $product->title }}</div>
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->title }}">
+                    <div class="content">
+                        <p>{{ $product->description }}</p>
+                        @if (is_array($product->pdf) && count($product->pdf))
+                            <div class="pdf-button-group">
+                                @foreach ($product->pdf as $pdf)
+                                    <a href="{{ asset('storage/' . $pdf['file']) }}" target="_blank" class="pdf-button">
+                                        📄 {{ $pdf['name'] ?? 'PDF ֆայլ' }}
+                                    </a>
+                                @endforeach
+                            </div>
+                        @endif
+
+                    </div>
                 </div>
             @endforeach
         </div>
     </section>
+
+
+
 
 
 

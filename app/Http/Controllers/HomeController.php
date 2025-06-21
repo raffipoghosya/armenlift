@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\AboutUs;
 use App\Models\Service;
 use App\Models\Job;
+use App\Models\Product;
 
 class HomeController extends Controller
 {
@@ -13,12 +14,13 @@ class HomeController extends Controller
         $about = AboutUs::first();     // Get about us data
         $services = Service::all();    // Get all services
         $jobs = Job::all();            // Get all jobs
-
-        // Ensure we always have an about object, even if empty
+        $products = Product::latest()->get(); // ✅ Ավելացվում է
+        
+        // Եթե about-ը չկա, ստեղծում ենք դատարկ object
         if (!$about) {
             $about = new AboutUs();
         }
 
-        return view('homepage', compact('about', 'services', 'jobs'));
+        return view('homepage', compact('about', 'services', 'jobs', 'products'));
     }
 }

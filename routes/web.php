@@ -5,10 +5,12 @@ use App\Http\Controllers\Admin\AboutUsController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 // Հիմնական public էջ
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('homepage');
+
 
 // Logout՝ մուտք գործած օգտատերերի համար
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
@@ -42,3 +44,18 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
 // Auth համակարգի route-ները (login, register և այլն)
 require __DIR__.'/auth.php';
+
+
+Route::get('/jobs/{job}', [JobController::class, 'show'])->name('jobs.show');
+
+
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/products', [ProductController::class, 'index'])->name('admin.products.index');
+    Route::get('/products/create', [ProductController::class, 'create'])->name('admin.products.create');
+    Route::post('/products', [ProductController::class, 'store'])->name('admin.products.store');
+    // Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('admin.products.edit');
+    Route::put('/products/{id}', [ProductController::class, 'update'])->name('admin.products.update');
+    Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
+});
+
+Route::delete('/admin/products/{product}/pdf/{index}', [ProductController::class, 'deletePdf'])->name('admin.products.deletePdf');
