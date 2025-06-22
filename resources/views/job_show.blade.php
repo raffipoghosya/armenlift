@@ -46,7 +46,7 @@
     }
 
     .jobs-section {
-      padding: 60px 10%;
+      padding: 160px 10%;
     }
 
     .jobs-section h2 {
@@ -212,7 +212,7 @@
                     <img src="{{ asset('css/svg/services1.svg') }}" width="214" height="50" alt="ԾԱՌԱՅՈՒԹՅՈՒՆՆԵՐ" />
                 </a>
                 <a href="/#job">
-                    <img src="{{ asset('css/svg/job1.svg') }}" width="184" height="50" alt="ԱՇԽԱՏԱՆՔՆԵՐ" />
+                    <img src="{{ asset('css/svg/lalala.svg') }}" width="184" height="50" alt="ԱՇԽԱՏԱՆՔՆԵՐ" />
                 </a>
                 <a href="/#kap">
                     <img src="{{ asset('css/svg/jobs.svg') }}" width="160" height="50" alt="Ապրանքներ" />
