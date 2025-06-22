@@ -111,13 +111,14 @@ body {
   .about-image img {
     position: absolute;
     /* right: -300px; */
-    top: 100px;
+    top: 12svh;
     z-index: 10;
     max-width: none;
     height: auto;
     /* height:50%; 
     width: 50%; */
   }
+  
   
   /* այս դեպքում տեքստը պիտի լինի ծնող դիվի մեջ, որը ավելի բարձր z-index ունի */
   .about-text {

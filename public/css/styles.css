@@ -84,15 +84,15 @@
     display: flex;
     gap: 5px;
     justify-content: center;
-    padding: 1px 0;
-    margin-top: -6%;
+    padding: 8px 6;
+    margin-top: -3%;
 }
 .languages{
   display: flex;
     gap: 1px;
     justify-content: center;
     padding: 1px 0;
-    margin-top: -6%;
+    margin-top: -3%;
 }
 
 
