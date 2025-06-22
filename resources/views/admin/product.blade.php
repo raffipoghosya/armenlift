@@ -7,6 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100">
+
 <header class="bg-indigo-700 p-4 flex items-center">
   <a href="{{ route('admin.dashboard') }}"
      class="text-white bg-indigo-800 px-4 py-2 rounded text-sm font-semibold no-underline">
@@ -74,17 +75,16 @@
           <p class="text-gray-700 text-sm mb-2">{{ $product->description }}</p>
 
           @if (count($pdfList))
-            <label class="block font-semibold">Խմբագրել PDF-ները</label>
+            <label class="block font-semibold">PDF-ները</label>
             <ul class="mb-4">
               @foreach ($pdfList as $index => $pdf)
                 <li class="flex items-center justify-between bg-gray-100 p-2 rounded">
                   <a href="{{ asset('storage/' . $pdf['file']) }}" target="_blank" class="text-blue-700 underline">
                     📄 {{ $pdf['name'] ?? 'PDF' }}
                   </a>
-                  <form action="{{ route('admin.products.deletePdf', [$product->id, $index]) }}" method="POST" onsubmit="return confirm('Ջնջե՞լ PDF-ը')">
+                  <form id="delete-pdf-{{ $product->id }}-{{ $index }}" action="{{ route('admin.products.deletePdf', [$product->id, $index]) }}" method="POST" class="hidden">
                     @csrf
                     @method('DELETE')
-                    <button class="text-red-600 text-sm hover:underline">Ջնջել</button>
                   </form>
                 </li>
               @endforeach
@@ -113,25 +113,20 @@
             <label class="block font-semibold">Նոր Նկար</label>
             <input type="file" name="image" class="w-full border p-2 rounded" />
 
-            @if (is_array($product->pdf) && count($product->pdf))
-              <label class="block font-semibold">Խմբագրել PDF-ները</label>
-              @foreach ($product->pdf as $index => $pdf)
-                <div class="flex justify-between items-start bg-gray-100 p-4 rounded mb-2">
-                  <div class="w-full space-y-2">
-                    <a href="{{ asset('storage/' . $pdf['file']) }}" target="_blank" class="text-blue-700 underline block">
-                      📄 {{ $pdf['name'] ?? 'PDF' }}
-                    </a>
-                    <input type="text" name="existing_pdf_titles[{{ $index }}]" value="{{ $pdf['name'] ?? '' }}" class="w-full border p-2 rounded" placeholder="Փոխել PDF անունը" />
-                    <input type="file" name="existing_pdf_files[{{ $index }}]" accept="application/pdf" class="w-full border p-2 rounded" />
-                  </div>
-                  <form action="{{ route('admin.products.deletePdf', [$product->id, $index]) }}" method="POST" onsubmit="return confirm('Ջնջե՞լ PDF-ը')" class="pl-4 pt-2">
-                    @csrf
-                    @method('DELETE')
-                    <button class="text-red-600 hover:underline text-sm">❌</button>
-                  </form>
+            @foreach ($product->pdf as $index => $pdf)
+              <div class="flex justify-between items-start bg-gray-100 p-4 rounded mb-2">
+                <div class="w-full space-y-2">
+                  <a href="{{ asset('storage/' . $pdf['file']) }}" target="_blank" class="text-blue-700 underline block">
+                    📄 {{ $pdf['name'] ?? 'PDF' }}
+                  </a>
+                  <input type="text" name="existing_pdf_titles[{{ $index }}]" value="{{ $pdf['name'] ?? '' }}" class="w-full border p-2 rounded" placeholder="Փոխել PDF անունը" />
+                  <input type="file" name="existing_pdf_files[{{ $index }}]" accept="application/pdf" class="w-full border p-2 rounded" />
                 </div>
-              @endforeach
-            @endif
+                <div class="pl-4 pt-2">
+                  <button form="delete-pdf-{{ $product->id }}-{{ $index }}" type="submit" class="text-red-600 hover:underline text-sm" onclick="return confirm('Ջնջե՞լ PDF-ը')">❌</button>
+                </div>
+              </div>
+            @endforeach
 
             <label class="block font-semibold">Ավելացնել նոր PDF</label>
             <div class="flex gap-2 mb-2">
@@ -147,6 +142,7 @@
               Թարմացնել
             </button>
           </form>
+
         </div>
       </div>
     @endforeach
@@ -154,33 +150,34 @@
 </div>
 
 <script>
-  function toggleEditForm(id) {
-    const form = document.getElementById('edit-form-' + id);
-    form.classList.toggle('hidden');
-  }
+function toggleEditForm(id) {
+  document.querySelectorAll('[id^="edit-form-"]').forEach(f => f.classList.add('hidden'));
+  document.getElementById('edit-form-' + id).classList.remove('hidden');
+}
 
-  function addPdfField(button) {
-    const container = button.nextElementSibling;
-    const div = document.createElement('div');
-    div.className = "flex gap-2 items-center";
-    div.innerHTML = `
-      <div class="w-1/2">
-        <input type="file" name="pdfs[]" accept="application/pdf" class="w-full border p-2 rounded" onchange="showPdfPreview(this)" />
-        <p class="text-sm text-gray-500 mt-1 pdf-name-preview"></p>
-      </div>
-      <input type="text" name="pdf_titles[]" placeholder="PDF անունը" class="w-1/2 border p-2 rounded" />
-    `;
-    container.appendChild(div);
-  }
+function addPdfField(button) {
+  const container = button.nextElementSibling;
+  const div = document.createElement('div');
+  div.className = "flex gap-2 items-center";
+  div.innerHTML = `
+    <div class="w-1/2">
+      <input type="file" name="pdfs[]" accept="application/pdf" class="w-full border p-2 rounded" onchange="showPdfPreview(this)" />
+      <p class="text-sm text-gray-500 mt-1 pdf-name-preview"></p>
+    </div>
+    <input type="text" name="pdf_titles[]" placeholder="PDF անունը" class="w-1/2 border p-2 rounded" />
+  `;
+  container.appendChild(div);
+}
 
-  function showPdfPreview(input) {
-    const preview = input.parentElement.querySelector(".pdf-name-preview");
-    if (input.files.length > 0) {
-      preview.textContent = `📄 Ընտրված ֆայլը՝ ${input.files[0].name}`;
-    } else {
-      preview.textContent = "";
-    }
+function showPdfPreview(input) {
+  const preview = input.parentElement.querySelector(".pdf-name-preview");
+  if (input.files.length > 0) {
+    preview.textContent = `📄 Ընտրված ֆայլը՝ ${input.files[0].name}`;
+  } else {
+    preview.textContent = "";
   }
+}
 </script>
+
 </body>
 </html>

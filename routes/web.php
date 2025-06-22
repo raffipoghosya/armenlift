@@ -59,3 +59,4 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 });
 
 Route::delete('/admin/products/{product}/pdf/{index}', [ProductController::class, 'deletePdf'])->name('admin.products.deletePdf');
+Route::put('/admin/products/{id}', [ProductController::class, 'update'])->name('admin.products.update');
