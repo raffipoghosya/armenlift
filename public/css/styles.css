@@ -366,7 +366,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  padding-top: 30px;
+  padding-top: 60px;
 }
 
 .form-row {
@@ -561,7 +561,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  padding-top: 30px;
+  padding-top: 60px;
 }
 
 .form-row {
