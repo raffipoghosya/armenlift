@@ -200,7 +200,7 @@
 .breakable-title {
   word-break: break-word;
   overflow-wrap: break-word;
-  max-width: 400px; /* ըստ դիզայնի */
+  max-width: 800px; /* ըստ դիզայնի */
 }
   </style>
 </head>

@@ -52,15 +52,7 @@
         position: relative;
     }
   
-    .product-grid {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        gap: 2rem;
-        padding-bottom: 1rem;
-        scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none; /* IE & Edge */
-      }
+
       
       .product-grid::-webkit-scrollbar {
         display: none; /* Chrome, Safari */
@@ -157,5 +149,34 @@
     flex-wrap: wrap;
     gap: 0.5rem;
     justify-content: center;
+  }
+  
+
+
+
+
+  .product-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 2rem;
+    padding-bottom: 1rem;
+  
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #609AC4 transparent;
+  }
+  
+  /* Chrome, Safari */
+  .product-grid::-webkit-scrollbar {
+    height: 8px;
+  }
+  .product-grid::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .product-grid::-webkit-scrollbar-thumb {
+    background-color: #609AC4;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
   }
   
