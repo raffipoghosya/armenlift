@@ -112,13 +112,9 @@
   .languages button:hover {
     background:  #2E4A5E;
   }
-
   .languagess button:hover {
     background:  #2E4A5E;
   }
-
-
-
 .languagess{
   display: flex;
   padding: 6px;
