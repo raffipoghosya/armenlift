@@ -197,6 +197,11 @@
     .custom-pagination li a:hover {
       opacity: 0.6;
     }
+.breakable-title {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 250px; /* ըստ դիզայնի */
+}
   </style>
 </head>
 <body>
@@ -249,7 +254,10 @@
                 </div>
             </div>
             <div class="job-right">
-                <h3>{{ $job->title }}</h3>
+            <h3 class="breakable-title">{{ $job->title }}</h3>
+
+
+
                 @if ($job->address)
             <p class="job-address">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="16" height="16" fill="#cdd9e1">

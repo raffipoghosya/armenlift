@@ -142,6 +142,10 @@
         </div>
       </div>
     @endforeach
+    <div class="mt-10 flex justify-center">
+      {{ $jobs->links('vendor.pagination.tailwind') }}
+    </div>
+
   </div>
 </div>
 
