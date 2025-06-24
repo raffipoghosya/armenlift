@@ -63,12 +63,7 @@ body {
     flex-wrap: wrap;
   }
   
-  .about-text {
-    flex: 1 1 60%;
-    position: relative;
-    z-index: 2;
-  }
-  
+
   .about-text h2 {
     font-size:64px;
     margin-bottom: 10px;
@@ -110,21 +105,15 @@ body {
   
   .about-image img {
     position: absolute;
-    /* right: -300px; */
+    right: -150px;
     /* top: 12svh; */
     z-index: 10;
     max-width: none;
     height: auto;
     /* height:50%; 
     width: 50%; */
+    height: 570px;
+    width: 960px;
   }
   
-  
-  /* այս դեպքում տեքստը պիտի լինի ծնող դիվի մեջ, որը ավելի բարձր z-index ունի */
-  .about-text {
-    position: relative;
-    z-index: 2;
-    background: rgba(22, 32, 42, 0.8); /* փոքր թափանցիկ ֆոն տեքստի համար */
-    padding: 20px;
-  }
-  
+ 

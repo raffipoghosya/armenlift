@@ -61,13 +61,13 @@
 
     <section id="about" class="about-section">
         <div class="about-text">
-            <h2 style="color: #D9EAF2;">ՄԵՐ ՄԱՍԻՆ</h2>
+            <h2 style="color: #D9EAF2;font-family: 'Montserrat Armenian';">ՄԵՐ ՄԱՍԻՆ</h2>
             <div class="decor-line"></div>
-            <p style="font-family: 'Montserrat Armenian'; font-size: 17px; font-weight:300 ;">
+            <p style="font-family: 'Montserrat Armenian'; font-weight: 300; font-size: 17px;">
                 {!! nl2br(e($about->description)) !!}
             </p>
-        </div>
-        <div class="about-image">
+            </div>
+            <div class="about-image">
             @if ($about->image)
                 <img src="{{ asset('storage/' . $about->image) }}" alt="Armenlift Image" />
             @else
@@ -103,42 +103,47 @@
             </button>
         </div>
     </section>
-
     <script>
-        const container = document.getElementById('services-cards');
-        const scrollLeftBtn = document.getElementById('scroll-left');
-        const scrollRightBtn = document.getElementById('scroll-right');
+    const container = document.getElementById('services-cards');
+    const scrollLeftBtn = document.getElementById('scroll-left');
+    const scrollRightBtn = document.getElementById('scroll-right');
 
-        let scrollDirection = 1; // 1՝ աջ, -1՝ ձախ
+    let scrollDirection = 0; // Ոչ մի ուղղություն նախնական
+    let scrollSpeed = 8;
+    let maxSpeed = 25;
+    let scrollInterval;
+    let smoothStep = 3;
 
-        function startInfiniteAutoScroll() {
-            setInterval(() => {
-                container.scrollLeft += scrollDirection;
-
-                // Հասել ենք աջ ծայրին
-                if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
-                    scrollDirection = -1; // փոխում ենք դեպի ձախ
-                }
-
-                // Հասել ենք ձախ ծայրին
-                if (container.scrollLeft <= 0) {
-                    scrollDirection = 1; // փոխում ենք դեպի աջ
-                }
-            }, 20); // արագությունը կարելի է կարգավորել
+    function scrollStart(newDirection) {
+        // Եթե ուղղությունը նույնն է, արագացնենք
+        if (scrollDirection === newDirection) {
+            scrollSpeed = Math.min(scrollSpeed + smoothStep, maxSpeed);
+        } else {
+            scrollDirection = newDirection;
+            scrollSpeed = 8; // Վերադառնանք սկսնակ արագությանը
         }
 
-        // Ուղղության ձեռքով կառավարում
-        scrollLeftBtn.addEventListener('click', () => {
-            scrollDirection = -1;
-        });
+        clearInterval(scrollInterval);
+        scrollInterval = setInterval(() => {
+            container.scrollLeft += scrollDirection * scrollSpeed;
+        }, 16);
+    }
 
-        scrollRightBtn.addEventListener('click', () => {
-            scrollDirection = 1;
-        });
+    function scrollStop() {
+        clearInterval(scrollInterval);
+        scrollSpeed = 8; // Վերադառնում է սկսնակ արագությանը
+        scrollDirection = 0;
+    }
 
-        // Սկսում ենք ավտոմատ սքրոլը
-        startInfiniteAutoScroll();
-    </script>
+    scrollLeftBtn.addEventListener('mousedown', () => scrollStart(-1));
+    scrollRightBtn.addEventListener('mousedown', () => scrollStart(1));
+    scrollLeftBtn.addEventListener('mouseup', scrollStop);
+    scrollRightBtn.addEventListener('mouseup', scrollStop);
+    scrollLeftBtn.addEventListener('mouseleave', scrollStop);
+    scrollRightBtn.addEventListener('mouseleave', scrollStop);
+</script>
+
+
 
     <section id="job" class="jobs-section">
         <h2 style="color:#D9EAF2;">ԱՇԽԱՏԱՆՔՆԵՐ</h2>
