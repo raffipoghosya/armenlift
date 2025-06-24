@@ -54,7 +54,15 @@
       color: #D9EAF2;
       margin-bottom: 10px;
     }
-
+    .job-address {
+    padding: 1px 0px 25px;
+    display: flex;
+    align-items: center;
+    color: #cdd9e1;
+    font-size: 14px;
+    gap: 2px;
+    margin-top: 6px;
+    }
     .jobs-title-line {
       height: 2px;
       width: 100%;
