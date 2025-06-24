@@ -19,8 +19,8 @@
 
 <body>
     <div class="background">
-        <header class="top-bar">
-            <div class="logo"> <img src="{{ asset('css/images/logo.png') }}" alt="Ներսի նկար" class="inner-image" />
+        <header  class="top-bar">
+            <div class="logo"><a href="#homepage"> <img src="{{ asset('css/images/logo.png') }}" alt="Ներսի նկար" class="inner-image" /></a>
             </div>
             <nav class="menu">
                 <a href="#about">
@@ -53,7 +53,7 @@
             </div>
         </header>
 
-        <main class="content">
+        <main  id="homepage" class="content">
             <img src="{{ asset('css/images/firtz2.png') }}" alt="Ներսի նկար" class="inner-image" />
         </main>
     </div>
@@ -139,30 +139,34 @@
         startInfiniteAutoScroll();
     </script>
 
+<section id="job" class="jobs-section">
+  <h2 style="color:#D9EAF2;">ԱՇԽԱՏԱՆՔՆԵՐ</h2>
+  <div class="jobs-title-line"></div>
 
-
-    <section id="job" class="jobs-section">
-        <h2 style="color:#D9EAF2;">ԱՇԽԱՏԱՆՔՆԵՐ</h2>
-        <div class="jobs-title-line"></div>
-
-        <div class="jobs-gallery">
-            @foreach ($jobs as $job)
-                <div class="job-item">
-                    <a style="text-decoration: none;" href="{{ route('jobs.show', $job->id) }}">
-                        <img src="{{ asset('storage/' . $job->main_image) }}" alt="{{ $job->title }}">
-
-                    </a>
-                    <h3>{{ $job->title }}</h3>
-                </div>
-            @endforeach
+  <div class="scroll-wrapper">
+    <div class="jobs-gallery">
+      @foreach ($jobs as $job)
+        <div class="job-item">
+          <a href="{{ route('jobs.show', $job->id) }}">
+            <img src="{{ asset('storage/' . $job->main_image) }}" alt="{{ $job->title }}" />
+          </a>
+          <h3>{{ $job->title }}</h3>
+          @if ($job->address)
+            <p class="job-address">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="16" height="16" fill="#cdd9e1">
+                <path d="M168 0C75.3 0 0 75.3 0 168c0 87.6 141.1 252.1 149.7 261.4a23.8 23.8 0 0 0 36.5 0C242.9 420.1 384 255.6 384 168 384 75.3 308.7 0 216 0zm0 240a72 72 0 1 1 0-144 72 72 0 0 1 0 144z"/>
+              </svg>
+              <span>{{ $job->address }}</span>
+            </p>
+          @endif
         </div>
-
-    </section>
-
-
+      @endforeach
+    </div>
+  </div>
+</section>
 
     <section id="products" class="product-section">
-        <h2>ՄԵՐ ԱՊՐԱՆՔՆԵՐԸ</h2>
+        <h2>ԱՊՐԱՆՔՆԵՐԸ</h2>
         <div class="decor-line"></div>
     
         <div class="product-grid">

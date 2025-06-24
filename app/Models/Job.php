@@ -15,6 +15,7 @@ class Job extends Model
         'main_image',
         'images',
         'youtube_link',
+        'address',
     ];
 
     protected $casts = [

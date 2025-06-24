@@ -273,7 +273,9 @@ body {
     font-size: 36px;
     margin-bottom: 10px;
     margin-left: 20px;
+    font-family: 'Montserrat Armenian', sans-serif;
   }
+  
   
   .jobs-title-line {
     height: 2px;
@@ -293,14 +295,14 @@ body {
   .jobs-gallery {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 77px;
   }
   
   .jobs-gallery img {
     width: 100%;
     border-radius: 8px;
     object-fit: cover;
-    height: 220px;
+    height: 274px;
   }
   
 

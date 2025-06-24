@@ -14,13 +14,12 @@ class JobController extends Controller
         $jobs = Job::latest()->paginate(3); 
         return view('admin.jobs', compact('jobs'));
     }
+
     public function show(Job $job)
     {
-        $jobs = Job::latest()->paginate(3); // կամ ->get()
+        $jobs = Job::latest()->paginate(3); 
         return view('job_show', compact('job', 'jobs'));
     }
-    
-    
 
     // Աշխատանքի պահպանում
     public function store(Request $request)
@@ -31,6 +30,7 @@ class JobController extends Controller
             'main_image' => 'required|image|mimes:jpeg,png,jpg|max:30720',
             'images.*' => 'image|mimes:jpeg,png,jpg|max:30720',
             'youtube_link' => 'nullable|url',
+            'address' => 'nullable|string|max:255', // ✅ Ավելացված է
         ]);
 
         $mainImagePath = $request->file('main_image')->store('jobs', 'public');
@@ -48,6 +48,7 @@ class JobController extends Controller
             'main_image' => $mainImagePath,
             'images' => $additionalImages,
             'youtube_link' => $validated['youtube_link'] ?? null,
+            'address' => $validated['address'] ?? null, // ✅ Ավելացված է
         ]);
 
         return redirect()->back()->with('success', 'Աշխատանքը հաջողությամբ ավելացվեց։');
@@ -71,6 +72,7 @@ class JobController extends Controller
             'main_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
             'youtube_link' => 'nullable|url',
+            'address' => 'nullable|string|max:255', // ✅ Ավելացված է
         ]);
 
         if ($request->hasFile('main_image')) {
@@ -89,6 +91,7 @@ class JobController extends Controller
         $job->title = $validated['title'];
         $job->description = $validated['description'];
         $job->youtube_link = $validated['youtube_link'] ?? null;
+        $job->address = $validated['address'] ?? null; // ✅ Ավելացված է
         $job->save();
 
         return redirect()->route('admin.jobs.index')->with('success', 'Աշխատանքը թարմացվեց։');
@@ -111,7 +114,7 @@ class JobController extends Controller
             }
         }
 
-        $job->delete();
+        $job->delete(); // ✅ Այստեղ հասցեն ավտոմատ կջնջվի, երբ row-ը ջնջվում է
 
         return redirect()->route('admin.jobs.index')->with('success', 'Աշխատանքը ջնջվեց։');
     }

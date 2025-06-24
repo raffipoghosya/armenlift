@@ -135,7 +135,7 @@
     <div class="dashboard-grid">
       <a href="{{ route('admin.about') }}" class="card" title="ՄԵՐ ՄԱՍԻՆ">
         <div class="card-icon">👥</div>
-        <div class="card-title">ՄԵՐ ՄԱՍԻՆ</div>
+        <div class="card-title"> ՄԱՍԻՆ</div>
         <div class="card-desc">կառավարիր ՄԵՐ ՄԱՍԻՆ բաժինը </div>
       </a>
       <a href="{{ route('admin.services.index') }}" class="card" title="Manage Services">

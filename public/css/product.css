@@ -102,7 +102,7 @@
     content: '';
     position: absolute;
     right: 0;
-    bottom: 7px;
+    bottom: 16px;
     height: 2px;
     width: 60%;
     background: linear-gradient(270deg, #609AC4 0%, #1c3752 100%);
@@ -110,7 +110,7 @@
   
   .product-card img {
     width: 100%;
-    height: 294px;
+    height: 244px;
     object-fit: cover;
   }
   

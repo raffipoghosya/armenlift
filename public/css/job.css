@@ -51,6 +51,10 @@
   align-items: center;
 }
 
+.jobs-gallery {
+  min-width: 100%;
+}
+
 .job-left .main-image {
   width: 410px;
   height: 370px;
@@ -179,7 +183,62 @@
   opacity: 0.6;
 }
 
+.scroll-wrapper {
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #84b5d4 transparent;
+}
 
+.scroll-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.scroll-wrapper::-webkit-scrollbar-thumb {
+  background-color: #84b5d4;
+  border-radius: 6px;
+}
+
+.jobs-gallery {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(2, 370px); /* ֆիքսված երկու տող */
+  grid-auto-columns: 240px;
+  gap: 20px;
+  padding-right: 20px;
+  min-width: max-content;
+}
+
+.job-item {
+  /* background-color: #1e2a36; */
+  border-radius: 8px;
+  padding: 3px;
+  color: white;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.job-item img {
+  width: 250px;
+  height: 274px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.job-item h3 {
+  font-size: 16px;
+  margin-top: 8px;
+  font-family: 'Montserrat Armenian semiBold';
+}
+
+.job-address {
+  display: flex;
+  align-items: center;
+  color: #cdd9e1;
+  font-size: 14px;
+  gap: 6px;
+  margin-top: 4px;
+}
 
 
 
