@@ -150,7 +150,7 @@
           <a href="{{ route('jobs.show', $job->id) }}">
             <img src="{{ asset('storage/' . $job->main_image) }}" alt="{{ $job->title }}" />
           </a>
-          <h3>{{ $job->title }}</h3>
+          <h3>{{ \Illuminate\Support\Str::limit($job->title, 30) }}</h3>
           @if ($job->address)
             <p class="job-address">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="16" height="16" fill="#cdd9e1">
