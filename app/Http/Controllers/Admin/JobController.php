@@ -28,6 +28,7 @@ class JobController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'main_image' => 'required|image|mimes:jpeg,png,jpg|max:30720',
+            'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg|max:30720',
             'youtube_link' => 'nullable|url',
             'address' => 'nullable|string|max:255', // ✅ Ավելացված է
@@ -69,8 +70,9 @@ class JobController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'main_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'main_image' => 'nullable|image|mimes:jpeg,png,jpg|max:30720',
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg|max:30720',
             'youtube_link' => 'nullable|url',
             'address' => 'nullable|string|max:255', // ✅ Ավելացված է
         ]);
@@ -81,12 +83,13 @@ class JobController extends Controller
         }
 
         if ($request->hasFile('images')) {
-            $additionalImages = [];
+            $existingImages = is_array($job->images) ? $job->images : [];
             foreach ($request->file('images') as $image) {
-                $additionalImages[] = $image->store('jobs', 'public');
+                $existingImages[] = $image->store('jobs', 'public');
             }
-            $job->images = $additionalImages;
+            $job->images = $existingImages; // ✅ Հին + Նոր
         }
+        
 
         $job->title = $validated['title'];
         $job->description = $validated['description'];
