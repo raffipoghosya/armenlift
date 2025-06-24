@@ -142,6 +142,9 @@
         </div>
       </div>
     @endforeach
+    <br>
+    <br>
+    <h1>փոխիր էջը</h1>
     <div class="mt-10 flex justify-center">
     {{ $jobs->links() }}
     </div>
