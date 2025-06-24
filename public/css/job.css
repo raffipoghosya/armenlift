@@ -214,7 +214,8 @@
   border-radius: 8px;
   padding: 3px;
   color: white;
-  height: 100%;
+  width: 250px;
+  height: 274px;
   box-sizing: border-box;
 }
 
