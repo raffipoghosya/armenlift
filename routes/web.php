@@ -8,9 +8,17 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
-// Հիմնական public էջ
-Route::get('/', [HomeController::class, 'index'])->name('homepage');
+// Հայերեն՝ հիմնական էջը
+Route::get('/', [HomeController::class, 'indexHy'])
+     ->name('homepage.hy');
 
+// Անգլերեն
+Route::get('/en', [HomeController::class, 'indexEn'])
+     ->name('homepage.en');
+
+// Ռուսերեն
+Route::get('/ru', [HomeController::class, 'indexRu'])
+     ->name('homepage.ru');
 
 // Logout՝ մուտք գործած օգտատերերի համար
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
@@ -25,7 +33,8 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
     // About Us
     Route::get('/about', [AboutUsController::class, 'index'])->name('admin.about');
-    Route::post('/about', [AboutUsController::class, 'update'])->name('admin.about.update');
+    Route::post('/about', [AboutUsController::class, 'store'])->name('admin.about.store');
+    Route::delete('/about/{about}', [AboutUsController::class, 'destroy'])->name('admin.about.destroy');
 
     // Services
     Route::get('/services', [ServiceController::class, 'index'])->name('admin.services.index');
@@ -43,7 +52,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 });
 
 // Auth համակարգի route-ները (login, register և այլն)
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
 Route::get('/jobs/{job}', [JobController::class, 'show'])->name('jobs.show');

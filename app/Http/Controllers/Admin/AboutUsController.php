@@ -9,41 +9,60 @@ use Illuminate\Support\Facades\Storage;
 
 class AboutUsController extends Controller
 {
+    // Ցուցադրել բոլոր լեզվային տարբերակները բաժանված ըստ locale
     public function index()
     {
-        $abouts = AboutUs::all(); // Բոլոր AboutUs գրառումները
-        return view('admin.about', compact('abouts'));
+        $abouts = AboutUs::all()->groupBy('locale');
+
+        return view('admin.about', [
+            'aboutsByLocale' => $abouts,
+        ]);
     }
 
-    public function update(Request $request)
+    // Ավելացնել կամ թարմացնել ըստ locale
+    public function store(Request $request)
     {
         $request->validate([
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|max:30720', // մինչև 30MB
+            'locale' => 'required|in:hy,en,ru',
+            'description' => 'required|string',
+            'image' => 'nullable|image|max:30720', // 30MB
         ]);
 
-        // Ստանում ենք առաջին row-ը կամ ստեղծում նոր
-        $about = AboutUs::firstOrNew([]);
+        // Փնտրում ենք ըստ locale կամ ստեղծում նոր
+        $about = AboutUs::firstOrNew(['locale' => $request->locale]);
 
-        // Թարմացնում ենք նկարագրությունը
         $about->description = $request->description;
+        $about->locale = $request->locale;
 
-        // Եթե նոր նկար կա՝ նախ ջնջում ենք հինը, հետո պահում նորը
+        // Սահմանել լեզվային ցուցադրման դրոշներ
+        $about->show_on_hy = $request->locale === 'hy';
+        $about->show_on_en = $request->locale === 'en';
+        $about->show_on_ru = $request->locale === 'ru';
+
+        // Եթե նոր նկար է ընտրված, ջնջել հինը և պահել նորը
         if ($request->hasFile('image')) {
-            // Ջնջել հին նկարը, եթե գոյություն ունի
-            if ($about->image && \Storage::disk('public')->exists($about->image)) {
-                \Storage::disk('public')->delete($about->image);
+            if ($about->image && Storage::disk('public')->exists($about->image)) {
+                Storage::disk('public')->delete($about->image);
             }
 
-            // Պահել նոր նկարը about_us թղթապանակում (public storage)
             $imagePath = $request->file('image')->store('about_us', 'public');
             $about->image = $imagePath;
         }
 
-        // Պահպանել տվյալները
         $about->save();
 
-        return redirect()->back()->with('success', 'Տվյալները թարմացվել են։');
+        return redirect()->back()->with('success', 'Հրապարակումը հաջողությամբ պահպանվել է։');
     }
 
+    // Ջնջել ըստ ID
+    public function destroy(AboutUs $about)
+    {
+        if ($about->image && Storage::disk('public')->exists($about->image)) {
+            Storage::disk('public')->delete($about->image);
+        }
+
+        $about->delete();
+
+        return redirect()->back()->with('success', 'Հրապարակումը հաջողությամբ ջնջվել է։');
+    }
 }

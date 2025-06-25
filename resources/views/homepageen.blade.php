@@ -41,9 +41,10 @@
                 </a>
             </nav>
             <div class="languages">
-            <a href="{{ route('homepage.hy') }}"><button>ՀԱՅ</button></a>
-            <a href="{{ route('homepage.ru') }}"><button>РУС</button></a>
-            <a href="{{ route('homepage.en') }}"><button>ENG</button></a>
+                <a href="{{ route('homepage.hy') }}"><button>ՀԱՅ</button></a>
+                <a href="{{ route('homepage.ru') }}"><button>РУС</button></a>
+                <a href="{{ route('homepage.en') }}"><button>ENG</button></a>
+
                 <div class="languagess">
                     <img src="{{ asset('css/svg/viber.svg') }}" height="21px" width="23px" alt="Viber"
                         class="social-icon" />
@@ -58,10 +59,10 @@
         </main>
     </div>
 
-    @if ($about && $about->show_on_hy)
+    @if ($about && $about->show_on_en)
         <section id="about" class="about-section">
             <div class="about-text">
-                <h2 style="color: #D9EAF2; font-family: 'Montserrat Armenian';">ՄԵՐ ՄԱՍԻՆ</h2>
+                <h2 style="color: #D9EAF2; font-family: 'Montserrat Armenian';">ABOUTE</h2>
                 <div class="decor-line"></div>
                 <p style="font-family: 'Montserrat Armenian'; font-weight: 300; font-size: 17px;">
                     {!! nl2br(e($about->description)) !!}
@@ -78,8 +79,9 @@
     @endif
 
 
+
     <section id="services" class="services-section">
-        <h2 style="color: #2E4A5E;">ԾԱՌԱՅՈՒԹՅՈՒՆՆԵՐ</h2>
+        <h2 style="color: #2E4A5E;">Services</h2>
         <div class="services-title-line"></div>
         <div class="services-cards" id="services-cards">
             @foreach ($services as $service)
@@ -105,49 +107,49 @@
         </div>
     </section>
     <script>
-    const container = document.getElementById('services-cards');
-    const scrollLeftBtn = document.getElementById('scroll-left');
-    const scrollRightBtn = document.getElementById('scroll-right');
+        const container = document.getElementById('services-cards');
+        const scrollLeftBtn = document.getElementById('scroll-left');
+        const scrollRightBtn = document.getElementById('scroll-right');
 
-    let scrollDirection = 0; // Ոչ մի ուղղություն նախնական
-    let scrollSpeed = 8;
-    let maxSpeed = 25;
-    let scrollInterval;
-    let smoothStep = 3;
+        let scrollDirection = 0; // Ոչ մի ուղղություն նախնական
+        let scrollSpeed = 8;
+        let maxSpeed = 25;
+        let scrollInterval;
+        let smoothStep = 3;
 
-    function scrollStart(newDirection) {
-        // Եթե ուղղությունը նույնն է, արագացնենք
-        if (scrollDirection === newDirection) {
-            scrollSpeed = Math.min(scrollSpeed + smoothStep, maxSpeed);
-        } else {
-            scrollDirection = newDirection;
-            scrollSpeed = 8; // Վերադառնանք սկսնակ արագությանը
+        function scrollStart(newDirection) {
+            // Եթե ուղղությունը նույնն է, արագացնենք
+            if (scrollDirection === newDirection) {
+                scrollSpeed = Math.min(scrollSpeed + smoothStep, maxSpeed);
+            } else {
+                scrollDirection = newDirection;
+                scrollSpeed = 8; // Վերադառնանք սկսնակ արագությանը
+            }
+
+            clearInterval(scrollInterval);
+            scrollInterval = setInterval(() => {
+                container.scrollLeft += scrollDirection * scrollSpeed;
+            }, 16);
         }
 
-        clearInterval(scrollInterval);
-        scrollInterval = setInterval(() => {
-            container.scrollLeft += scrollDirection * scrollSpeed;
-        }, 16);
-    }
+        function scrollStop() {
+            clearInterval(scrollInterval);
+            scrollSpeed = 8; // Վերադառնում է սկսնակ արագությանը
+            scrollDirection = 0;
+        }
 
-    function scrollStop() {
-        clearInterval(scrollInterval);
-        scrollSpeed = 8; // Վերադառնում է սկսնակ արագությանը
-        scrollDirection = 0;
-    }
-
-    scrollLeftBtn.addEventListener('mousedown', () => scrollStart(-1));
-    scrollRightBtn.addEventListener('mousedown', () => scrollStart(1));
-    scrollLeftBtn.addEventListener('mouseup', scrollStop);
-    scrollRightBtn.addEventListener('mouseup', scrollStop);
-    scrollLeftBtn.addEventListener('mouseleave', scrollStop);
-    scrollRightBtn.addEventListener('mouseleave', scrollStop);
-</script>
+        scrollLeftBtn.addEventListener('mousedown', () => scrollStart(-1));
+        scrollRightBtn.addEventListener('mousedown', () => scrollStart(1));
+        scrollLeftBtn.addEventListener('mouseup', scrollStop);
+        scrollRightBtn.addEventListener('mouseup', scrollStop);
+        scrollLeftBtn.addEventListener('mouseleave', scrollStop);
+        scrollRightBtn.addEventListener('mouseleave', scrollStop);
+    </script>
 
 
 
     <section id="job" class="jobs-section">
-        <h2 style="color:#D9EAF2;">ԱՇԽԱՏԱՆՔՆԵՐ</h2>
+        <h2 style="color:#D9EAF2;">Products</h2>
         <div class="jobs-title-line"></div>
 
         <div class="scroll-wrapper">
@@ -183,7 +185,7 @@
     </section>
 
     <section id="products" class="product-section">
-        <h2>ԱՊՐԱՆՔՆԵՐԸ</h2>
+        <h2>Portfolio</h2>
         <div class="decor-line"></div>
 
         <div class="product-grid">
@@ -215,7 +217,7 @@
 
 
     <section id="kap" class="contact-section">
-        <h2 style="color: #D9EAF2;">ԿԱՊ ՄԵԶ ՀԵՏ</h2>
+        <h2 style="color: #D9EAF2;">Contacts</h2>
         <div class="contact-title-line"></div>
 
         <div class="contact-container">
@@ -237,13 +239,13 @@
                 </ul>
                 <div class="contact-map">
                     <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1543.7648850677285!2d44.571620621786245!3d40.19027842153545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406aa30027a212d9%3A0xbc637ff8aac8ecab!2sAlmaka!5e1!3m2!1sen!2sam!4v1750763459909!5m2!1sen!2sam"
-                    width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1543.7648850677285!2d44.571620621786245!3d40.19027842153545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406aa30027a212d9%3A0xbc637ff8aac8ecab!2sAlmaka!5e1!3m2!1sen!2sam!4v1750763459909!5m2!1sen!2sam"
+                        width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
 
 
-                
+
             </div>
 
             <form class="contact-form">

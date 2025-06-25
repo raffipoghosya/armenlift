@@ -44,6 +44,7 @@
             <a href="{{ route('homepage.hy') }}"><button>ՀԱՅ</button></a>
             <a href="{{ route('homepage.ru') }}"><button>РУС</button></a>
             <a href="{{ route('homepage.en') }}"><button>ENG</button></a>
+
                 <div class="languagess">
                     <img src="{{ asset('css/svg/viber.svg') }}" height="21px" width="23px" alt="Viber"
                         class="social-icon" />
@@ -58,10 +59,10 @@
         </main>
     </div>
 
-    @if ($about && $about->show_on_hy)
+    @if ($about && $about->show_on_ru)
         <section id="about" class="about-section">
             <div class="about-text">
-                <h2 style="color: #D9EAF2; font-family: 'Montserrat Armenian';">ՄԵՐ ՄԱՍԻՆ</h2>
+                <h2 style="color: #D9EAF2; font-family: 'Montserrat Armenian';">О нас</h2>
                 <div class="decor-line"></div>
                 <p style="font-family: 'Montserrat Armenian'; font-weight: 300; font-size: 17px;">
                     {!! nl2br(e($about->description)) !!}
@@ -78,8 +79,9 @@
     @endif
 
 
+
     <section id="services" class="services-section">
-        <h2 style="color: #2E4A5E;">ԾԱՌԱՅՈՒԹՅՈՒՆՆԵՐ</h2>
+        <h2 style="color: #2E4A5E;">Услуги</h2>
         <div class="services-title-line"></div>
         <div class="services-cards" id="services-cards">
             @foreach ($services as $service)
@@ -147,7 +149,7 @@
 
 
     <section id="job" class="jobs-section">
-        <h2 style="color:#D9EAF2;">ԱՇԽԱՏԱՆՔՆԵՐ</h2>
+        <h2 style="color:#D9EAF2;">Продукция</h2>
         <div class="jobs-title-line"></div>
 
         <div class="scroll-wrapper">
@@ -183,7 +185,7 @@
     </section>
 
     <section id="products" class="product-section">
-        <h2>ԱՊՐԱՆՔՆԵՐԸ</h2>
+        <h2>Портфолио</h2>
         <div class="decor-line"></div>
 
         <div class="product-grid">
@@ -215,7 +217,7 @@
 
 
     <section id="kap" class="contact-section">
-        <h2 style="color: #D9EAF2;">ԿԱՊ ՄԵԶ ՀԵՏ</h2>
+        <h2 style="color: #D9EAF2;">Контакты</h2>
         <div class="contact-title-line"></div>
 
         <div class="contact-container">
