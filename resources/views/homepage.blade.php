@@ -202,7 +202,7 @@
 
 
 <section id="products" class="product-section">
-    <h2>ԱՊՐԱՆՔՆԵՐԸ</h2>
+    <h2>ԱՊՐԱՆՔՆԵՐ</h2>
     <div class="decor-line"></div>
 
     <div class="product-grid">
