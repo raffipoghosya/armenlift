@@ -80,13 +80,20 @@
 
 
 
+@php
+    // Фильтруем только те услуги, у которых show_on_ru = true
+    $ruServices = $services->filter(fn($s) => $s->show_on_ru);
+@endphp
+{{-- Services Section (Русский) --}}
+@if($ruServices->count())
     <section id="services" class="services-section">
         <h2 style="color: #2E4A5E;">Услуги</h2>
         <div class="services-title-line"></div>
+
         <div class="services-cards" id="services-cards">
-            @foreach ($services as $service)
+            @foreach ($ruServices as $service)
                 <div class="service-card">
-                    <img src="{{ asset('storage/' . $service->main_image) }}" alt="service Image" />
+                    <img src="{{ asset('storage/' . $service->main_image) }}" alt="Изображение услуги" />
                     <div class="service-text">
                         <div class="card-inner-line"></div>
                         <p>{{ $service->title }}</p>
@@ -97,15 +104,19 @@
                 </div>
             @endforeach
         </div>
+
         <div class="scroll-buttons">
             <button id="scroll-left" class="scroll-btn">
-                <img src="{{ asset('css/svg/left.svg') }}" alt="Ձախ">
+                <img src="{{ asset('css/svg/left.svg') }}" alt="Влево">
             </button>
             <button id="scroll-right" class="scroll-btn">
-                <img src="{{ asset('css/svg/left.svg') }}" style="transform: rotate(180deg);" alt="Աջ">
+                <img src="{{ asset('css/svg/left.svg') }}" style="transform: rotate(180deg);" alt="Вправо">
             </button>
         </div>
     </section>
+@endif
+
+
     <script>
     const container = document.getElementById('services-cards');
     const scrollLeftBtn = document.getElementById('scroll-left');

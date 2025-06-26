@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body >
+<body>
 <header style="background-color: #4f46e5; padding: 15px 30px; display: flex; align-items: center;">
     <a href="{{ route('admin.dashboard') }}" 
        style="color: white; background-color: #4338ca; padding: 10px 18px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 14px;">
@@ -27,6 +27,21 @@
     <!-- Form -->
     <form action="{{ route('admin.services.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
       @csrf
+
+      <div>
+        <label class="block font-semibold mb-1 text-gray-700">Լեզու</label>
+        <select name="locale" required class="w-full border border-gray-300 rounded-md p-2">
+          <option value="hy" {{ old('locale')=='hy'? 'selected':'' }}>Հայերեն</option>
+          <option value="en" {{ old('locale')=='en'? 'selected':'' }}>English</option>
+          <option value="ru" {{ old('locale')=='ru'? 'selected':'' }}>Русский</option>
+        </select>
+      </div>
+
+      <!-- <div class="flex gap-4">
+        <label><input type="checkbox" name="show_on_hy" {{ old('show_on_hy') ? 'checked':'' }}> ՀԱՅ</label>
+        <label><input type="checkbox" name="show_on_en" {{ old('show_on_en') ? 'checked':'' }}> ENG</label>
+        <label><input type="checkbox" name="show_on_ru" {{ old('show_on_ru') ? 'checked':'' }}> RUS</label>
+      </div> -->
 
       <div>
         <label class="block font-semibold mb-1 text-gray-700">Վերնագիր</label>
@@ -107,6 +122,21 @@
             <form id="edit-form-{{ $service->id }}" action="{{ route('admin.services.update', $service->id) }}" method="POST" enctype="multipart/form-data" class="mt-4 hidden border-t pt-4 space-y-4">
               @csrf
               @method('PUT')
+
+              <div>
+                <label class="block font-semibold mb-1 text-gray-700">Լեզու</label>
+                <select name="locale" required class="w-full border border-gray-300 rounded-md p-2">
+                  <option value="hy" {{ $service->locale=='hy'? 'selected':'' }}>Հայերեն</option>
+                  <option value="en" {{ $service->locale=='en'? 'selected':'' }}>English</option>
+                  <option value="ru" {{ $service->locale=='ru'? 'selected':'' }}>Русский</option>
+                </select>
+              </div>
+
+              <!-- <div class="flex gap-4">
+                <label><input type="checkbox" name="show_on_hy" {{ $service->show_on_hy ? 'checked':'' }}> ՀԱՅ</label>
+                <label><input type="checkbox" name="show_on_en" {{ $service->show_on_en ? 'checked':'' }}> ENG</label>
+                <label><input type="checkbox" name="show_on_ru" {{ $service->show_on_ru ? 'checked':'' }}> RUS</label>
+              </div> -->
 
               <input type="text" name="title" value="{{ $service->title }}" class="w-full border p-2 rounded" required />
               <textarea name="description" rows="3" class="w-full border p-2 rounded" required>{{ $service->description }}</textarea>

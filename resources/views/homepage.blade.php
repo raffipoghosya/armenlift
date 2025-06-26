@@ -76,13 +76,19 @@
             </div>
         </section>
     @endif
+    @php
+    // Ֆիլտրում ենք միայն those ծառայությունները, որոնց show_on_hy=true
+    $hyServices = $services->filter(fn($s) => $s->show_on_hy);
+@endphp
 
-
+{{-- Services Section --}}
+@if($hyServices->count())
     <section id="services" class="services-section">
         <h2 style="color: #2E4A5E;">ԾԱՌԱՅՈՒԹՅՈՒՆՆԵՐ</h2>
         <div class="services-title-line"></div>
+
         <div class="services-cards" id="services-cards">
-            @foreach ($services as $service)
+            @foreach ($hyServices as $service)
                 <div class="service-card">
                     <img src="{{ asset('storage/' . $service->main_image) }}" alt="service Image" />
                     <div class="service-text">
@@ -95,6 +101,7 @@
                 </div>
             @endforeach
         </div>
+
         <div class="scroll-buttons">
             <button id="scroll-left" class="scroll-btn">
                 <img src="{{ asset('css/svg/left.svg') }}" alt="Ձախ">
@@ -104,6 +111,9 @@
             </button>
         </div>
     </section>
+@endif
+
+
     <script>
     const container = document.getElementById('services-cards');
     const scrollLeftBtn = document.getElementById('scroll-left');

@@ -5,33 +5,43 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
-    // Դիտելու ծառայությունների ցանկը
+    /**
+     * Display a listing of services.
+     */
     public function index()
     {
         $services = Service::latest()->get();
         return view('admin.services', compact('services'));
     }
 
-
-    // Պահպանելու նոր ծառայություն
+    /**
+     * Store a newly created service in storage.
+     */
     public function store(Request $request)
     {
-        // Վավերացում
+        // Validation
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'main_image' => 'required|image|mimes:jpeg,png,jpg|max:30720',
-            'images.*' => 'image|mimes:jpeg,png,jpg|max:30720',
+            'title'        => 'required|string|max:255',
+            'description'  => 'required|string',
+            'main_image'   => 'required|image|mimes:jpeg,png,jpg|max:30720',
+            'images.*'     => 'image|mimes:jpeg,png,jpg|max:30720',
             'youtube_link' => 'nullable|url',
+
+            // Locale and display flags
+            'locale'       => 'required|in:hy,en,ru',
+            'show_on_hy'   => 'sometimes|boolean',
+            'show_on_en'   => 'sometimes|boolean',
+            'show_on_ru'   => 'sometimes|boolean',
         ]);
 
-        // Գլխավոր նկարի պահպանումը storage/app/public/services-ում
+        // Store main image
         $mainImagePath = $request->file('main_image')->store('services', 'public');
 
-        // Լրացուցիչ նկարների պահպանումը
+        // Store additional images
         $additionalImages = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -39,81 +49,112 @@ class ServiceController extends Controller
             }
         }
 
-        // Ծառայության ստեղծում
+        // Create service
         Service::create([
-            'title' => $validated['title'],
-            'description' => $validated['description'],
-            'main_image' => $mainImagePath,
-            'images' => $additionalImages,
+            'title'        => $validated['title'],
+            'description'  => $validated['description'],
+            'main_image'   => $mainImagePath,
+            'images'       => $additionalImages,
             'youtube_link' => $validated['youtube_link'] ?? null,
+
+            'locale'       => $validated['locale'],
+            'show_on_hy'   => $request->has('show_on_hy'),
+            'show_on_en'   => $request->has('show_on_en'),
+            'show_on_ru'   => $request->has('show_on_ru'),
         ]);
 
         return redirect()->back()->with('success', 'Ծառայությունը հաջողությամբ ավելացվեց։');
     }
 
+    /**
+     * Show the form for editing the specified service.
+     */
     public function edit($id)
     {
         $service = Service::findOrFail($id);
         return view('admin.services_edit', compact('service'));
     }
 
+    /**
+     * Update the specified service in storage.
+     */
     public function update(Request $request, $id)
     {
         $service = Service::findOrFail($id);
 
+        // Validation
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'main_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'title'        => 'required|string|max:255',
+            'description'  => 'required|string',
+            'main_image'   => 'nullable|image|mimes:jpeg,png,jpg|max:30720',
+            'images.*'     => 'image|mimes:jpeg,png,jpg|max:30720',
             'youtube_link' => 'nullable|url',
+
+            // Locale and display flags
+            'locale'       => 'required|in:hy,en,ru',
+            'show_on_hy'   => 'sometimes|boolean',
+            'show_on_en'   => 'sometimes|boolean',
+            'show_on_ru'   => 'sometimes|boolean',
         ]);
 
-        // Եթե փոփոխել են գլխավոր նկարը
+        // Update main image if provided
         if ($request->hasFile('main_image')) {
-            $mainImagePath = $request->file('main_image')->store('services', 'public');
-            $service->main_image = $mainImagePath;
+            Storage::delete($service->main_image);
+            $service->main_image = $request->file('main_image')->store('services', 'public');
         }
 
-        // Եթե ավելացրել են լրացուցիչ նկարներ
+        // Update additional images if provided
         if ($request->hasFile('images')) {
-            $additionalImages = [];
-            foreach ($request->file('images') as $image) {
-                $additionalImages[] = $image->store('services', 'public');
+            // Delete old ones
+            if (is_array($service->images)) {
+                foreach ($service->images as $oldImage) {
+                    Storage::delete($oldImage);
+                }
             }
-            $service->images = $additionalImages;
+            $newImages = [];
+            foreach ($request->file('images') as $image) {
+                $newImages[] = $image->store('services', 'public');
+            }
+            $service->images = $newImages;
         }
 
-        $service->title = $validated['title'];
-        $service->description = $validated['description'];
+        // Assign other fields
+        $service->title        = $validated['title'];
+        $service->description  = $validated['description'];
         $service->youtube_link = $validated['youtube_link'] ?? null;
+
+        $service->locale       = $validated['locale'];
+        $service->show_on_hy   = $request->has('show_on_hy');
+        $service->show_on_en   = $request->has('show_on_en');
+        $service->show_on_ru   = $request->has('show_on_ru');
         $service->save();
 
         return redirect()->route('admin.services.index')->with('success', 'Ծառայությունը թարմացվել է։');
     }
 
+    /**
+     * Remove the specified service from storage.
+     */
     public function destroy($id)
     {
         $service = Service::findOrFail($id);
 
-        // Նախ ջնջում ենք գլխավոր նկարը, եթե պահվում է ֆայլ համակարգում
-        if ($service->main_image && \Storage::exists($service->main_image)) {
-            \Storage::delete($service->main_image);
+        // Delete main image
+        if ($service->main_image && Storage::exists($service->main_image)) {
+            Storage::delete($service->main_image);
         }
 
-        // Ջնջել նաև լրացուցիչ նկարները (եթե պահված են որպես json массив)
-        if ($service->images && is_array($service->images)) {
+        // Delete additional images
+        if (is_array($service->images)) {
             foreach ($service->images as $img) {
-                if (\Storage::exists($img)) {
-                    \Storage::delete($img);
+                if (Storage::exists($img)) {
+                    Storage::delete($img);
                 }
             }
         }
-        
 
         $service->delete();
 
         return redirect()->route('admin.services.index')->with('success', 'Ծառայությունը ջնջվեց հաջողությամբ։');
     }
-
 }

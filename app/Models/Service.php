@@ -15,10 +15,16 @@ class Service extends Model
         'main_image',
         'images',
         'youtube_link',
+        'locale',        // <-- ավելացնել
+        'show_on_hy',    // <-- ավելացնել
+        'show_on_en',    // <-- ավելացնել
+        'show_on_ru',    // <-- ավելացնել
     ];
 
     protected $casts = [
-        'images' => 'array',
+        'images'      => 'array',
+        'show_on_hy'  => 'boolean',   // <-- ավելացնել
+        'show_on_en'  => 'boolean',   // <-- ավելացնել
+        'show_on_ru'  => 'boolean',   // <-- ավելացնել
     ];
-    
 }
