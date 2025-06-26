@@ -5,33 +5,31 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Job;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class JobController extends Controller
 {
-    // Աշխատանքների ցուցակ
     public function index()
     {
-        $jobs = Job::latest()->paginate(3); 
+        $jobs = Job::latest()->paginate(500);
         return view('admin.jobs', compact('jobs'));
     }
 
-    public function show(Job $job)
+    public function create()
     {
-        $jobs = Job::latest()->paginate(3); 
-        return view('job_show', compact('job', 'jobs'));
+        return view('admin.jobs_create');
     }
 
-    // Աշխատանքի պահպանում
     public function store(Request $request)
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'main_image' => 'required|image|mimes:jpeg,png,jpg|max:30720',
-            'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg|max:30720',
             'youtube_link' => 'nullable|url',
-            'address' => 'nullable|string|max:255', // ✅ Ավելացված է
+            'address' => 'nullable|string|max:255',
+            'locale' => 'required|in:hy,en,ru',
         ]);
 
         $mainImagePath = $request->file('main_image')->store('jobs', 'public');
@@ -43,26 +41,31 @@ class JobController extends Controller
             }
         }
 
-        Job::create([
-            'title' => $validated['title'],
-            'description' => $validated['description'],
-            'main_image' => $mainImagePath,
-            'images' => $additionalImages,
-            'youtube_link' => $validated['youtube_link'] ?? null,
-            'address' => $validated['address'] ?? null, // ✅ Ավելացված է
-        ]);
+        $job = new Job();
+        $job->title = $validated['title'];
+        $job->description = $validated['description'];
+        $job->main_image = $mainImagePath;
+        $job->images = $additionalImages;
+        $job->youtube_link = $validated['youtube_link'] ?? null;
+        $job->address = $validated['address'] ?? null;
+        $job->locale = $validated['locale'];
+
+        // ✅ Auto-set show_on_* flag based on locale
+        $job->show_on_hy = $job->locale === 'hy';
+        $job->show_on_en = $job->locale === 'en';
+        $job->show_on_ru = $job->locale === 'ru';
+
+        $job->save();
 
         return redirect()->back()->with('success', 'Աշխատանքը հաջողությամբ ավելացվեց։');
     }
 
-    // Աշխատանքի խմբագրում
     public function edit($id)
     {
         $job = Job::findOrFail($id);
         return view('admin.jobs_edit', compact('job'));
     }
 
-    // Աշխատանքի թարմացում
     public function update(Request $request, $id)
     {
         $job = Job::findOrFail($id);
@@ -71,54 +74,109 @@ class JobController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'main_image' => 'nullable|image|mimes:jpeg,png,jpg|max:30720',
-            'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg|max:30720',
             'youtube_link' => 'nullable|url',
-            'address' => 'nullable|string|max:255', // ✅ Ավելացված է
+            'address' => 'nullable|string|max:255',
+            'locale' => 'required|in:hy,en,ru',
         ]);
 
         if ($request->hasFile('main_image')) {
-            $mainImagePath = $request->file('main_image')->store('jobs', 'public');
-            $job->main_image = $mainImagePath;
+            Storage::delete($job->main_image);
+            $job->main_image = $request->file('main_image')->store('jobs', 'public');
         }
 
         if ($request->hasFile('images')) {
-            $existingImages = is_array($job->images) ? $job->images : [];
-            foreach ($request->file('images') as $image) {
-                $existingImages[] = $image->store('jobs', 'public');
+            if (is_array($job->images)) {
+                foreach ($job->images as $oldImage) {
+                    Storage::delete($oldImage);
+                }
             }
-            $job->images = $existingImages; // ✅ Հին + Նոր
+            $newImages = [];
+            foreach ($request->file('images') as $image) {
+                $newImages[] = $image->store('jobs', 'public');
+            }
+            $job->images = $newImages;
         }
-        
 
         $job->title = $validated['title'];
         $job->description = $validated['description'];
         $job->youtube_link = $validated['youtube_link'] ?? null;
-        $job->address = $validated['address'] ?? null; // ✅ Ավելացված է
+        $job->address = $validated['address'] ?? null;
+        $job->locale = $validated['locale'];
+
+        // ✅ Auto-set show_on_* flag based on locale
+        $job->show_on_hy = $job->locale === 'hy';
+        $job->show_on_en = $job->locale === 'en';
+        $job->show_on_ru = $job->locale === 'ru';
+
         $job->save();
 
         return redirect()->route('admin.jobs.index')->with('success', 'Աշխատանքը թարմացվեց։');
     }
 
-    // Ջնջել աշխատանքը
     public function destroy($id)
     {
         $job = Job::findOrFail($id);
 
-        if ($job->main_image && \Storage::exists($job->main_image)) {
-            \Storage::delete($job->main_image);
+        if ($job->main_image && Storage::exists($job->main_image)) {
+            Storage::delete($job->main_image);
         }
 
-        if ($job->images && is_array($job->images)) {
+        if (is_array($job->images)) {
             foreach ($job->images as $img) {
-                if (\Storage::exists($img)) {
-                    \Storage::delete($img);
+                if (Storage::exists($img)) {
+                    Storage::delete($img);
                 }
             }
         }
 
-        $job->delete(); // ✅ Այստեղ հասցեն ավտոմատ կջնջվի, երբ row-ը ջնջվում է
+        $job->delete();
 
         return redirect()->route('admin.jobs.index')->with('success', 'Աշխատանքը ջնջվեց։');
     }
+
+    public function showHy($id)
+    {
+        $job = Job::findOrFail($id);
+        $otherJobs = Job::where('locale', 'hy')
+            ->where('show_on_hy', true)
+            ->where('id', '!=', $id)
+            ->latest()
+            ->take(10)
+            ->get();
+
+        return view('job_show', compact('job', 'otherJobs'));
+    }
+    public function showEn($id)
+    {
+        $job = Job::where('id', $id)
+            ->where('locale', 'en')
+            ->where('show_on_en', true)
+            ->firstOrFail();
+
+        $otherJobs = Job::where('id', '!=', $id)
+            ->where('locale', 'en')
+            ->where('show_on_en', true)
+            ->latest()
+            ->get();
+
+        return view('joben_show', compact('job', 'otherJobs'));
+    }
+    public function showRu($id)
+    {
+        $job = Job::where('id', $id)
+            ->where('locale', 'ru')
+            ->where('show_on_ru', true)
+            ->firstOrFail();
+
+        $otherJobs = Job::where('id', '!=', $id)
+            ->where('locale', 'ru')
+            ->where('show_on_ru', true)
+            ->latest()
+            ->get();
+
+        return view('jobru_show', compact('job', 'otherJobs'));
+    }
+
+
 }

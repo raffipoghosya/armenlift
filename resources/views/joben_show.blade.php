@@ -246,7 +246,7 @@
             </div>
         </header>
         <section id="job" class="jobs-section">
-    <h2>ԱՇԽԱՏԱՆՔՆԵՐ</h2>
+    <h2>Products</h2>
     <div class="jobs-title-line"></div>
 
     <div class="job-detail-container">
@@ -290,14 +290,14 @@
     </div>
 
     @if ($otherJobs->count())
-    <h2 style="margin-top:100px;">ՄՅՈՒՍ ԱՇԽԱՏԱՆՔՆԵՐԸ</h2>
-    <div class="jobs-title-line"></div>
+        <h2 style="margin-top:100px;">another Products</h2>
+        <div class="jobs-title-line"></div>
 
         <div class="job-detail-container">
             @foreach ($otherJobs as $item)
                 <div class="job-detail-card">
                     <div class="job-left">
-                        <a href="{{ route('jobs.hy', $item->id) }}">
+                    <a href="{{ route('jobs.en', $item->id) }}">
                             <img class="main-image" src="{{ asset('storage/' . $item->main_image) }}" alt="{{ $item->title }}">
                         </a>
                     </div>
@@ -328,7 +328,7 @@ function changeMainImage(thumbnail) {
 </script>
 
 <section id="kap" class="contact-section">
-        <h2 style="color: #D9EAF2;">ԿԱՊ ՄԵԶ ՀԵՏ</h2>
+        <h2 style="color: #D9EAF2;">Contacts</h2>
         <div class="contact-title-line"></div>
 
         <div class="contact-container">

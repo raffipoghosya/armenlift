@@ -156,15 +156,22 @@
 
 
 
+@php
+    // Ֆիլտրում ենք միայն those աշխատանքները, որոնց show_on_hy=true
+    $hyJobs = $jobs->filter(fn($j) => $j->show_on_hy);
+@endphp
+
+{{-- Jobs Section (Հայերեն) --}}
+@if($hyJobs->count())
     <section id="job" class="jobs-section">
         <h2 style="color:#D9EAF2;">ԱՇԽԱՏԱՆՔՆԵՐ</h2>
         <div class="jobs-title-line"></div>
 
         <div class="scroll-wrapper">
             <div class="jobs-gallery">
-                @foreach ($jobs as $job)
+                @foreach ($hyJobs as $job)
                     <div class="job-item">
-                        <a href="{{ route('jobs.show', $job->id) }}">
+                    <a href="{{ route('jobs.hy', $job->id) }}">
                             <img src="{{ asset('storage/' . $job->main_image) }}" alt="{{ $job->title }}" />
                         </a>
                         <h3>{{ \Illuminate\Support\Str::limit($job->title, 24) }}</h3>
@@ -191,13 +198,16 @@
             </div>
         </div>
     </section>
+@endif
 
-    <section id="products" class="product-section">
-        <h2>ԱՊՐԱՆՔՆԵՐԸ</h2>
-        <div class="decor-line"></div>
 
-        <div class="product-grid">
-            @foreach ($products as $product)
+<section id="products" class="product-section">
+    <h2>ԱՊՐԱՆՔՆԵՐԸ</h2>
+    <div class="decor-line"></div>
+
+    <div class="product-grid">
+        @foreach ($products as $product)
+            @if ($product->locale === 'hy')
                 <div class="product-card">
                     <div class="header">{{ $product->title }}</div>
                     <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->title }}">
@@ -212,12 +222,13 @@
                                 @endforeach
                             </div>
                         @endif
-
                     </div>
                 </div>
-            @endforeach
-        </div>
-    </section>
+            @endif
+        @endforeach
+    </div>
+</section>
+
 
 
 

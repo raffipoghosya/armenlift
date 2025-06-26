@@ -159,15 +159,22 @@
 
 
 
+@php
+    // Фильтруем только те вакансии, у которых show_on_ru = true
+    $ruJobs = $jobs->filter(fn($j) => $j->show_on_ru);
+@endphp
+
+{{-- Jobs Section (Русский) --}}
+@if($ruJobs->count())
     <section id="job" class="jobs-section">
         <h2 style="color:#D9EAF2;">Продукция</h2>
         <div class="jobs-title-line"></div>
 
         <div class="scroll-wrapper">
             <div class="jobs-gallery">
-                @foreach ($jobs as $job)
+                @foreach ($ruJobs as $job)
                     <div class="job-item">
-                        <a href="{{ route('jobs.show', $job->id) }}">
+                    <a href="{{ route('jobs.ru', $job->id) }}">
                             <img src="{{ asset('storage/' . $job->main_image) }}" alt="{{ $job->title }}" />
                         </a>
                         <h3>{{ \Illuminate\Support\Str::limit($job->title, 24) }}</h3>
@@ -194,6 +201,8 @@
             </div>
         </div>
     </section>
+@endif
+
 
     <section id="products" class="product-section">
         <h2>Портфолио</h2>

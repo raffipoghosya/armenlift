@@ -16,9 +16,16 @@ class Job extends Model
         'images',
         'youtube_link',
         'address',
+        'locale',        // Added for localization
+        'show_on_hy',    // Armenian display flag
+        'show_on_en',    // English display flag
+        'show_on_ru',    // Russian display flag
     ];
 
     protected $casts = [
-        'images' => 'array',
+        'images'     => 'array',
+        'show_on_hy' => 'boolean',
+        'show_on_en' => 'boolean',
+        'show_on_ru' => 'boolean',
     ];
 }

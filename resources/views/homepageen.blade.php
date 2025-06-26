@@ -158,17 +158,23 @@
     </script>
 
 
+@php
+    // Filter only those jobs where show_on_en = true
+    $enJobs = $jobs->filter(fn($j) => $j->show_on_en);
+@endphp
 
+{{-- Jobs Section (English) --}}
+@if($enJobs->count())
     <section id="job" class="jobs-section">
-        <h2 style="color:#D9EAF2;">Products</h2>
+        <h2 style="color:#D9EAF2;">Jobs</h2>
         <div class="jobs-title-line"></div>
 
         <div class="scroll-wrapper">
             <div class="jobs-gallery">
-                @foreach ($jobs as $job)
+                @foreach ($enJobs as $job)
                     <div class="job-item">
-                        <a href="{{ route('jobs.show', $job->id) }}">
-                            <img src="{{ asset('storage/' . $job->main_image) }}" alt="{{ $job->title }}" />
+                        <a href="{{ route('jobs.en', $job->id) }}">
+                            <img src="{{ asset('storage/' . $job->main_image) }}" alt="Job Image" />
                         </a>
                         <h3>{{ \Illuminate\Support\Str::limit($job->title, 24) }}</h3>
                         @if ($job->address)
@@ -194,6 +200,8 @@
             </div>
         </div>
     </section>
+@endif
+
 
     <section id="products" class="product-section">
         <h2>Portfolio</h2>

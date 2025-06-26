@@ -10,13 +10,20 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
+        'locale',
         'title',
         'description',
         'image',
-        'pdf', // ✅ Ավելացրու այս դաշտը
+        'pdf',
+        'show_on_hy',
+        'show_on_en',
+        'show_on_ru',
     ];
 
     protected $casts = [
-        'pdf' => 'array', // ✅ սա ապահովում է, որ array-ով պահվի և ճիշտ վերադարձնի
+        'pdf' => 'array',
+        'show_on_hy' => 'boolean',
+        'show_on_en' => 'boolean',
+        'show_on_ru' => 'boolean',
     ];
 }

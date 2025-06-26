@@ -27,6 +27,15 @@
   <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
     @csrf
     <div>
+  <label class="block font-semibold mb-1 text-gray-700">Լեզու</label>
+  <select name="locale" class="w-full border border-gray-300 rounded-md p-2" required>
+    <option value="hy">Հայերեն</option>
+    <option value="en">Անգլերեն</option>
+    <option value="ru">Ռուսերեն</option>
+  </select>
+</div>
+
+    <div>
       <label class="block font-semibold mb-1 text-gray-700">Վերնագրություն</label>
       <input type="text" name="title" class="w-full border border-gray-300 rounded-md p-2" required />
     </div>
@@ -106,6 +115,7 @@
           <form id="edit-form-{{ $product->id }}" action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data" class="mt-4 hidden border-t pt-4 space-y-4">
             @csrf
             @method('PUT')
+            <input type="hidden" name="locale" value="{{ $product->locale }}">
 
             <input type="text" name="title" value="{{ $product->title }}" class="w-full border p-2 rounded" required />
             <textarea name="description" rows="3" class="w-full border p-2 rounded" required>{{ $product->description }}</textarea>
@@ -142,7 +152,6 @@
               Թարմացնել
             </button>
           </form>
-
         </div>
       </div>
     @endforeach

@@ -51,11 +51,27 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::delete('/jobs/{id}', [JobController::class, 'destroy'])->name('admin.jobs.destroy');
 });
 
+
+
+
+Route::get('/jobs/hy/{id}', [JobController::class, 'showHy'])->name('jobs.hy');
+Route::get('/jobs/en/{id}', [JobController::class, 'showEn'])->name('jobs.en');
+Route::get('/jobs/ru/{id}', [JobController::class, 'showRu'])->name('jobs.ru');
+
+
+
+
+
+
+
+
+
+
 // Auth համակարգի route-ները (login, register և այլն)
 require __DIR__ . '/auth.php';
 
 
-Route::get('/jobs/{job}', [JobController::class, 'show'])->name('jobs.show');
+
 
 
 Route::middleware(['auth'])->prefix('admin')->group(function () {

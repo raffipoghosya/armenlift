@@ -23,12 +23,14 @@ class ProductController extends Controller
             'image' => 'required|image',
             'pdfs.*' => 'nullable|file|mimes:pdf',
             'pdf_titles.*' => 'nullable|string',
+            'locale' => 'required|string|in:hy,en,ru',
+            'show_on_hy' => 'nullable|boolean',
+            'show_on_en' => 'nullable|boolean',
+            'show_on_ru' => 'nullable|boolean',
         ]);
-    
-        // Նկարի պահպանում
+
         $imagePath = $request->file('image')->store('products', 'public');
-    
-        // PDF-ների մշակումը
+
         $pdfData = [];
         $pdfFiles = $request->file('pdfs', []);
         $pdfTitles = $request->input('pdf_titles', []);
@@ -42,17 +44,22 @@ class ProductController extends Controller
                 ];
             }
         }
-    
+
         Product::create([
             'title' => $data['title'],
             'description' => $data['description'],
             'image' => $imagePath,
-            'pdf' => $pdfData, // ← առանց json_encode
+            'pdf' => $pdfData,
+            'locale' => $data['locale'],
+            'show_on_hy' => $data['locale'] === 'hy',
+            'show_on_en' => $data['locale'] === 'en',
+            'show_on_ru' => $data['locale'] === 'ru',
         ]);
-    
+        
+
         return redirect()->back()->with('success', 'Ապրանքը հաջողությամբ ավելացվեց։');
     }
-    
+
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
@@ -69,6 +76,10 @@ class ProductController extends Controller
             'existing_pdf_titles.*' => 'nullable|string|max:255',
             'existing_pdf_files' => 'nullable|array',
             'existing_pdf_files.*' => 'file|mimes:pdf',
+            'locale' => 'required|string|in:hy,en,ru',
+            'show_on_hy' => 'nullable|boolean',
+            'show_on_en' => 'nullable|boolean',
+            'show_on_ru' => 'nullable|boolean',
         ]);
 
         if ($request->hasFile('image')) {
@@ -114,7 +125,12 @@ class ProductController extends Controller
 
         $product->title = $request->title;
         $product->description = $request->description;
-        $product->pdf = array_merge($existingPdfs, $newPdfs); // ← array-ով պահում ենք
+        $product->locale = $request->locale;
+        $product->show_on_hy = $request->locale === 'hy';
+        $product->show_on_en = $request->locale === 'en';
+        $product->show_on_ru = $request->locale === 'ru';
+        
+        $product->pdf = array_merge($existingPdfs, $newPdfs);
         $product->save();
 
         return redirect()->route('admin.products.index')->with('success', 'Թարմացվեց հաջողությամբ');
