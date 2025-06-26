@@ -41,7 +41,7 @@
                 </a>
             </nav>
             <div class="languages">
-            <a href="{{ route('homepage.hy') }}"><button>ՀԱՅ</button></a>
+            <a href="{{ route('homepage.hy') }}"><button style=" background:  #2E4A5E;">ՀԱՅ</button></a>
             <a href="{{ route('homepage.ru') }}"><button>РУС</button></a>
             <a href="{{ route('homepage.en') }}"><button>ENG</button></a>
                 <div class="languagess">

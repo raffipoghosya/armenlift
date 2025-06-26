@@ -243,7 +243,7 @@
     </nav>
     <div class="languages">
       <button>ՀԱՅ</button>
-      <button>РУС</button>
+      <button style=" background:  #2E4A5E;">РУС</button>
       <button>ENG</button>
 
       <div class="languagess">
@@ -253,7 +253,7 @@
     </div>
   </header>
   <section id="job" class="jobs-section">
-    <h2>Продукция</h2>
+    <h2>ПРОДУКЦИЯ</h2>
     <div class="jobs-title-line"></div>
 
     <div class="job-detail-container">
@@ -296,7 +296,7 @@
     </div>
 
     @if ($otherJobs->count())
-    <h2 style="margin-top:100px;">Другие Продукция</h2>
+    <h2 style="margin-top:100px;">ДРУГАЯ ПРОДУКЦИЯ</h2>
     <div class="jobs-title-line"></div>
 
     <div class="job-detail-container">
@@ -312,6 +312,24 @@
       <a href="{{ route('jobs.ru', $item->id) }}" style="color: #D9EAF2;">
         {{ $item->title }}
       </a>
+      @if ($job->address)
+      <p class="job-address">
+      <svg width="13" height="16" viewBox="0 0 13 16" fill="none" xmlns="http://www.w3.org/2000/svg"
+      style="display:inline-block; vertical-align:middle; margin-right:5px;">
+      <path
+      d="M6.5 0C4.77 0 3.12 0.66 1.9 1.84C0.69 3.02 0 4.61 0 6.28C0 7.64 0.46 8.97 1.31 10.06L6.5 16L11.69 10.06C12.54 8.97 13 7.64 13 6.28C13 4.61 12.31 3.02 11.09 1.84C9.87 0.66 8.22 0 6.5 0ZM6.5 8.57C5.03 8.57 3.86 7.4 3.86 5.93C3.86 4.47 5.03 3.29 6.5 3.29C7.97 3.29 9.14 4.47 9.14 5.93C9.14 7.4 7.97 8.57 6.5 8.57Z"
+      fill="url(#paint0_linear_1_886)" />
+      <defs>
+      <linearGradient id="paint0_linear_1_886" x1="6.5" y1="0" x2="6.5" y2="16"
+      gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2E4A5E" />
+      <stop offset="1" stop-color="#609AC4" />
+      </linearGradient>
+      </defs>
+      </svg>
+      <span>{{ $job->address }}</span>
+      </p>
+      @endif
       </h3>
       <div class="job-description">
       {!! nl2br(e(Str::limit($item->description, 300))) !!}
@@ -335,24 +353,24 @@
   </script>
 
   <section id="kap" class="contact-section">
-    <h2 style="color: #D9EAF2;">ԿԱՊ ՄԵԶ ՀԵՏ</h2>
+    <h2 style="color: #D9EAF2;">Контакты</h2>
     <div class="contact-title-line"></div>
 
     <div class="contact-container">
       <div class="contact-info">
         <ul>
           <li>
-            <img src="/css/svg/location.svg" alt="Հասցե" width="16" height="16" style="margin-right: 11px;">
-            Հասցե՝ 0076, ՀՀ, ք․Երևան, Ակսել Բակունց 4, 51 տարածք
+            <img src="/css/svg/location.svg" alt="Адрес" width="16" height="16" style="margin-right: 11px;">
+            Адрес: 0076, Армения, г. Ереван, Аксел Бакунец 4, помещение 51
           </li>
 
           <li>
-            <img src="/css/svg/telefon.svg" alt="Հասցե" width="16" height="16" style="margin-right: 11px;">
-            Հեռ․: +37491430512
+            <img src="/css/svg/telefon.svg" alt="Телефон" width="16" height="16" style="margin-right: 11px;">
+            Тел.: +37491430512
           </li>
           <li>
-            <img src="/css/svg/gmail.svg" alt="Հասցե" width="16" height="16" style="margin-right: 11px;">
-            Էլ. փոստ․ armenlift@gmail.com
+            <img src="/css/svg/gmail.svg" alt="Эл. почта" width="16" height="16" style="margin-right: 11px;">
+            Эл. почта: armenlift@gmail.com
           </li>
         </ul>
         <div class="contact-map">
@@ -361,23 +379,23 @@
             width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-
       </div>
 
       <form class="contact-form">
         <div class="form-row">
-          <input type="text" placeholder="Անուն" />
-          <input type="text" placeholder="Ազգանուն" />
+          <input type="text" placeholder="Имя" />
+          <input type="text" placeholder="Фамилия" />
         </div>
         <div class="form-row">
-          <input type="text" placeholder="Հեռախոսահամար" />
-          <input type="email" placeholder="Email" />
+          <input type="text" placeholder="Номер телефона" />
+          <input type="email" placeholder="Эл. почта" />
         </div>
-        <textarea placeholder="Հաղորդագրություն..."></textarea>
-        <button type="submit">Ուղարկել</button>
+        <textarea placeholder="Сообщение..."></textarea>
+        <button type="submit">Отправить</button>
       </form>
     </div>
   </section>
+
 
   <script>
     function changeMainImage(thumbnail) {

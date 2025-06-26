@@ -237,7 +237,7 @@
             <div class="languages">
                 <button>ՀԱՅ</button>
                 <button>РУС</button>
-                <button>ENG</button>
+                <button style=" background:  #2E4A5E;">ENG</button>
 
                 <div class="languagess">
                 <img src="{{ asset('css/svg/viber.svg') }}" height="21px" width="23px" alt="Viber" class="social-icon" />
@@ -246,7 +246,7 @@
             </div>
         </header>
         <section id="job" class="jobs-section">
-    <h2>Products</h2>
+    <h2>PRODUCTS</h2>
     <div class="jobs-title-line"></div>
 
     <div class="job-detail-container">
@@ -290,7 +290,7 @@
     </div>
 
     @if ($otherJobs->count())
-        <h2 style="margin-top:100px;">another Products</h2>
+        <h2 style="margin-top:100px;">OTHER PRODUCTS</h2>
         <div class="jobs-title-line"></div>
 
         <div class="job-detail-container">
@@ -307,6 +307,25 @@
                                 {{ $item->title }}
                             </a>
                         </h3>
+                        @if ($job->address)
+                    <p class="job-address">
+                        <svg width="13" height="16" viewBox="0 0 13 16" fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            style="display:inline-block; vertical-align:middle; margin-right:5px;">
+                            <path
+                                d="M6.5 0C4.77 0 3.12 0.66 1.9 1.84C0.69 3.02 0 4.61 0 6.28C0 7.64 0.46 8.97 1.31 10.06L6.5 16L11.69 10.06C12.54 8.97 13 7.64 13 6.28C13 4.61 12.31 3.02 11.09 1.84C9.87 0.66 8.22 0 6.5 0ZM6.5 8.57C5.03 8.57 3.86 7.4 3.86 5.93C3.86 4.47 5.03 3.29 6.5 3.29C7.97 3.29 9.14 4.47 9.14 5.93C9.14 7.4 7.97 8.57 6.5 8.57Z"
+                                fill="url(#paint0_linear_1_886)" />
+                            <defs>
+                                <linearGradient id="paint0_linear_1_886" x1="6.5" y1="0" x2="6.5" y2="16"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#2E4A5E" />
+                                    <stop offset="1" stop-color="#609AC4" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span>{{ $job->address }}</span>
+                    </p>
+                @endif
                         <div class="job-description">
                             {!! nl2br(e(Str::limit($item->description, 300))) !!}
                         </div>
@@ -326,51 +345,49 @@ function changeMainImage(thumbnail) {
     thumbnail.src = tempSrc;
 }
 </script>
-
 <section id="kap" class="contact-section">
-        <h2 style="color: #D9EAF2;">Contacts</h2>
-        <div class="contact-title-line"></div>
+    <h2 style="color: #D9EAF2;">Contacts</h2>
+    <div class="contact-title-line"></div>
 
-        <div class="contact-container">
+    <div class="contact-container">
         <div class="contact-info">
-                <ul>
-                    <li>
-                        <img src="/css/svg/location.svg" alt="Հասցե" width="16" height="16" style="margin-right: 11px;">
-                        Հասցե՝ 0076, ՀՀ, ք․Երևան, Ակսել Բակունց 4, 51 տարածք
-                    </li>
+            <ul>
+                <li>
+                    <img src="/css/svg/location.svg" alt="Address" width="16" height="16" style="margin-right: 11px;">
+                    Address: 0076, Armenia, Yerevan, Aksel Bakunts 4, Area 51
+                </li>
 
-                    <li>
-                        <img src="/css/svg/telefon.svg" alt="Հասցե" width="16" height="16" style="margin-right: 11px;">
-                        Հեռ․: +37491430512
-                    </li>
-                    <li>
-                        <img src="/css/svg/gmail.svg" alt="Հասցե" width="16" height="16" style="margin-right: 11px;">
-                        Էլ. փոստ․ armenlift@gmail.com
-                    </li>
-                </ul>
-                <div class="contact-map">
-                    <iframe
+                <li>
+                    <img src="/css/svg/telefon.svg" alt="Phone" width="16" height="16" style="margin-right: 11px;">
+                    Phone: +37491430512
+                </li>
+                <li>
+                    <img src="/css/svg/gmail.svg" alt="Email" width="16" height="16" style="margin-right: 11px;">
+                    Email: armenlift@gmail.com
+                </li>
+            </ul>
+            <div class="contact-map">
+                <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1543.7648850677285!2d44.571620621786245!3d40.19027842153545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406aa30027a212d9%3A0xbc637ff8aac8ecab!2sAlmaka!5e1!3m2!1sen!2sam!4v1750763459909!5m2!1sen!2sam"
                     width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-
-            <form class="contact-form">
-                <div class="form-row">
-                    <input type="text" placeholder="Անուն" />
-                    <input type="text" placeholder="Ազգանուն" />
-                </div>
-                <div class="form-row">
-                    <input type="text" placeholder="Հեռախոսահամար" />
-                    <input type="email" placeholder="Email" />
-                </div>
-                <textarea placeholder="Հաղորդագրություն..."></textarea>
-                <button type="submit">Ուղարկել</button>
-            </form>
         </div>
-    </section>
+
+        <form class="contact-form">
+            <div class="form-row">
+                <input type="text" placeholder="First Name" />
+                <input type="text" placeholder="Last Name" />
+            </div>
+            <div class="form-row">
+                <input type="text" placeholder="Phone Number" />
+                <input type="email" placeholder="Email" />
+            </div>
+            <textarea placeholder="Message..."></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</section>
 
 <script>
 function changeMainImage(thumbnail) {
