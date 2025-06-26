@@ -219,19 +219,19 @@
             </a> </div>
             <nav class="menu">
                 <a href="/#about">
-                    <img src="{{ asset('css/svg/aboute1.svg') }}" width="164" height="50" alt="ՄԵՐ ՄԱՍԻՆ" />
+                    <img src="{{ asset('css/svg/enaboute1.svg') }}" width="164" height="50" alt="ՄԵՐ ՄԱՍԻՆ" />
                 </a>
                 <a href="/#services">
-                    <img src="{{ asset('css/svg/services1.svg') }}" width="214" height="50" alt="ԾԱՌԱՅՈՒԹՅՈՒՆՆԵՐ" />
+                    <img src="{{ asset('css/svg/enservices1.svg') }}" width="214" height="50" alt="ԾԱՌԱՅՈՒԹՅՈՒՆՆԵՐ" />
                 </a>
                 <a href="/#job">
-                    <img src="{{ asset('css/svg/lalala.svg') }}" width="184" height="50" alt="ԱՇԽԱՏԱՆՔՆԵՐ" />
+                    <img src="{{ asset('css/svg/enfli.svg') }}" width="184" height="50" alt="ԱՇԽԱՏԱՆՔՆԵՐ" />
                 </a>
                 <a href="/#kap">
-                    <img src="{{ asset('css/svg/jobs.svg') }}" width="160" height="50" alt="Ապրանքներ" />
+                    <img src="{{ asset('css/svg/enjobs.svg') }}" width="160" height="50" alt="Ապրանքներ" />
                 </a>
                 <a href="/#kap">
-                    <img src="{{ asset('css/svg/kap1.svg') }}" width="112" height="50" alt="ԿԱՊ" />
+                    <img src="{{ asset('css/svg/enkap1.svg') }}" width="152" height="50" alt="ԿԱՊ" />
                 </a>
             </nav>
             <div class="languages">
