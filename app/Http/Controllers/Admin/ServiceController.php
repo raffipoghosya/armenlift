@@ -30,17 +30,12 @@ class ServiceController extends Controller
             'main_image'   => 'required|image|mimes:jpeg,png,jpg|max:30720',
             'images.*'     => 'image|mimes:jpeg,png,jpg|max:30720',
             'youtube_link' => 'nullable|url',
-
-            // Locale and display flags
             'locale'       => 'required|in:hy,en,ru',
-            'show_on_hy'   => 'sometimes|boolean',
-            'show_on_en'   => 'sometimes|boolean',
-            'show_on_ru'   => 'sometimes|boolean',
         ]);
-
+    
         // Store main image
         $mainImagePath = $request->file('main_image')->store('services', 'public');
-
+    
         // Store additional images
         $additionalImages = [];
         if ($request->hasFile('images')) {
@@ -48,7 +43,7 @@ class ServiceController extends Controller
                 $additionalImages[] = $image->store('services', 'public');
             }
         }
-
+    
         // Create service
         Service::create([
             'title'        => $validated['title'],
@@ -56,15 +51,15 @@ class ServiceController extends Controller
             'main_image'   => $mainImagePath,
             'images'       => $additionalImages,
             'youtube_link' => $validated['youtube_link'] ?? null,
-
             'locale'       => $validated['locale'],
-            'show_on_hy'   => $request->has('show_on_hy'),
-            'show_on_en'   => $request->has('show_on_en'),
-            'show_on_ru'   => $request->has('show_on_ru'),
+            'show_on_hy'   => $validated['locale'] === 'hy',
+            'show_on_en'   => $validated['locale'] === 'en',
+            'show_on_ru'   => $validated['locale'] === 'ru',
         ]);
-
+    
         return redirect()->back()->with('success', 'Ծառայությունը հաջողությամբ ավելացվեց։');
     }
+    
 
     /**
      * Show the form for editing the specified service.
@@ -79,58 +74,51 @@ class ServiceController extends Controller
      * Update the specified service in storage.
      */
     public function update(Request $request, $id)
-    {
-        $service = Service::findOrFail($id);
+{
+    $service = Service::findOrFail($id);
 
-        // Validation
-        $validated = $request->validate([
-            'title'        => 'required|string|max:255',
-            'description'  => 'required|string',
-            'main_image'   => 'nullable|image|mimes:jpeg,png,jpg|max:30720',
-            'images.*'     => 'image|mimes:jpeg,png,jpg|max:30720',
-            'youtube_link' => 'nullable|url',
+    // Validation
+    $validated = $request->validate([
+        'title'        => 'required|string|max:255',
+        'description'  => 'required|string',
+        'main_image'   => 'nullable|image|mimes:jpeg,png,jpg|max:30720',
+        'images.*'     => 'image|mimes:jpeg,png,jpg|max:30720',
+        'youtube_link' => 'nullable|url',
+        'locale'       => 'required|in:hy,en,ru',
+    ]);
 
-            // Locale and display flags
-            'locale'       => 'required|in:hy,en,ru',
-            'show_on_hy'   => 'sometimes|boolean',
-            'show_on_en'   => 'sometimes|boolean',
-            'show_on_ru'   => 'sometimes|boolean',
-        ]);
-
-        // Update main image if provided
-        if ($request->hasFile('main_image')) {
-            Storage::delete($service->main_image);
-            $service->main_image = $request->file('main_image')->store('services', 'public');
-        }
-
-        // Update additional images if provided
-        if ($request->hasFile('images')) {
-            // Delete old ones
-            if (is_array($service->images)) {
-                foreach ($service->images as $oldImage) {
-                    Storage::delete($oldImage);
-                }
-            }
-            $newImages = [];
-            foreach ($request->file('images') as $image) {
-                $newImages[] = $image->store('services', 'public');
-            }
-            $service->images = $newImages;
-        }
-
-        // Assign other fields
-        $service->title        = $validated['title'];
-        $service->description  = $validated['description'];
-        $service->youtube_link = $validated['youtube_link'] ?? null;
-
-        $service->locale       = $validated['locale'];
-        $service->show_on_hy   = $request->has('show_on_hy');
-        $service->show_on_en   = $request->has('show_on_en');
-        $service->show_on_ru   = $request->has('show_on_ru');
-        $service->save();
-
-        return redirect()->route('admin.services.index')->with('success', 'Ծառայությունը թարմացվել է։');
+    // Update main image if provided
+    if ($request->hasFile('main_image')) {
+        Storage::delete($service->main_image);
+        $service->main_image = $request->file('main_image')->store('services', 'public');
     }
+
+    // Update additional images if provided
+    if ($request->hasFile('images')) {
+        if (is_array($service->images)) {
+            foreach ($service->images as $oldImage) {
+                Storage::delete($oldImage);
+            }
+        }
+        $newImages = [];
+        foreach ($request->file('images') as $image) {
+            $newImages[] = $image->store('services', 'public');
+        }
+        $service->images = $newImages;
+    }
+
+    // Assign other fields
+    $service->title        = $validated['title'];
+    $service->description  = $validated['description'];
+    $service->youtube_link = $validated['youtube_link'] ?? null;
+    $service->locale       = $validated['locale'];
+    $service->show_on_hy   = $validated['locale'] === 'hy';
+    $service->show_on_en   = $validated['locale'] === 'en';
+    $service->show_on_ru   = $validated['locale'] === 'ru';
+    $service->save();
+
+    return redirect()->route('admin.services.index')->with('success', 'Ծառայությունը թարմացվել է։');
+}
 
     /**
      * Remove the specified service from storage.
