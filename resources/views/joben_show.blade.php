@@ -346,7 +346,7 @@ function changeMainImage(thumbnail) {
 }
 </script>
 <section id="kap" class="contact-section">
-    <h2 style="color: #D9EAF2;">Contacts</h2>
+    <h2 style="color: #D9EAF2;">CONTACTS</h2>
     <div class="contact-title-line"></div>
 
     <div class="contact-container">
