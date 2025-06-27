@@ -18,7 +18,14 @@
 </head>
 
 <body>
-    <div class="background">
+<div class="background" id="backgroundSlider">
+    <!-- Սլայդ սլաքները -->
+    <div class="slider-button slider-left" onclick="prevSlide()">
+        <img src="/css/svg/arrow-left.svg" alt="Նախորդ">
+    </div>
+    <div class="slider-button slider-right" onclick="nextSlide()">
+        <img src="/css/svg/arrow-left.svg"  style="transform: rotate(180deg);" alt="Հաջորդ">
+    </div>
         <header class="top-bar">
             <div class="logo"><a href="#homepage"> <img src="{{ asset('css/images/logo.png') }}" alt="Ներսի նկար"
                         class="inner-image" /></a>
@@ -55,9 +62,46 @@
         </header>
 
         <main id="homepage" class="content">
-            <img src="{{ asset('css/images/firtz2.png') }}" alt="Ներսի նկար" class="inner-image" />
+            <!-- <img src="{{ asset('css/images/firtz2.png') }}" alt="Ներսի նկար" class="inner-image" /> -->
         </main>
+
+        
     </div>
+
+
+
+
+    <script>
+  const images = [
+    '/css/images/enb1.png',
+    '/css/images/enb2.png',
+    '/css/images/enb3.png'
+  ];
+
+  let currentIndex = 0;
+  const slider = document.getElementById('backgroundSlider');
+
+  function updateBackground() {
+    slider.style.backgroundImage = `url('${images[currentIndex]}')`;
+  }
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % images.length;
+    updateBackground();
+  }
+
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    updateBackground();
+  }
+
+  // Ավտոմատ փոխում ամեն 10 վայրկյանը մեկ
+//   setInterval(nextSlide, 10000);
+
+  // Սկզբնական պատկեր
+  updateBackground();
+</script>
+
 
     @if ($about && $about->show_on_en)
         <section id="about" class="about-section">

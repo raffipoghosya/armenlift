@@ -61,8 +61,8 @@
     font-family: 'Montserrat Armenian';
   }
   
-  .background {
-    background-image: url('/css/images/first.jpg'); /* Ամբողջական ֆոնային նկար */
+  /* .background {
+    background-image: url('/css/images/hyb1.png'); 
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -71,7 +71,68 @@
     flex-direction: column;
   }
   
+   */
+   .background {
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: background-image 1s ease-in-out;
+  }
   
+  .slider-button {
+    position: absolute;
+    top: 0;
+    width: 50px;
+    height: 100%;
+    /* background-color: rgba(0, 0, 0, 0.3); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .slider-button img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .slider-left {
+    left: 10px;
+  }
+  
+  .slider-right {
+    right: 10px;
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   .top-bar {
     display: flex;
     justify-content: space-between;
