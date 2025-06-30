@@ -37,10 +37,10 @@
                 <a href="#services">
                     <img src="{{ asset('css/svg/russervices1.svg') }}" width="214" height="50" alt="ԾԱՌԱՅՈՒԹՅՈՒՆՆԵՐ" />
                 </a>
-                <a href="#products">
+                <a href="#job">
                     <img src="{{ asset('css/svg/rusjobs.svg') }}" width="160" height="50" alt="Ապրանքներ" />
                 </a>
-                <a href="#job">
+                <a href="#products">
                     <img src="{{ asset('css/svg/rusjob1.svg') }}" width="184" height="50" alt="ԱՇԽԱՏԱՆՔՆԵՐ" />
                 </a>
                
