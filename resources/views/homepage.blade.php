@@ -97,20 +97,6 @@
   updateBackground();
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @if ($about && $about->show_on_hy)
         <section id="about" class="about-section">
             <div class="about-text">
@@ -255,7 +241,7 @@
 
 
 <section id="products" class="product-section">
-    <h2>ԱՊՐԱՆՔՆԵՐ</h2>
+    <h2>ԿԱՏԱԼՈԳ</h2>
     <div class="decor-line"></div>
 
     <div class="product-grid">
