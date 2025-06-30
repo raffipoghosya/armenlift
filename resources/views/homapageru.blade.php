@@ -207,7 +207,7 @@
     {{-- Jobs Section (Русский) --}}
     @if($ruJobs->count())
         <section id="job" class="jobs-section">
-            <h2 style="color:#D9EAF2;">ПРОДУКЦИЯ</h2>
+            <h2 style="color:#D9EAF2;">ПОРТФОЛИО</h2>
             <div class="jobs-title-line"></div>
 
             <div class="scroll-wrapper">
@@ -245,7 +245,7 @@
 
 
     <section id="products" class="product-section">
-        <h2>ПОРТФОЛИО</h2>
+        <h2>ПРОДУКЦИЯ</h2>
         <div class="decor-line"></div>
 
         <div class="product-grid">
