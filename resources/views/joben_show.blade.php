@@ -246,7 +246,7 @@
             </div>
         </header>
         <section id="job" class="jobs-section">
-    <h2>PRODUCTS</h2>
+    <h2>PORTFOLIO</h2>
     <div class="jobs-title-line"></div>
 
     <div class="job-detail-container">
@@ -290,7 +290,7 @@
     </div>
 
     @if ($otherJobs->count())
-        <h2 style="margin-top:100px;">OTHER PRODUCTS</h2>
+        <h2 style="margin-top:100px;">OTHER PORTFOLIO</h2>
         <div class="jobs-title-line"></div>
 
         <div class="job-detail-container">

@@ -235,7 +235,7 @@
         <img src="{{ asset('css/svg/ruslala.svg') }}" width="184" height="50" alt="ԱՇԽԱՏԱՆՔՆԵՐ" />
       </a>
       <a href="/#kap">
-        <img src="{{ asset('css/svg/rusjobs.svg') }}" width="160" height="50" alt="Ապրանքներ" />
+        <img src="{{ asset('css/svg/rusjob1.svg') }}" width="160" height="50" alt="Ապրանքներ" />
       </a>
       <a href="/#kap">
         <img src="{{ asset('css/svg/ruskap1.svg') }}" width="152" height="50" alt="ԿԱՊ" />
@@ -253,7 +253,7 @@
     </div>
   </header>
   <section id="job" class="jobs-section">
-    <h2>ПРОДУКЦИЯ</h2>
+    <h2>ПОРТФОЛИО</h2>
     <div class="jobs-title-line"></div>
 
     <div class="job-detail-container">
@@ -296,7 +296,7 @@
     </div>
 
     @if ($otherJobs->count())
-    <h2 style="margin-top:100px;">ДРУГАЯ ПРОДУКЦИЯ</h2>
+    <h2 style="margin-top:100px;">ДРУГАЯ ПОРТФОЛИО</h2>
     <div class="jobs-title-line"></div>
 
     <div class="job-detail-container">

@@ -38,11 +38,12 @@
                     <img src="{{ asset('css/svg/enservices1.svg') }}" width="214" height="50" alt="ԾԱՌԱՅՈՒԹՅՈՒՆՆԵՐ" />
                 </a>
                 <a href="#job">
-                    <img src="{{ asset('css/svg/enjob1.svg') }}" width="184" height="50" alt="ԱՇԽԱՏԱՆՔՆԵՐ" />
+                    <img src="{{ asset('css/svg/denjobs.svg') }}" width="160" height="50" alt="Ապրանքներ" />
                 </a>
                 <a href="#products">
-                    <img src="{{ asset('css/svg/enjobs.svg') }}" width="160" height="50" alt="Ապրանքներ" />
+                    <img src="{{ asset('css/svg/enjob1.svg') }}" width="160" height="50" alt="ԱՇԽԱՏԱՆՔՆԵՐ" />
                 </a>
+               
                 <a href="#kap">
                     <img src="{{ asset('css/svg/enkap1.svg') }}" width="152" height="50" alt="ԿԱՊ" />
                 </a>
@@ -212,7 +213,7 @@ $enJobs = $jobs->filter(fn($j) => $j->show_on_en);
 {{-- Jobs Section (English) --}}
 @if($enJobs->count())
     <section id="job" class="jobs-section">
-        <h2 style="color:#D9EAF2;">PRODUCTS</h2>
+        <h2 style="color:#D9EAF2;">PORTFOLIO</h2>
         <div class="jobs-title-line"></div>
 
         <div class="scroll-wrapper">
@@ -250,7 +251,7 @@ $enJobs = $jobs->filter(fn($j) => $j->show_on_en);
 
 
     <section id="products" class="product-section">
-        <h2>PORTFOLIO</h2>
+        <h2>CATALOG</h2>
         <div class="decor-line"></div>
 
         <div class="product-grid">

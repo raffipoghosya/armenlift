@@ -41,7 +41,7 @@
                     <img src="{{ asset('css/svg/rusjobs.svg') }}" width="160" height="50" alt="Ապրանքներ" />
                 </a>
                 <a href="#products">
-                    <img src="{{ asset('css/svg/rusjob1.svg') }}" width="184" height="50" alt="ԱՇԽԱՏԱՆՔՆԵՐ" />
+                    <img src="{{ asset('css/svg/rusjob1.svg') }}" width="164" height="50" alt="ԱՇԽԱՏԱՆՔՆԵՐ" />
                 </a>
 
                 <a href="#kap">
@@ -250,7 +250,7 @@
 
 
     <section id="products" class="product-section">
-        <h2>ПРОДУКЦИЯ</h2>
+        <h2>КАТАЛОГ</h2>
         <div class="decor-line"></div>
 
         <div class="product-grid">
