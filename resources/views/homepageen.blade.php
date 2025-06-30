@@ -51,13 +51,15 @@
                 <a href="{{ route('homepage.hy') }}"><button>ՀԱՅ</button></a>
                 <a href="{{ route('homepage.ru') }}"><button>РУС</button></a>
                 <a href="{{ route('homepage.en') }}"><button style=" background:  #2E4A5E;">ENG</button></a>
+            <div class="languagess">
+                <a href="viber://add?number=+37491430512" target="_blank">
+                    <img src="{{ asset('css/svg/viber.svg') }}" height="21px" width="23px" alt="Viber" class="social-icon" />
+                </a>
+                <a href="https://wa.me/37491430512" target="_blank">
+                    <img src="{{ asset('css/svg/whatsapp.svg') }}" height="21px" width="23px" alt="WhatsApp" class="social-icon" />
+                </a>
+            </div>
 
-                <div class="languagess">
-                    <img src="{{ asset('css/svg/viber.svg') }}" height="21px" width="23px" alt="Viber"
-                        class="social-icon" />
-                    <img src="{{ asset('css/svg/whatsapp.svg') }}" height="21px" width="23px" alt="WhatsApp"
-                        class="social-icon" />
-                </div>
             </div>
         </header>
 
@@ -125,8 +127,8 @@
 
 
 @php
-    // Ֆիլտրում ենք միայն those ծառայությունները, որոնց show_on_en=true
-    $enServices = $services->filter(fn($s) => $s->show_on_en);
+// Ֆիլտրում ենք միայն those ծառայությունները, որոնց show_on_en=true
+$enServices = $services->filter(fn($s) => $s->show_on_en);
 @endphp
 
 {{-- Services Section (English) --}}
@@ -203,8 +205,8 @@
 
 
 @php
-    // Filter only those jobs where show_on_en = true
-    $enJobs = $jobs->filter(fn($j) => $j->show_on_en);
+// Filter only those jobs where show_on_en = true
+$enJobs = $jobs->filter(fn($j) => $j->show_on_en);
 @endphp
 
 {{-- Jobs Section (English) --}}
@@ -287,7 +289,7 @@
             <ul>
                 <li>
                     <img src="/css/svg/location.svg" alt="Address" width="16" height="16" style="margin-right: 11px;">
-                    Address: 0076, Armenia, Yerevan, Aksel Bakunts 4, Area 51
+                    Address: 0076, Armenia, Yerevan, Aksel Bakunts 4
                 </li>
 
                 <li>

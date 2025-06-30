@@ -18,14 +18,14 @@
 </head>
 
 <body>
-<div class="background" id="backgroundSlider">
-    <!-- Սլայդ սլաքները -->
-    <div class="slider-button slider-left" onclick="prevSlide()">
-        <img src="/css/svg/arrow-left.svg" alt="Նախորդ">
-    </div>
-    <div class="slider-button slider-right" onclick="nextSlide()">
-        <img src="/css/svg/arrow-left.svg"  style="transform: rotate(180deg);" alt="Հաջորդ">
-    </div>
+    <div class="background" id="backgroundSlider">
+        <!-- Սլայդ սլաքները -->
+        <div class="slider-button slider-left" onclick="prevSlide()">
+            <img src="/css/svg/arrow-left.svg" alt="Նախորդ">
+        </div>
+        <div class="slider-button slider-right" onclick="nextSlide()">
+            <img src="/css/svg/arrow-left.svg" style="transform: rotate(180deg);" alt="Հաջորդ">
+        </div>
         <header class="top-bar">
             <div class="logo"><a href="#homepage"> <img src="{{ asset('css/images/logo.png') }}" alt="Ներսի նկար"
                         class="inner-image" /></a>
@@ -43,7 +43,7 @@
                 <a href="#products">
                     <img src="{{ asset('css/svg/rusjob1.svg') }}" width="184" height="50" alt="ԱՇԽԱՏԱՆՔՆԵՐ" />
                 </a>
-               
+
                 <a href="#kap">
                     <img src="{{ asset('css/svg/ruskap1.svg') }}" width="152" height="50" alt="ԿԱՊ" />
                 </a>
@@ -54,11 +54,16 @@
                 <a href="{{ route('homepage.en') }}"><button>ENG</button></a>
 
                 <div class="languagess">
-                    <img src="{{ asset('css/svg/viber.svg') }}" height="21px" width="23px" alt="Viber"
-                        class="social-icon" />
-                    <img src="{{ asset('css/svg/whatsapp.svg') }}" height="21px" width="23px" alt="WhatsApp"
-                        class="social-icon" />
+                    <a href="viber://add?number=+37491430512" target="_blank">
+                        <img src="{{ asset('css/svg/viber.svg') }}" height="21px" width="23px" alt="Viber"
+                            class="social-icon" />
+                    </a>
+                    <a href="https://wa.me/37491430512" target="_blank">
+                        <img src="{{ asset('css/svg/whatsapp.svg') }}" height="21px" width="23px" alt="WhatsApp"
+                            class="social-icon" />
+                    </a>
                 </div>
+
             </div>
         </header>
 
@@ -66,36 +71,36 @@
             <!-- <img src="{{ asset('css/images/firtz2.png') }}" alt="Ներսի նկար" class="inner-image" /> -->
         </main>
 
-    <script>
-  const images = [
-    '/css/images/rub1.png',
-    '/css/images/rub2.png',
-    '/css/images/rub3.png'
-  ];
+        <script>
+            const images = [
+                '/css/images/rub1.png',
+                '/css/images/rub2.png',
+                '/css/images/rub3.png'
+            ];
 
-  let currentIndex = 0;
-  const slider = document.getElementById('backgroundSlider');
+            let currentIndex = 0;
+            const slider = document.getElementById('backgroundSlider');
 
-  function updateBackground() {
-    slider.style.backgroundImage = `url('${images[currentIndex]}')`;
-  }
+            function updateBackground() {
+                slider.style.backgroundImage = `url('${images[currentIndex]}')`;
+            }
 
-  function nextSlide() {
-    currentIndex = (currentIndex + 1) % images.length;
-    updateBackground();
-  }
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % images.length;
+                updateBackground();
+            }
 
-  function prevSlide() {
-    currentIndex = (currentIndex - 1 + images.length) % images.length;
-    updateBackground();
-  }
+            function prevSlide() {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                updateBackground();
+            }
 
-  // Ավտոմատ փոխում ամեն 10 վայրկյանը մեկ
-//   setInterval(nextSlide, 10000);
+            // Ավտոմատ փոխում ամեն 10 վայրկյանը մեկ
+            //   setInterval(nextSlide, 10000);
 
-  // Սկզբնական պատկեր
-  updateBackground();
-</script>
+            // Սկզբնական պատկեր
+            updateBackground();
+        </script>
 
     </div>
 
@@ -284,7 +289,7 @@
                 <ul>
                     <li>
                         <img src="/css/svg/location.svg" alt="Адрес" width="16" height="16" style="margin-right: 11px;">
-                        Адрес: 0076, Армения, г. Ереван, Аксел Бакунец 4, помещение 51
+                        Адрес: 0076, Армения, г. Ереван, Аксел Бакунец 4
                     </li>
 
                     <li>

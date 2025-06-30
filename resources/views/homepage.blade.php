@@ -51,12 +51,18 @@
             <a href="{{ route('homepage.hy') }}"><button style=" background:  #2E4A5E;">ՀԱՅ</button></a>
             <a href="{{ route('homepage.ru') }}"><button>РУС</button></a>
             <a href="{{ route('homepage.en') }}"><button>ENG</button></a>
-                <div class="languagess">
-                    <img src="{{ asset('css/svg/viber.svg') }}" height="21px" width="23px" alt="Viber"
-                        class="social-icon" />
-                    <img src="{{ asset('css/svg/whatsapp.svg') }}" height="21px" width="23px" alt="WhatsApp"
-                        class="social-icon" />
-                </div>
+
+
+
+<div class="languagess">
+    <a href="viber://add?number=+37491430512" target="_blank">
+        <img src="{{ asset('css/svg/viber.svg') }}" height="21px" width="23px" alt="Viber" class="social-icon" />
+    </a>
+    <a href="https://wa.me/37491430512" target="_blank">
+        <img src="{{ asset('css/svg/whatsapp.svg') }}" height="21px" width="23px" alt="WhatsApp" class="social-icon" />
+    </a>
+</div>
+
             </div>
         </header>
 
@@ -283,7 +289,7 @@
                 <ul>
                     <li>
                         <img src="/css/svg/location.svg" alt="Հասցե" width="16" height="16" style="margin-right: 11px;">
-                        Հասցե՝ 0076, ՀՀ, ք․Երևան, Ակսել Բակունց 4, 51 տարածք
+                        Հասցե՝ 0076, ՀՀ, ք․Երևան, Ակսել Բակունց 4
                     </li>
 
                     <li>
