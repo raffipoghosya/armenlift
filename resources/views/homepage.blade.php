@@ -41,7 +41,7 @@
                     <img src="{{ asset('css/svg/job1.svg') }}" width="184" height="50" alt="ԱՇԽԱՏԱՆՔՆԵՐ" />
                 </a>
                 <a href="#products">
-                    <img src="{{ asset('css/svg/jobs.svg') }}" width="160" height="50" alt="Ապրանքներ" />
+                    <img src="{{ asset('css/svg/jobs11.svg') }}" width="160" height="50" alt="Ապրանքներ" />
                 </a>
                 <a href="#kap">
                     <img src="{{ asset('css/svg/kap1.svg') }}" width="112" height="50" alt="ԿԱՊ" />

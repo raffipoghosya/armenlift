@@ -289,7 +289,7 @@
                 <ul>
                     <li>
                         <img src="/css/svg/location.svg" alt="Адрес" width="16" height="16" style="margin-right: 11px;">
-                        Адрес: 0076, Армения, г. Ереван, Аксел Бакунец 4
+                        Адрес: 0076, Армения, г. Ереван, Аксел Бакунц 4
                     </li>
 
                     <li>

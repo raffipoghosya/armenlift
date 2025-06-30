@@ -354,7 +354,7 @@ function changeMainImage(thumbnail) {
             <ul>
                 <li>
                     <img src="/css/svg/location.svg" alt="Address" width="16" height="16" style="margin-right: 11px;">
-                    Address: 0076, Armenia, Yerevan, Aksel Bakunts 4, Area 51
+                    Address: 0076, Armenia, Yerevan, Aksel Bakunts 4
                 </li>
 
                 <li>

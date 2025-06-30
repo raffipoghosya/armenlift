@@ -228,7 +228,7 @@
                     <img src="{{ asset('css/svg/lalala.svg') }}" width="184" height="50" alt="ԱՇԽԱՏԱՆՔՆԵՐ" />
                 </a>
                 <a href="/#kap">
-                    <img src="{{ asset('css/svg/jobs.svg') }}" width="160" height="50" alt="Ապրանքներ" />
+                    <img src="{{ asset('css/svg/jobs11.svg') }}" width="160" height="50" alt="Ապրանքներ" />
                 </a>
                 <a href="/#kap">
                     <img src="{{ asset('css/svg/kap1.svg') }}" width="112" height="50" alt="ԿԱՊ" />
@@ -355,7 +355,7 @@ function changeMainImage(thumbnail) {
                 <ul>
                     <li>
                         <img src="/css/svg/location.svg" alt="Հասցե" width="16" height="16" style="margin-right: 11px;">
-                        Հասցե՝ 0076, ՀՀ, ք․Երևան, Ակսել Բակունց 4, 51 տարածք
+                        Հասցե՝ 0076, ՀՀ, ք․Երևան, Ակսել Բակունց 4
                     </li>
 
                     <li>
