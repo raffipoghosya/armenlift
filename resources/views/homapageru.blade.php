@@ -180,14 +180,23 @@
     @endif
 
 
-    <script>
+    <div class="scroll-buttons">
+    <button id="scroll-left" class="scroll-btn">
+        <img src="{{ asset('css/svg/left.svg') }}" alt="Ձախ">
+    </button>
+    <button id="scroll-right" class="scroll-btn">
+        <img src="{{ asset('css/svg/left.svg') }}" style="transform: rotate(180deg);" alt="Աջ">
+    </button>
+</div>
+
+<script>
     const container = document.getElementById('services-cards');
     const scrollLeftBtn = document.getElementById('scroll-left');
     const scrollRightBtn = document.getElementById('scroll-right');
 
     let autoScrollDirection = 1; // 1 = աջ, -1 = ձախ
-    let autoScrollSpeed = 3;
-    let fastScrollSpeed = 50;
+    let autoScrollSpeed = 1.5;
+    let fastScrollSpeed = 20;
     let scrollInterval;
     let isFastScrolling = false;
 
@@ -235,7 +244,7 @@
             isFastScrolling = false;
             autoScrollDirection = direction;
             startAutoScroll();
-        }, 2500);
+        }, 600);
     }
 
     // Սեղմելիս ավելի արագ թեքվել
