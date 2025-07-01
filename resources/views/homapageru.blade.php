@@ -181,44 +181,70 @@
 
 
     <script>
-        const container = document.getElementById('services-cards');
-        const scrollLeftBtn = document.getElementById('scroll-left');
-        const scrollRightBtn = document.getElementById('scroll-right');
+    const container = document.getElementById('services-cards');
+    const scrollLeftBtn = document.getElementById('scroll-left');
+    const scrollRightBtn = document.getElementById('scroll-right');
 
-        let scrollDirection = 0; // Ոչ մի ուղղություն նախնական
-        let scrollSpeed = 8;
-        let maxSpeed = 25;
-        let scrollInterval;
-        let smoothStep = 3;
+    let autoScrollDirection = 1; // 1 = աջ, -1 = ձախ
+    let autoScrollSpeed = 3;
+    let fastScrollSpeed = 50;
+    let scrollInterval;
+    let isFastScrolling = false;
 
-        function scrollStart(newDirection) {
-            // Եթե ուղղությունը նույնն է, արագացնենք
-            if (scrollDirection === newDirection) {
-                scrollSpeed = Math.min(scrollSpeed + smoothStep, maxSpeed);
-            } else {
-                scrollDirection = newDirection;
-                scrollSpeed = 8; // Վերադառնանք սկսնակ արագությանը
+    function startAutoScroll() {
+        scrollInterval = setInterval(() => {
+            container.scrollLeft += autoScrollDirection * autoScrollSpeed;
+
+            const maxScroll = container.scrollWidth - container.clientWidth;
+            const nearRight = container.scrollLeft >= (maxScroll - 2);
+            const nearLeft = container.scrollLeft <= 2;
+
+            if (nearRight) {
+                autoScrollDirection = -1;
+            } else if (nearLeft) {
+                autoScrollDirection = 1;
             }
+        }, 16);
+    }
 
-            clearInterval(scrollInterval);
-            scrollInterval = setInterval(() => {
-                container.scrollLeft += scrollDirection * scrollSpeed;
-            }, 16);
-        }
+    function stopAutoScroll() {
+        clearInterval(scrollInterval);
+    }
 
-        function scrollStop() {
-            clearInterval(scrollInterval);
-            scrollSpeed = 8; // Վերադառնում է սկսնակ արագությանը
-            scrollDirection = 0;
-        }
+    function temporarilyFastScroll(direction) {
+        if (isFastScrolling) return;
 
-        scrollLeftBtn.addEventListener('mousedown', () => scrollStart(-1));
-        scrollRightBtn.addEventListener('mousedown', () => scrollStart(1));
-        scrollLeftBtn.addEventListener('mouseup', scrollStop);
-        scrollRightBtn.addEventListener('mouseup', scrollStop);
-        scrollLeftBtn.addEventListener('mouseleave', scrollStop);
-        scrollRightBtn.addEventListener('mouseleave', scrollStop);
-    </script>
+        isFastScrolling = true;
+        stopAutoScroll();
+
+        const fastInterval = setInterval(() => {
+            container.scrollLeft += direction * fastScrollSpeed;
+
+            const maxScroll = container.scrollWidth - container.clientWidth;
+            if (container.scrollLeft >= maxScroll) {
+                container.scrollLeft = maxScroll;
+                direction = -1;
+            } else if (container.scrollLeft <= 0) {
+                container.scrollLeft = 0;
+                direction = 1;
+            }
+        }, 16);
+
+        setTimeout(() => {
+            clearInterval(fastInterval);
+            isFastScrolling = false;
+            autoScrollDirection = direction;
+            startAutoScroll();
+        }, 2500);
+    }
+
+    // Սեղմելիս ավելի արագ թեքվել
+    scrollLeftBtn.addEventListener('mousedown', () => temporarilyFastScroll(-1));
+    scrollRightBtn.addEventListener('mousedown', () => temporarilyFastScroll(1));
+
+    // Սկսել ավտոմատ շարժում
+    startAutoScroll();
+</script>
 
 
 
@@ -259,7 +285,7 @@
 
                 .job-filter-buttons {
                     display: flex;
-                    gap: 5px;
+                    gap: 10px;
                     margin-left: -4px;
                     margin-bottom: 25px;
                 }
@@ -275,29 +301,56 @@
                     opacity: 0.85;
                 }
             </style>
+            <style>
+                .job-filter-svg {
+                    height: 40px;
+                    cursor: pointer;
+                    transition: transform 0.2s, box-shadow 0.2s;
+                    border-radius: 5px;
+                }
+
+                .job-filter-svg:hover {
+                    transform: scale(1.05);
+                    opacity: 0.85;
+                }
+
+                .job-filter-svg.active {
+                    box-shadow: 0 0 0 3px #D9EAF2;
+                    background-color: rgba(217, 234, 242, 0.1);
+                    transform: scale(1.1);
+                }
+            </style>
+
             <script>
                 let currentFilter = 'all';
 
                 function filterJobs(type) {
                     const items = document.querySelectorAll('.job-item');
+                    const buttons = document.querySelectorAll('.job-filter-svg');
 
                     // Եթե նույն filter-ի վրա երկրորդ անգամ սեղմել են՝ վերականգնում ենք բոլորը
                     if (currentFilter === type) {
                         currentFilter = 'all';
-                        items.forEach(item => {
-                            item.style.display = 'block';
-                        });
+                        items.forEach(item => item.style.display = 'block');
+                        buttons.forEach(btn => btn.classList.remove('active'));
                         return;
                     }
 
-                    // Սովորական ֆիլտրման ընթացք
                     currentFilter = type;
+
+                    // Ֆիլտրում
                     items.forEach(item => {
                         const jobType = item.getAttribute('data-type');
-                        if (type === 'all' || jobType === type) {
-                            item.style.display = 'block';
+                        item.style.display = (jobType === type) ? 'block' : 'none';
+                    });
+
+                    // Ակտիվ կոճակը ցույց տալու համար
+                    buttons.forEach(btn => {
+                        const alt = btn.getAttribute('alt');
+                        if ((type === 'public' && alt.includes('Հասարակական')) || (type === 'residential' && alt.includes('Բնակելի'))) {
+                            btn.classList.add('active');
                         } else {
-                            item.style.display = 'none';
+                            btn.classList.remove('active');
                         }
                     });
                 }
@@ -305,7 +358,7 @@
             <div class="scroll-wrapper">
                 <div class="jobs-gallery">
                     @foreach ($ruJobs as $job)
-                    <div class="job-item" data-type="{{ $job->type }}">
+                        <div class="job-item" data-type="{{ $job->type }}">
                             <a href="{{ route('jobs.ru', $job->id) }}">
                                 <img src="{{ asset('storage/' . $job->main_image) }}" alt="{{ $job->title }}" />
                             </a>
@@ -413,8 +466,8 @@
         </div>
     </section>
 
-<!-- Modal -->
-<div id="imageModal" class="modal-overlay" onclick="closeModal()">
+    <!-- Modal -->
+    <div id="imageModal" class="modal-overlay" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation();">
             <img src="{{ asset('css/images/modal.png') }}" alt="Լիցենզիայի Նկար" />
             <!-- <span class="close-btn" onclick="closeModal()">×</span> -->
