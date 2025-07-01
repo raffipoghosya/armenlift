@@ -182,14 +182,6 @@ $enServices = $services->filter(fn($s) => $s->show_on_en);
     </section>
 @endif
 
-<div class="scroll-buttons">
-    <button id="scroll-left" class="scroll-btn">
-        <img src="{{ asset('css/svg/left.svg') }}" alt="Ձախ">
-    </button>
-    <button id="scroll-right" class="scroll-btn">
-        <img src="{{ asset('css/svg/left.svg') }}" style="transform: rotate(180deg);" alt="Աջ">
-    </button>
-</div>
 
 <script>
     const container = document.getElementById('services-cards');
