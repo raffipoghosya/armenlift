@@ -109,6 +109,24 @@
             <div class="about-text">
                 <h2 style="color: #D9EAF2; font-family: 'Montserrat Armenian';">О НАС</h2>
                 <div class="decor-line"></div>
+                <div class="about-license">
+                    <img src="{{ asset('css/svg/rusli.svg') }}" alt="Լիցենզիա" onclick="openModal()"
+                        style="cursor: pointer;" />
+                </div>
+
+                <style>
+                    .about-license {
+                        margin: 20px 0;
+                        text-align: left;
+                        /* փոխիր եթե ուզում ես center */
+                    }
+
+                    .about-license img {
+                        height: 50px;
+                        /* կամ width / կամ auto */
+                        max-width: 100%;
+                    }
+                </style>
                 <p style="font-family: 'Montserrat Armenian'; font-weight: 300; font-size: 17px;">
                     {!! nl2br(e($about->description)) !!}
                 </p>
@@ -214,11 +232,80 @@
         <section id="job" class="jobs-section">
             <h2 style="color:#D9EAF2;">ПОРТФОЛИО</h2>
             <div class="jobs-title-line"></div>
+            <div class="job-header-bar"></div>
+            <div class="job-filter-buttons">
+                <img src="{{ asset('css/svg/luluru.svg') }}" alt="Հասարակական" class="job-filter-svg"
+                    onclick="filterJobs('public')" />
+                <img src="{{ asset('css/svg/luluru1.svg') }}" alt="Բնակելի" class="job-filter-svg"
+                    onclick="filterJobs('residential')" />
+            </div>
+            </div>
 
+            <style>
+                .job-header-bar {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    margin-bottom: 20px;
+                    gap: 20px;
+                }
+
+                .job-section-title {
+                    color: #D9EAF2;
+                    font-family: 'Montserrat Armenian bold';
+                    font-size: 38px;
+                    margin: 0;
+                }
+
+                .job-filter-buttons {
+                    display: flex;
+                    gap: 5px;
+                    margin-left: -4px;
+                    margin-bottom: 25px;
+                }
+
+                .job-filter-svg {
+                    height: 40px;
+                    cursor: pointer;
+                    transition: transform 0.2s;
+                }
+
+                .job-filter-svg:hover {
+                    transform: scale(1.05);
+                    opacity: 0.85;
+                }
+            </style>
+            <script>
+                let currentFilter = 'all';
+
+                function filterJobs(type) {
+                    const items = document.querySelectorAll('.job-item');
+
+                    // Եթե նույն filter-ի վրա երկրորդ անգամ սեղմել են՝ վերականգնում ենք բոլորը
+                    if (currentFilter === type) {
+                        currentFilter = 'all';
+                        items.forEach(item => {
+                            item.style.display = 'block';
+                        });
+                        return;
+                    }
+
+                    // Սովորական ֆիլտրման ընթացք
+                    currentFilter = type;
+                    items.forEach(item => {
+                        const jobType = item.getAttribute('data-type');
+                        if (type === 'all' || jobType === type) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                }
+            </script>
             <div class="scroll-wrapper">
                 <div class="jobs-gallery">
                     @foreach ($ruJobs as $job)
-                        <div class="job-item">
+                    <div class="job-item" data-type="{{ $job->type }}">
                             <a href="{{ route('jobs.ru', $job->id) }}">
                                 <img src="{{ asset('storage/' . $job->main_image) }}" alt="{{ $job->title }}" />
                             </a>
@@ -326,6 +413,71 @@
         </div>
     </section>
 
+<!-- Modal -->
+<div id="imageModal" class="modal-overlay" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation();">
+            <img src="{{ asset('css/images/modal.png') }}" alt="Լիցենզիայի Նկար" />
+            <!-- <span class="close-btn" onclick="closeModal()">×</span> -->
+        </div>
+    </div>
+    <style>
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            position: relative;
+            /* background-color: #1d2a33; */
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 8px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -14px;
+            right: -14px;
+            background: #fff;
+            color: #000;
+            border-radius: 50%;
+            font-size: 24px;
+            width: 32px;
+            height: 32px;
+            text-align: center;
+            line-height: 32px;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+    </style>
+    <script>
+        function openModal() {
+            document.getElementById('imageModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').classList.remove('active');
+        }
+    </script>
 
 
 </body>

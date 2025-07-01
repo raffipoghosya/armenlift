@@ -20,6 +20,7 @@ class Job extends Model
         'show_on_hy',    // Armenian display flag
         'show_on_en',    // English display flag
         'show_on_ru',    // Russian display flag
+        'type',
     ];
 
     protected $casts = [

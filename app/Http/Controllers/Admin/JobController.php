@@ -30,6 +30,7 @@ class JobController extends Controller
             'youtube_link' => 'nullable|url',
             'address' => 'nullable|string|max:255',
             'locale' => 'required|in:hy,en,ru',
+            'type' => 'required|in:public,residential',
         ]);
 
         $mainImagePath = $request->file('main_image')->store('jobs', 'public');
@@ -49,6 +50,7 @@ class JobController extends Controller
         $job->youtube_link = $validated['youtube_link'] ?? null;
         $job->address = $validated['address'] ?? null;
         $job->locale = $validated['locale'];
+        $job->type = $validated['type'];
 
         // ✅ Auto-set show_on_* flag based on locale
         $job->show_on_hy = $job->locale === 'hy';
@@ -78,6 +80,7 @@ class JobController extends Controller
             'youtube_link' => 'nullable|url',
             'address' => 'nullable|string|max:255',
             'locale' => 'required|in:hy,en,ru',
+            'type' => 'required|in:public,residential',
         ]);
 
         if ($request->hasFile('main_image')) {
@@ -103,6 +106,7 @@ class JobController extends Controller
         $job->youtube_link = $validated['youtube_link'] ?? null;
         $job->address = $validated['address'] ?? null;
         $job->locale = $validated['locale'];
+        $job->type = $validated['type'];
 
         // ✅ Auto-set show_on_* flag based on locale
         $job->show_on_hy = $job->locale === 'hy';
