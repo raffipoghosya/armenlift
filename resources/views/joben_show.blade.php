@@ -303,7 +303,7 @@
                     </div>
                     <div class="job-right">
                         <h3 class="breakable-title">
-                            <a href="{{ route('jobs.hy', $item->id) }}" style="color: #D9EAF2;">
+                            <a style="text-decoration: none; color: #cdd9e1;" href="{{ route('jobs.hy', $item->id) }}" style="color: #D9EAF2;">
                                 {{ $item->title }}
                             </a>
                         </h3>

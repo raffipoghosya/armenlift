@@ -204,7 +204,7 @@
     }
 
     startAutoScroll();
-</script>
+    </script>
 
 
 
