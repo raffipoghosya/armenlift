@@ -58,7 +58,7 @@ body {
     align-items: flex-start;
     background: rgba(22, 32, 42, 1);
     color: white;
-    padding: 20px 10%;
+    padding: 5px 10%;
     position: relative;
     flex-wrap: wrap;
   }
