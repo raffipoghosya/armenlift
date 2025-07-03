@@ -142,8 +142,8 @@
         </section>
     @endif
     @php
-        // Ֆիլտրում ենք միայն those ծառայությունները, որոնց show_on_hy=true
-        $hyServices = $services->filter(fn($s) => $s->show_on_hy);
+// Ֆիլտրում ենք միայն those ծառայությունները, որոնց show_on_hy=true
+$hyServices = $services->filter(fn($s) => $s->show_on_hy);
     @endphp
 
     {{-- Services Section --}}
@@ -167,82 +167,42 @@
                 @endforeach
             </div>
 
-            <div class="scroll-buttons">
-    <button id="scroll-left" class="scroll-btn">
-        <img src="{{ asset('css/svg/left.svg') }}" alt="Ձախ">
-    </button>
-    <button id="scroll-right" class="scroll-btn">
-        <img src="{{ asset('css/svg/left.svg') }}" style="transform: rotate(180deg);" alt="Աջ">
-    </button>
-</div>
+            <!-- <div class="scroll-buttons">
+                <button id="scroll-left" class="scroll-btn">
+                    <img src="{{ asset('css/svg/left.svg') }}" alt="Ձախ">
+                </button>
+                <button id="scroll-right" class="scroll-btn">
+                    <img src="{{ asset('css/svg/left.svg') }}" style="transform: rotate(180deg);" alt="Աջ">
+                </button>
+            </div> -->
         </section>
     @endif
 
 
 
-<script>
+    <script>
     const container = document.getElementById('services-cards');
-    const scrollLeftBtn = document.getElementById('scroll-left');
-    const scrollRightBtn = document.getElementById('scroll-right');
 
     let autoScrollDirection = 1; // 1 = աջ, -1 = ձախ
-    let autoScrollSpeed = 1.5;
-    let fastScrollSpeed = 20;
+    const autoScrollSpeed = 1.5;
     let scrollInterval;
-    let isFastScrolling = false;
 
     function startAutoScroll() {
         scrollInterval = setInterval(() => {
             container.scrollLeft += autoScrollDirection * autoScrollSpeed;
 
             const maxScroll = container.scrollWidth - container.clientWidth;
-            const nearRight = container.scrollLeft >= (maxScroll - 2);
-            const nearLeft = container.scrollLeft <= 2;
+            const atRightEnd = container.scrollLeft >= (maxScroll - 2);
+            const atLeftEnd = container.scrollLeft <= 2;
 
-            if (nearRight) {
-                autoScrollDirection = -1;
-            } else if (nearLeft) {
-                autoScrollDirection = 1;
+            if (atRightEnd) {
+                autoScrollDirection = -1; // Թեքել ձախ
+            } else if (atLeftEnd) {
+                autoScrollDirection = 1; // Թեքել աջ
             }
-        }, 16);
+        }, 16); // մոտավորապես 60fps
     }
 
-    function stopAutoScroll() {
-        clearInterval(scrollInterval);
-    }
-
-    function temporarilyFastScroll(direction) {
-        if (isFastScrolling) return;
-
-        isFastScrolling = true;
-        stopAutoScroll();
-
-        const fastInterval = setInterval(() => {
-            container.scrollLeft += direction * fastScrollSpeed;
-
-            const maxScroll = container.scrollWidth - container.clientWidth;
-            if (container.scrollLeft >= maxScroll) {
-                container.scrollLeft = maxScroll;
-                direction = -1;
-            } else if (container.scrollLeft <= 0) {
-                container.scrollLeft = 0;
-                direction = 1;
-            }
-        }, 16);
-
-        setTimeout(() => {
-            clearInterval(fastInterval);
-            isFastScrolling = false;
-            autoScrollDirection = direction;
-            startAutoScroll();
-        }, 600);
-    }
-
-    // Սեղմելիս ավելի արագ թեքվել
-    scrollLeftBtn.addEventListener('mousedown', () => temporarilyFastScroll(-1));
-    scrollRightBtn.addEventListener('mousedown', () => temporarilyFastScroll(1));
-
-    // Սկսել ավտոմատ շարժում
     startAutoScroll();
 </script>
 
@@ -250,9 +210,10 @@
 
 
 
+
     @php
-        // Ֆիլտրում ենք միայն those աշխատանքները, որոնց show_on_hy=true
-        $hyJobs = $jobs->filter(fn($j) => $j->show_on_hy);
+// Ֆիլտրում ենք միայն those աշխատանքները, որոնց show_on_hy=true
+$hyJobs = $jobs->filter(fn($j) => $j->show_on_hy);
 
     @endphp
 
