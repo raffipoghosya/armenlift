@@ -33,8 +33,11 @@
 
             <div class="mobile-menu-toggle" onclick="toggleMenu()">
                 <div class="bar"></div>
+
                 <div class="bar"></div>
+                
                 <div class="bar"></div>
+
             </div>
 
             <nav class="menu desktop-menu desktop-only">
