@@ -39,18 +39,13 @@ html, body {
     background-color: rgba(22, 32, 42, 1); /* Բոլոր չլցված տարածքներն այս գույնն են ունենում */
     font-family: 'Montserrat Armenian';
   }
-  
   body {
     font-family: 'Montserrat';
     font-weight: 300;
   }
-  
-
 body {
     overflow-x: hidden;
-    
   }
-  
 .about-section {
     display: flex;
     justify-content: space-between;
@@ -61,21 +56,10 @@ body {
     position: relative;
     flex-wrap: wrap;
   }
-  
-
   .about-text h2 {
     font-size:64px;
     margin-bottom: 10px;
   }
-  
-  /* .decor-line {
-    height: 2px;
-    width: 100%;
-    margin-bottom: 20px;
-    border: none;
-    background: linear-gradient(90deg, #609AC4 0%, #16202A 100%);
-    position: relative;
-  } */
   .decor-line {
     height: 2px;
     width: calc(100% - 28%); /* որ երկարությունը էլի մեծացնենք */
@@ -88,11 +72,7 @@ body {
   .decor-line p{
     font-family: 'Montserrat';
     font-weight: 300;
-
   }
-  
-
-  
   /* ԱՅՍ ՄԱՍՆ է նոր */
   .about-image {
     position: relative;
@@ -101,16 +81,12 @@ body {
     justify-content: center;
     align-items: center;
   }
-  
   .about-image img {
     position: absolute;
     right: -150px;
-    /* top: 12svh; */
     z-index: 10;
     max-width: none;
     height: auto;
-    /* height:50%; 
-    width: 50%; */
     height: 570px;
     width: 960px;
   }

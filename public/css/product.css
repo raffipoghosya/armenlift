@@ -51,21 +51,15 @@
         background: linear-gradient(to right, #609AC4 0%, #294f75 60%, rgba(22, 32, 42, 0) 70%);
         position: relative;
     }
-  
-
-      
-      .product-grid::-webkit-scrollbar {
+   .product-grid::-webkit-scrollbar {
         display: none; /* Chrome, Safari */
       }
-      
-      .product-card {
+   .product-card {
         flex: 0 0 auto;
         scroll-snap-align: start;
         width: 378px;
         height: 681px;
       }
-      
-  
   .product-card {
     width: 378px;
     height: 681px;
@@ -151,10 +145,6 @@
     justify-content: center;
   }
   
-
-
-
-
   .product-grid {
     display: flex;
     overflow-x: auto;
@@ -179,4 +169,8 @@
     border: 2px solid transparent;
     background-clip: content-box;
   }
-  
+  @media (max-width: 550px) {
+    .product-section {
+      padding: 4rem 1rem;
+    }
+  }

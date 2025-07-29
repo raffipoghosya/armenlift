@@ -211,7 +211,6 @@
 }
 
 .job-item {
-  /* background-color: #1e2a36; */
   border-radius: 8px;
   padding: 3px;
   color: white;
@@ -241,15 +240,3 @@
   gap: 6px;
   margin-top: 8px;
 }
-
-
-
-
-
-
-
-
-
-
-
-

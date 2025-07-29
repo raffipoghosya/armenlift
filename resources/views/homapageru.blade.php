@@ -19,7 +19,6 @@
 
 <body>
     <div class="background" id="backgroundSlider">
-        <!-- Սլայդ սլաքները -->
         <div class="slider-button slider-left" onclick="prevSlide()">
             <img src="/css/svg/arrow-left.svg" alt="Նախորդ">
         </div>
@@ -27,30 +26,39 @@
             <img src="/css/svg/arrow-left.svg" style="transform: rotate(180deg);" alt="Հաջորդ">
         </div>
         <header class="top-bar">
-            <div class="logo"><a href="#homepage"> <img src="{{ asset('css/images/logo.png') }}" alt="Ներսի նկար"
-                        class="inner-image" /></a>
+            <div class="logo">
+                <a href="#homepage">
+                    <img src="{{ asset('css/images/logo.png') }}" alt="Ներսի նկար" class="inner-image" />
+                </a>
             </div>
-            <nav class="menu">
+
+            <div class="mobile-menu-toggle" onclick="toggleMenu()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+
+            <nav class="menu desktop-menu desktop-only">
                 <a href="#about">
-                    <img src="{{ asset('css/svg/rusaboute.svg') }}" width="164" height="50" alt="ՄԵՐ ՄԱՍԻՆ" />
+                    <img src="{{ asset('css/svg/rusaboute.svg') }}" width="164" height="50" alt="О НАС" />
                 </a>
                 <a href="#services">
-                    <img src="{{ asset('css/svg/russervices1.svg') }}" width="214" height="50" alt="ԾԱՌԱՅՈՒԹՅՈՒՆՆԵՐ" />
+                    <img src="{{ asset('css/svg/russervices1.svg') }}" width="214" height="50" alt="УСЛУГИ" />
                 </a>
                 <a href="#job">
-                    <img src="{{ asset('css/svg/rusjobs.svg') }}" width="160" height="50" alt="Ապրանքներ" />
+                    <img src="{{ asset('css/svg/rusjobs.svg') }}" width="160" height="50" alt="ПОРТФОЛИО" />
                 </a>
                 <a href="#products">
-                    <img src="{{ asset('css/svg/rusjob1.svg') }}" width="164" height="50" alt="ԱՇԽԱՏԱՆՔՆԵՐ" />
+                    <img src="{{ asset('css/svg/rusjob1.svg') }}" width="164" height="50" alt="ПРОДУКЦИЯ" />
                 </a>
 
                 <a href="#kap">
-                    <img src="{{ asset('css/svg/ruskap1.svg') }}" width="152" height="50" alt="ԿԱՊ" />
+                    <img src="{{ asset('css/svg/ruskap1.svg') }}" width="152" height="50" alt="КОНТАКТЫ" />
                 </a>
             </nav>
-            <div class="languages">
+            <div class="languages desktop-languages desktop-only">
                 <a href="{{ route('homepage.hy') }}"><button>ՀԱՅ</button></a>
-                <a href="{{ route('homepage.ru') }}"><button style=" background:  #2E4A5E;">РУС</button></a>
+                <a href="{{ route('homepage.ru') }}"><button style=" background:  #2E4A5E;">РУ</button></a>
                 <a href="{{ route('homepage.en') }}"><button>ENG</button></a>
 
                 <div class="languagess">
@@ -67,9 +75,41 @@
             </div>
         </header>
 
+        <div class="mobile-drawer" id="mobileDrawer">
+            <div class="drawer-header">
+                <a href="#homepage">
+                    <!-- <img src="{{ asset('css/images/logo.png') }}" alt="Logo" class="drawer-logo" /> -->
+                </a>
+            </div>
+
+            <nav class="drawer-menu">
+                <a href="#about"><img src="{{ asset('css/svg/rusaboute.svg') }}" alt="О НАС" /></a>
+                <a href="#services"><img src="{{ asset('css/svg/russervices1.svg') }}" alt="УСЛУГИ" /></a>
+                <a href="#job"><img src="{{ asset('css/svg/rusjobs.svg') }}" alt="ПОРТФОЛИО" /></a>
+                <a href="#products"><img src="{{ asset('css/svg/rusjob1.svg') }}" alt="ПРОДУКЦИЯ" /></a>
+
+                <a href="#kap"><img src="{{ asset('css/svg/ruskap1.svg') }}" alt="КОНТАКТЫ" /></a>
+            </nav>
+
+            <div class="drawer-languages">
+                <a href="{{ route('homepage.hy') }}"><button>ՀԱՅ</button></a>
+                <a href="{{ route('homepage.ru') }}"><button>РУ</button></a>
+                <a href="{{ route('homepage.en') }}"><button>ENG</button></a>
+            </div>
+
+            <div class="drawer-socials">
+                <a href="viber://add?number=+37491430512" target="_blank">
+                    <img src="{{ asset('css/svg/viber.svg') }}" width="23" alt="Viber" />
+                </a>
+                <a href="https://wa.me/37491430512" target="_blank">
+                    <img src="{{ asset('css/svg/whatsapp.svg') }}" width="23" alt="WhatsApp" />
+                </a>
+            </div>
+        </div>
+
+
         <main id="homepage" class="content">
-            <!-- <img src="{{ asset('css/images/firtz2.png') }}" alt="Ներսի նկար" class="inner-image" /> -->
-        </main>
+            </main>
 
         <script>
             const images = [
@@ -95,14 +135,159 @@
                 updateBackground();
             }
 
-            // Ավտոմատ փոխում ամեն 10 վայրկյանը մեկ
-            //   setInterval(nextSlide, 10000);
-
             // Սկզբնական պատկեր
             updateBackground();
+
+            // Mobile menu toggle script
+            function toggleMenu() {
+                document.getElementById('mobileDrawer').classList.toggle('open');
+            }
+
+            document.addEventListener('click', function (e) {
+                const drawer = document.getElementById('mobileDrawer');
+                const toggle = document.querySelector('.mobile-menu-toggle');
+
+                // Check if the click is outside the drawer and outside the toggle button
+                if (drawer && toggle && !drawer.contains(e.target) && !toggle.contains(e.target)) {
+                    drawer.classList.remove('open');
+                }
+            });
         </script>
 
     </div>
+
+    <style>
+        /* Mobile Menu Specific Styles (copied from previous solution) */
+        /* Hamburger button */
+        .mobile-menu-toggle {
+            display: none; /* Hidden by default for desktop */
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-menu-toggle .bar {
+            width: 24px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+        }
+
+        /* Default: Desktop view */
+        .desktop-menu,
+        .desktop-languages {
+            display: flex;
+        }
+
+        .mobile-menu-toggle,
+        .mobile-drawer {
+            display: none;
+        }
+
+        /* Hide the main logo when the mobile drawer is open */
+        .mobile-drawer.open + .top-bar .logo {
+            display: none;
+        }
+
+        /* Ensure the drawer logo is only visible when the drawer is open */
+        .drawer-logo {
+            display: none;
+            /* Hidden by default */
+        }
+
+        .mobile-drawer.open .drawer-logo {
+            display: block;
+            /* Visible when drawer is open */
+        }
+
+
+        /* Mobile breakpoints */
+        @media (max-width: 980px) {
+
+            .desktop-menu,
+            .desktop-languages {
+                display: none !important;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+                position: fixed;
+                top: 70px;
+                right: 20px;
+                z-index: 1001;
+                flex-direction: column;
+                gap: 5px;
+                cursor: pointer;
+            }
+
+            .mobile-menu-toggle .bar {
+                width: 26px;
+                height: 3px;
+                background: white;
+                border-radius: 2px;
+            }
+
+            .mobile-drawer {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                height: 100%;
+                width: 80%;
+                max-width: 320px;
+                background-color: #2E4A5E;
+                z-index: 999;
+                padding: 20px;
+                box-shadow: 4px 0 15px rgba(0, 0, 0, 0.3);
+                transition: left 0.3s ease;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .mobile-drawer.open {
+                left: 0;
+            }
+
+            .drawer-header {
+                text-align: center;
+                margin-bottom: 10px;
+                margin-top: 100px; /* Added for spacing at the top of the drawer */
+            }
+
+            .drawer-menu a img {
+                height: 42px;
+                margin: 6px 0;
+            }
+
+            .drawer-languages {
+                display: flex;
+                gap: 10px;
+                margin-top: 20px;
+                flex-wrap: wrap;
+            }
+
+            .drawer-languages button {
+                padding: 6px 12px;
+                background-color: white;
+                color: #2E4A5E;
+                border: none;
+                border-radius: 6px;
+                font-weight: 600;
+            }
+
+            .drawer-socials {
+                display: flex;
+                gap: 12px;
+                margin-top: 10px;
+            }
+
+            .drawer-socials img {
+                width: 24px;
+                height: 24px;
+            }
+        }
+    </style>
 
     @if ($about && $about->show_on_ru)
         <section id="about" class="about-section">
@@ -161,22 +346,13 @@
                             <div class="card-inner-line"></div>
                             <p>{{ $service->title }}</p>
                             @if ($service->description)
-                                <!-- <p>{{ $service->description }}</p> -->
-                            @endif
+                                @endif
                         </div>
                     </div>
                 @endforeach
             </div>
 
-            <!-- <div class="scroll-buttons">
-                <button id="scroll-left" class="scroll-btn">
-                    <img src="{{ asset('css/svg/left.svg') }}" alt="Влево">
-                </button>
-                <button id="scroll-right" class="scroll-btn">
-                    <img src="{{ asset('css/svg/left.svg') }}" style="transform: rotate(180deg);" alt="Вправо">
-                </button>
-            </div> -->
-        </section>
+            </section>
     @endif
 
 
@@ -426,12 +602,10 @@
         </div>
     </section>
 
-    <!-- Modal -->
     <div id="imageModal" class="modal-overlay" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation();">
             <img src="{{ asset('css/images/modal.png') }}" alt="Լիցենզիայի Նկար" />
-            <!-- <span class="close-btn" onclick="closeModal()">×</span> -->
-        </div>
+            </div>
     </div>
     <style>
         .modal-overlay {

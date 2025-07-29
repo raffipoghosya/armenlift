@@ -674,3 +674,149 @@ body {
 }
 
 
+
+
+
+
+
+
+/* ---------- RESPONSIVE DESIGN ---------- */
+
+@media (max-width: 1200px) {
+  .services-cards {
+    padding-left: 10%;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 992px) {
+  .about-section {
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 5%;
+    height: auto;
+  }
+
+  .about-image img {
+    position: static;
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+  }
+
+  .product-section {
+    padding: 2rem;
+  }
+
+  .product-grid {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .top-bar {
+    /* flex-direction: column; */
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .menu {
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+  }
+
+  .languages {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .about-section,
+  .services-section,
+  .jobs-section,
+  .product-section,
+  .contact-section {
+    padding: 30px 5%;
+  }
+
+  .job-filter-buttons {
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+  }
+
+  .jobs-gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .service-card {
+    width: 200px;
+    height: auto;
+  }
+
+  .product-card {
+    width: 100%;
+    height: auto;
+  }
+
+  .product-card img {
+    height: auto;
+  }
+
+  .product-grid {
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  .contact-container {
+    flex-direction: column;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+
+  .slider-button {
+    width: 40px;
+  }
+
+  .slider-button img {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 28px !important;
+  }
+
+  .job-item {
+    width: 100%;
+  }
+
+  .job-item img {
+    width: 100%;
+    height: auto;
+  }
+
+  .product-card .pdf-button {
+    font-size: 12px;
+    padding: 0.4rem 1rem;
+  }
+
+  .product-card .header::after {
+    width: 100%;
+  }
+
+  .contact-section h2 {
+    font-size: 24px;
+  }
+
+  .top-bar {
+    padding: 10px 5px;
+  }
+}
