@@ -213,6 +213,8 @@
                 gap: 20px;
             }
 
+            
+
             .mobile-drawer.open {
                 left: 0;
             }
