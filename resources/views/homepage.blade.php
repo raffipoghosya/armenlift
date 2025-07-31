@@ -1,610 +1,122 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    {{-- External Stylesheets --}}
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/about.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/services.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/job.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/kap.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/product.css') }}" />
-    <title>Document</title>
+
+    {{-- Google Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900&display=swap"
-        rel="stylesheet" />
-</head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900&display=swap" rel="stylesheet" />
 
-<body>
-    <div class="background" id="backgroundSlider">
-        <div class="slider-button slider-left" onclick="prevSlide()">
-            <img src="/css/svg/arrow-left.svg" alt="Նախորդ">
-        </div>
-        <div class="slider-button slider-right" onclick="nextSlide()">
-            <img src="/css/svg/arrow-left.svg" style="transform: rotate(180deg);" alt="Հաջորդ">
-        </div>
-        <header class="top-bar">
-            <div class="logo">
-                <a href="#homepage">
-                    <img src="{{ asset('css/images/logo.png') }}" alt="Ներսի նկար" class="inner-image" />
-                </a>
-            </div>
-
-            <div class="mobile-menu-toggle" onclick="toggleMenu()">
-                <div class="bar"></div>
-
-                <div class="bar"></div>
-
-                <div class="bar"></div>
-
-            </div>
-
-            <nav class="menu desktop-menu desktop-only">
-                <a href="#about"><img src="{{ asset('css/svg/aboute1.svg') }}" width="164" height="50"
-                        alt="ՄԵՐ ՄԱՍԻՆ" /></a>
-                <a href="#services"><img src="{{ asset('css/svg/services1.svg') }}" width="214" height="50"
-                        alt="ԾԱՌԱՅՈՒԹՅՈՒՆՆԵՐ" /></a>
-                <a href="#job"><img src="{{ asset('css/svg/job1.svg') }}" width="184" height="50"
-                        alt="ԱՇԽԱՏԱՆՔՆԵՐ" /></a>
-                <a href="#products"><img src="{{ asset('css/svg/jobs11.svg') }}" width="160" height="50"
-                        alt="Ապրանքներ" /></a>
-                <a href="#kap"><img src="{{ asset('css/svg/kap1.svg') }}" width="112" height="50" alt="ԿԱՊ" /></a>
-            </nav>
-
-            <div class="languages desktop-languages desktop-only">
-                <a href="{{ route('homepage.hy') }}"><button style="background: #2E4A5E;">ՀԱՅ</button></a>
-                <a href="{{ route('homepage.ru') }}"><button>РУ</button></a>
-                <a href="{{ route('homepage.en') }}"><button>ENG</button></a>
-
-                <div class="languagess">
-                    <a href="viber://add?number=+37491430512" target="_blank">
-                        <img src="{{ asset('css/svg/viber.svg') }}" width="23" alt="Viber" />
-                    </a>
-                    <a href="https://wa.me/37491430512" target="_blank">
-                        <img src="{{ asset('css/svg/whatsapp.svg') }}" width="23" alt="WhatsApp" />
-                    </a>
-                </div>
-            </div>
-        </header>
-
-        <div class="mobile-drawer" id="mobileDrawer">
-            <div class="drawer-header">
-                <a href="#homepage">
-                    <!-- <img src="{{ asset('css/images/logo.png') }}" alt="Լոգո" class="drawer-logo" /> -->
-                </a>
-            </div>
-
-            <nav class="drawer-menu">
-                <a href="#about"><img src="{{ asset('css/svg/aboute1.svg') }}" alt="ՄԵՐ ՄԱՍԻՆ" /></a>
-                <a href="#services"><img src="{{ asset('css/svg/services1.svg') }}" alt="ԾԱՌԱՅՈՒԹՅՈՒՆՆԵՐ" /></a>
-                <a href="#job"><img src="{{ asset('css/svg/job1.svg') }}" alt="ԱՇԽԱՏԱՆՔՆԵՐ" /></a>
-                <a href="#products"><img src="{{ asset('css/svg/jobs11.svg') }}" alt="Ապրանքներ" /></a>
-                <a href="#kap"><img src="{{ asset('css/svg/kap1.svg') }}" alt="ԿԱՊ" /></a>
-
-                <div class="drawer-languages">
-                    <a href="{{ route('homepage.hy') }}"><button>ՀԱՅ</button></a>
-                    <a href="{{ route('homepage.ru') }}"><button>РУ</button></a>
-                    <a href="{{ route('homepage.en') }}"><button>ENG</button></a>
-                </div>
-
-                <div class="drawer-socials">
-                    <a href="viber://add?number=+37491430512" target="_blank">
-                        <img src="{{ asset('css/svg/viber.svg') }}" width="23" alt="Viber" />
-                    </a>
-                    <a href="https://wa.me/37491430512" target="_blank">
-                        <img src="{{ asset('css/svg/whatsapp.svg') }}" width="23" alt="WhatsApp" />
-                    </a>
-                </div>
-            </nav>
-        </div>
-
-
-        <style>
-            .logo {
-                position: relative;
-                left: 20px;
-            }
-
-            /* Համբուրգեր կոճակ */
-            .mobile-menu-toggle {
-                display: none;
-                flex-direction: column;
-                gap: 4px;
-                cursor: pointer;
-                z-index: 1001;
-            }
-
-            .mobile-menu-toggle .bar {
-                width: 24px;
-                height: 3px;
-                background: white;
-                border-radius: 2px;
-            }
-
-            /* Լռելյայն՝ Desktop տեսք */
-            .desktop-menu,
-            .desktop-languages {
-                display: flex;
-            }
-
-            .mobile-menu-toggle,
-            .mobile-drawer {
-                display: none;
-            }
-
-            /* Hide the main logo when the mobile drawer is open */
-            .mobile-drawer.open+.top-bar .logo {
-                display: none;
-            }
-
-            /* Ensure the drawer logo is only visible when the drawer is open */
-            .drawer-logo {
-                display: none;
-                /* Hidden by default */
-            }
-
-            .mobile-drawer.open .drawer-logo {
-                display: block;
-                /* Visible when drawer is open */
-            }
-
-
-            /* Mobile breakpoints */
-            @media (max-width: 980px) {
-
-                .desktop-menu,
-                .desktop-languages {
-                    display: none !important;
-                }
-
-                .mobile-menu-toggle {
-                    display: flex;
-                    position: fixed;
-                    top: 70px;
-                    right: 20px;
-                    z-index: 1001;
-                    flex-direction: column;
-                    gap: 5px;
-                    cursor: pointer;
-                }
-
-                .mobile-menu-toggle .bar {
-                    width: 26px;
-                    height: 3px;
-                    background: white;
-                    border-radius: 2px;
-                }
-
-                .mobile-drawer {
-                    position: fixed;
-                    top: 0;
-                    left: -100%;
-                    height: 100%;
-                    width: 80%;
-                    max-width: 320px;
-                    background-color: #2E4A5E;
-                    z-index: 999;
-                    padding: 20px;
-                    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.3);
-                    transition: left 0.3s ease;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 20px;
-                }
-
-                .mobile-drawer.open {
-                    left: 0;
-
-                }
-
-                .drawer-header {
-                    text-align: center;
-                    margin-bottom: 10px;
-                    margin-top: 100px;
-                    /* This was added in your last request, keeping it */
-
-                }
-
-                .drawer-menu a img {
-                    height: 42px;
-                    margin: 6px 0;
-                }
-
-                .drawer-languages {
-                    display: flex;
-                    gap: 10px;
-                    margin-top: 20px;
-                    flex-wrap: wrap;
-                }
-
-                .drawer-languages button {
-                    padding: 6px 12px;
-                    background-color: white;
-                    color: #2E4A5E;
-                    border: none;
-                    border-radius: 6px;
-                    font-weight: 600;
-                }
-
-                .drawer-socials {
-                    display: flex;
-                    gap: 12px;
-                    margin-top: 10px;
-                }
-
-                .drawer-socials img {
-                    width: 24px;
-                    height: 24px;
-                }
-            }
-        </style>
-
-        <script>
-            function toggleMenu() {
-                document.getElementById('mobileDrawer').classList.toggle('open');
-            }
-
-            document.addEventListener('click', function (e) {
-                const drawer = document.getElementById('mobileDrawer');
-                const toggle = document.querySelector('.mobile-menu-toggle');
-
-                // Check if the click is outside the drawer and outside the toggle button
-                if (!drawer.contains(e.target) && !toggle.contains(e.target)) {
-                    drawer.classList.remove('open');
-                }
-            });
-        </script>
-
-
-        <main id="homepage" class="content">
-        </main>
-    </div>
-    <script>
-        // Սահմանում ենք նկարների 2 զանգված՝ մեծ և փոքր էկրանների համար
-        const desktopImages = [
-            '/css/images/hyb1.png',
-            '/css/images/hyb2.png',
-            '/css/images/hyb3.png'
-        ];
-
-        const mobileImages = [
-            '/css/images/hyb11.png',
-            '/css/images/hyb22.png',
-            '/css/images/hyb33.png'
-        ];
-
-        let currentIndex = 0;
-        const slider = document.getElementById('backgroundSlider');
-
-        // Ֆունկցիա, որը որոշում է, թե որ զանգվածն օգտագործել՝ կախված էկրանի լայնությունից
-        function getCurrentImageArray() {
-            if (window.innerWidth < 900) {
-                return mobileImages;
-            } else {
-                return desktopImages;
-            }
-        }
-
-        // Թարմացված ֆունկցիա, որը սահմանում է ֆոնի նկարը
-        function updateBackground() {
-            const images = getCurrentImageArray(); // Ստանում ենք ընթացիկ զանգվածը
-            slider.style.backgroundImage = `url('${images[currentIndex]}')`;
-        }
-
-        // Սլայդը փոխելու ֆունկցիաներ
-        function nextSlide() {
-            const images = getCurrentImageArray();
-            currentIndex = (currentIndex + 1) % images.length;
-            updateBackground();
-        }
-
-        function prevSlide() {
-            const images = getCurrentImageArray();
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            updateBackground();
-        }
-
-        // Ավելացնում ենք լսող (event listener)՝ էկրանի չափը փոխելու դեպքում ֆոնը թարմացնելու համար
-        window.addEventListener('resize', updateBackground);
-
-        // Սկզբնական պատկերի սահմանում էջը բացելիս
-        updateBackground();
-    </script>
-
-
-
-
-    @if ($about && $about->show_on_hy)
-        <section id="about" class="about-section">
-            <div class="about-text">
-                <h2 style="color: #D9EAF2; font-family: 'Montserrat Armenian';">ՄԵՐ ՄԱՍԻՆ</h2>
-                <div class="decor-line"></div>
-                <div class="about-license">
-                    <img src="{{ asset('css/svg/licenzia.svg') }}" alt="Լիցենզիա" onclick="openModal()"
-                        style="cursor: pointer;" />
-                </div>
-
-                <style>
-                    .about-license {
-                        margin: 20px 0;
-                        text-align: left;
-                        /* փոխիր եթե ուզում ես center */
-                    }
-
-                    .about-license img {
-                        height: 50px;
-                        /* կամ width / կամ auto */
-                        max-width: 100%;
-                    }
-                </style>
-                <p style="font-family: 'Montserrat Armenian'; font-weight: 300; font-size: 17px;">
-                    {!! nl2br(e($about->description)) !!}
-                </p>
-            </div>
-            <div class="about-image">
-                @if ($about->image)
-                    <img src="{{ asset('storage/' . $about->image) }}" alt="Armenlift Image" />
-                @else
-                    <img src="{{ asset('img/placeholder.jpg') }}" alt="Default Image" />
-                @endif
-            </div>
-        </section>
-    @endif
+    {{-- Consolidated CSS --}}
     <style>
-        @media (max-width: 1000px) {
-            .about-image {
-                display: none;
-            }
+        /* General & Header Styles */
+        .logo {
+            position: relative;
+            left: 20px;
         }
-    </style>
-    @php
-        // Ֆիլտրում ենք միայն those ծառայությունները, որոնց show_on_hy=true
-        $hyServices = $services->filter(fn($s) => $s->show_on_hy);
-    @endphp
-    {{-- Services Section --}}
-    @if($hyServices->count())
-        <section id="services" class="services-section">
-            <h2 style="color: #2E4A5E;">ԾԱՌԱՅՈՒԹՅՈՒՆՆԵՐ</h2>
-            <div class="services-title-line"></div>
-            <div class="services-cards" id="services-cards">
-                @foreach ($hyServices as $service)
-                    <div class="service-card">
-                        <img src="{{ asset('storage/' . $service->main_image) }}" alt="service Image" />
-                        <div class="service-text">
-                            <div class="card-inner-line"></div>
-                            <p>{{ $service->title }}</p>
-                            @if ($service->description)
-                            @endif
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </section>
-    @endif
-    <script>
-        const container = document.getElementById('services-cards');
-        let autoScrollDirection = 1; // 1 = աջ, -1 = ձախ
-        const autoScrollSpeed = 1.5;
-        let scrollInterval;
-        function startAutoScroll() {
-            scrollInterval = setInterval(() => {
-                container.scrollLeft += autoScrollDirection * autoScrollSpeed;
-                const maxScroll = container.scrollWidth - container.clientWidth;
-                const atRightEnd = container.scrollLeft >= (maxScroll - 2);
-                const atLeftEnd = container.scrollLeft <= 2;
-                if (atRightEnd) {
-                    autoScrollDirection = -1; // Թեքել ձախ
-                } else if (atLeftEnd) {
-                    autoScrollDirection = 1; // Թեքել աջ
-                }
-            }, 16); // մոտավորապես 60fps
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+            z-index: 1001;
         }
-        startAutoScroll();
-    </script>
 
-    @php
-        // Ֆիլտրում ենք միայն those աշխատանքները, որոնց show_on_hy=true
-        $hyJobs = $jobs->filter(fn($j) => $j->show_on_hy);
-    @endphp
-    {{-- Jobs Section (Հայերեն) --}}
-    @if($hyJobs->count())
-        <section id="job" class="jobs-section">
-            <h2 class="job-section-title">ԱՇԽԱՏԱՆՔՆԵՐ</h2>
-            <div class="jobs-title-line"></div>
-            <div class="job-header-bar"></div>
-            <div class="job-filter-buttons">
-                <img src="{{ asset('css/svg/hashy.svg') }}" alt="Հասարակական" class="job-filter-svg"
-                    onclick="filterJobs('public')" />
-                <img src="{{ asset('css/svg/bnhy.svg') }}" alt="Բնակելի" class="job-filter-svg"
-                    onclick="filterJobs('residential')" />
-            </div>
-            </div>
-            <style>
-                .job-filter-svg {
-                    height: 40px;
-                    cursor: pointer;
-                    transition: transform 0.2s, box-shadow 0.2s;
-                    border-radius: 5px;
-                }
+        .mobile-menu-toggle .bar {
+            width: 24px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+        }
 
-                .job-filter-svg:hover {
-                    transform: scale(1.05);
-                    opacity: 0.85;
-                }
+        .desktop-menu,
+        .desktop-languages {
+            display: flex;
+        }
 
-                .job-filter-svg.active {
-                    box-shadow: 0 0 0 3px #D9EAF2;
-                    background-color: rgba(217, 234, 242, 0.1);
-                    transform: scale(1.1);
-                }
+        .mobile-menu-toggle,
+        .mobile-drawer {
+            display: none;
+        }
 
-                .job-header-bar {
-                    display: flex;
-                    justify-content: flex-start;
-                    align-items: center;
-                    margin-bottom: 20px;
-                    gap: 20px;
-                }
+        .mobile-drawer.open+.top-bar .logo {
+            display: none;
+        }
 
-                .job-section-title {
-                    color: #D9EAF2;
-                    font-family: 'Montserrat Armenian bold';
-                    font-size: 38px;
-                    margin: 0;
-                }
+        .drawer-logo {
+            display: none;
+        }
 
-                .job-filter-buttons {
-                    display: flex;
-                    gap: 20px;
-                    margin-left: 20px;
-                    margin-bottom: 25px;
-                }
+        .mobile-drawer.open .drawer-logo {
+            display: block;
+        }
 
-                .job-filter-svg {
-                    height: 40px;
-                    cursor: pointer;
-                    transition: transform 0.2s;
-                }
+        /* About Section Styles */
+        .about-license {
+            margin: 20px 0;
+            text-align: left;
+        }
 
-                .job-filter-svg:hover {
-                    transform: scale(1.05);
-                    opacity: 0.85;
-                }
-            </style>
-            <script>
-                let currentFilter = 'all';
-                function filterJobs(type) {
-                    const items = document.querySelectorAll('.job-item');
-                    const buttons = document.querySelectorAll('.job-filter-svg');
-                    // Եթե նույն filter-ի վրա երկրորդ անգամ սեղմել են՝ վերականգնում ենք բոլորը
-                    if (currentFilter === type) {
-                        currentFilter = 'all';
-                        items.forEach(item => item.style.display = 'block');
-                        buttons.forEach(btn => btn.classList.remove('active'));
-                        return;
-                    }
-                    currentFilter = type;
-                    // Ֆիլտրում
-                    items.forEach(item => {
-                        const jobType = item.getAttribute('data-type');
-                        item.style.display = (jobType === type) ? 'block' : 'none';
-                    });
-                    // Ակտիվ կոճակը ցույց տալու համար
-                    buttons.forEach(btn => {
-                        const alt = btn.getAttribute('alt');
-                        if ((type === 'public' && alt.includes('Հասարակական')) || (type === 'residential' && alt.includes('Բնակելի'))) {
-                            btn.classList.add('active');
-                        } else {
-                            btn.classList.remove('active');
-                        }
-                    });
-                }
-            </script>
-            <div class="scroll-wrapper">
-                <div class="jobs-gallery">
-                    @foreach ($hyJobs as $job)
-                        <div class="job-item" data-type="{{ $job->type }}">
-                            <a href="{{ route('jobs.hy', $job->id) }}">
-                                <img src="{{ asset('storage/' . $job->main_image) }}" alt="{{ $job->title }}" />
-                            </a>
-                            <h3>{{ \Illuminate\Support\Str::limit($job->title, 24) }}</h3> @if ($job->address)
-                                <p class="job-address">
-                                    <svg width="13" height="16" viewBox="0 0 13 16" fill="none" xmlns="http://www.w3.org/2000/svg"
-                                        style="display:inline-block; vertical-align:middle; margin-right:5px;">
-                                        <path
-                                            d="M6.5 0C4.77672 0.00196598 3.1246 0.66484 1.90606 1.84321C0.687511 3.02159 0.00203992 4.61924 6.91533e-06 6.28571C-0.00205706 7.64756 0.45795 8.97245 1.30946 10.0571C1.30946 10.0571 1.48673 10.2829 1.51569 10.3154L6.5 16L11.4867 10.3126C11.5127 10.2823 11.6905 10.0571 11.6905 10.0571L11.6911 10.0554C12.5422 8.97121 13.002 7.64693 13 6.28571C12.998 4.61924 12.3125 3.02159 11.0939 1.84321C9.8754 0.66484 8.22328 0.00196598 6.5 0ZM6.5 8.57143C6.03252 8.57143 5.57553 8.43737 5.18684 8.18622C4.79814 7.93506 4.49518 7.57808 4.31629 7.16042C4.13739 6.74276 4.09058 6.28318 4.18178 5.83979C4.27298 5.39641 4.4981 4.98913 4.82866 4.66947C5.15922 4.34981 5.58038 4.13211 6.03888 4.04392C6.49738 3.95572 6.97263 4.00099 7.40452 4.17399C7.83642 4.34699 8.20557 4.63996 8.46529 5.01584C8.72501 5.39172 8.86363 5.83364 8.86363 6.28571C8.86285 6.89169 8.61358 7.47263 8.17048 7.90112C7.72738 8.32961 7.12663 8.57067 6.5 8.57143Z"
-                                            fill="url(#paint0_linear_1_886)" />
-                                        <defs>
-                                            <linearGradient id="paint0_linear_1_886" x1="6.5" y1="0" x2="6.5" y2="16"
-                                                gradientUnits="userSpaceOnUse">
-                                                <stop stop-color="#2E4A5E" />
-                                                <stop offset="1" stop-color="#609AC4" />
-                                            </linearGradient>
-                                        </defs>
-                                    </svg>
-                                    <span>{{ $job->address }}</span>
-                                </p>
-                            @endif
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </section>
-    @endif
-    <section id="products" class="product-section">
-        <h2>ԿԱՏԱԼՈԳ</h2>
-        <div class="decor-line"></div>
-        <div class="product-grid">
-            @foreach ($products as $product)
-                @if ($product->locale === 'hy')
-                    <div class="product-card">
-                        <div class="header">{{ $product->title }}</div>
-                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->title }}">
-                        <div class="content">
-                            <p>{{ $product->description }}</p>
-                            @if (is_array($product->pdf) && count($product->pdf))
-                                <div class="pdf-button-group">
-                                    @foreach ($product->pdf as $pdf)
-                                        <a href="{{ asset('storage/' . $pdf['file']) }}" target="_blank" class="pdf-button">
-                                            📄 {{ $pdf['name'] ?? 'PDF ֆայլ' }}
-                                        </a>
-                                    @endforeach
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                @endif
-            @endforeach
-        </div>
-    </section>
-    <section id="kap" class="contact-section">
-        <h2 style="color: #D9EAF2;">ԿԱՊ ՄԵԶ ՀԵՏ</h2>
-        <div class="contact-title-line"></div>
-        <div class="contact-container">
-            <div class="contact-info">
-                <ul>
-                    <li>
-                        <img src="/css/svg/location.svg" alt="Հասցե" width="16" height="16" style="margin-right: 11px;">
-                        Հասցե՝ 0076, ՀՀ, ք․Երևան, Ակսել Բակունց 4
-                    </li>
+        .about-license img {
+            height: 50px;
+            max-width: 100%;
+        }
 
-                    <li>
-                        <img src="/css/svg/telefon.svg" alt="Հասցե" width="16" height="16" style="margin-right: 11px;">
-                        Հեռ․: +37491430512
-                    </li>
-                    <li>
-                        <img src="/css/svg/gmail.svg" alt="Հասցե" width="16" height="16" style="margin-right: 11px;">
-                        Էլ. փոստ․ armenlift@gmail.com
-                    </li>
-                </ul>
-                <div class="contact-map">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1543.7648850677285!2d44.571620621786245!3d40.19027842153545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406aa30027a212d9%3A0xbc637ff8aac8ecab!2sAlmaka!5e1!3m2!1sen!2sam!4v1750763459909!5m2!1sen!2sam"
-                        width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-            </div>
-            <form class="contact-form">
-                <div class="form-row">
-                    <input type="text" placeholder="Անուն" />
-                    <input type="text" placeholder="Ազգանուն" />
-                </div>
-                <div class="form-row">
-                    <input type="text" placeholder="Հեռախոսահամար" />
-                    <input type="email" placeholder="Email" />
-                </div>
-                <textarea placeholder="Հաղորդագրություն..."></textarea>
-                <button type="submit">Ուղարկել</button>
-            </form>
-        </div>
-    </section>
-    <div id="imageModal" class="modal-overlay" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation();">
-            <img src="{{ asset('css/images/modal.png') }}" alt="Լիցենզիայի Նկար" />
-        </div>
-    </div>
-    <style>
+        /* Jobs Section Styles */
+        .job-filter-svg {
+            height: 40px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-radius: 5px;
+        }
+
+        .job-filter-svg:hover {
+            transform: scale(1.05);
+            opacity: 0.85;
+        }
+
+        .job-filter-svg.active {
+            box-shadow: 0 0 0 3px #D9EAF2;
+            background-color: rgba(217, 234, 242, 0.1);
+            transform: scale(1.1);
+        }
+
+        .job-header-bar {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 20px;
+        }
+
+        .job-section-title {
+            color: #D9EAF2;
+            font-family: 'Montserrat Armenian bold';
+            font-size: 38px;
+            margin: 0;
+        }
+
+        .job-filter-buttons {
+            display: flex;
+            gap: 20px;
+            margin-left: 20px;
+            margin-bottom: 25px;
+        }
+
+        /* Modal Styles */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -624,7 +136,6 @@
 
         .modal-content {
             position: relative;
-            /* background-color: #1d2a33; */
             padding: 20px;
             border-radius: 12px;
             max-width: 90%;
@@ -652,8 +163,426 @@
             cursor: pointer;
             box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
         }
+
+        /* Responsive Styles */
+        @media (max-width: 1000px) {
+            .about-image {
+                display: none;
+            }
+        }
+
+        @media (max-width: 980px) {
+
+            .desktop-menu,
+            .desktop-languages {
+                display: none !important;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+                position: fixed;
+                top: 70px;
+                right: 20px;
+                z-index: 1001;
+                flex-direction: column;
+                gap: 5px;
+                cursor: pointer;
+            }
+
+            .mobile-menu-toggle .bar {
+                width: 26px;
+                height: 3px;
+                background: white;
+                border-radius: 2px;
+            }
+
+            .mobile-drawer {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                height: 100%;
+                width: 80%;
+                max-width: 320px;
+                background-color: #2E4A5E;
+                z-index: 999;
+                padding: 20px;
+                box-shadow: 4px 0 15px rgba(0, 0, 0, 0.3);
+                transition: left 0.3s ease;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .mobile-drawer.open {
+                left: 0;
+            }
+
+            .drawer-header {
+                text-align: center;
+                margin-bottom: 10px;
+                margin-top: 100px;
+            }
+
+            .drawer-menu a img {
+                height: 42px;
+                margin: 6px 0;
+            }
+
+            .drawer-languages {
+                display: flex;
+                gap: 10px;
+                margin-top: 20px;
+                flex-wrap: wrap;
+            }
+
+            .drawer-languages button {
+                padding: 6px 12px;
+                background-color: white;
+                color: #2E4A5E;
+                border: none;
+                border-radius: 6px;
+                font-weight: 600;
+            }
+
+            .drawer-socials {
+                display: flex;
+                gap: 12px;
+                margin-top: 10px;
+            }
+
+            .drawer-socials img {
+                width: 24px;
+                height: 24px;
+            }
+        }
     </style>
+</head>
+
+<body>
+    <div class="background" id="backgroundSlider">
+        <div class="slider-button slider-left" onclick="prevSlide()">
+            <img src="/css/svg/arrow-left.svg" alt="Նախորդ">
+        </div>
+        <div class="slider-button slider-right" onclick="nextSlide()">
+            <img src="/css/svg/arrow-left.svg" style="transform: rotate(180deg);" alt="Հաջորդ">
+        </div>
+        <header class="top-bar">
+            <div class="logo">
+                <a href="#homepage">
+                    <img src="{{ asset('css/images/logo.png') }}" alt="Ներսի նկար" class="inner-image" />
+                </a>
+            </div>
+
+            <div class="mobile-menu-toggle" onclick="toggleMenu()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+
+            <nav class="menu desktop-menu desktop-only">
+                <a href="#about"><img src="{{ asset('css/svg/aboute1.svg') }}" width="164" height="50" alt="ՄԵՐ ՄԱՍԻՆ" /></a>
+                <a href="#services"><img src="{{ asset('css/svg/services1.svg') }}" width="214" height="50" alt="ԾԱՌԱՅՈՒԹՅՈՒՆՆԵՐ" /></a>
+                <a href="#job"><img src="{{ asset('css/svg/job1.svg') }}" width="184" height="50" alt="ԱՇԽԱՏԱՆՔՆԵՐ" /></a>
+                <a href="#products"><img src="{{ asset('css/svg/jobs11.svg') }}" width="160" height="50" alt="Ապրանքներ" /></a>
+                <a href="#kap"><img src="{{ asset('css/svg/kap1.svg') }}" width="112" height="50" alt="ԿԱՊ" /></a>
+            </nav>
+
+            <div class="languages desktop-languages desktop-only">
+                <a href="{{ route('homepage.hy') }}"><button style="background: #2E4A5E;">ՀԱՅ</button></a>
+                <a href="{{ route('homepage.ru') }}"><button>РУ</button></a>
+                <a href="{{ route('homepage.en') }}"><button>ENG</button></a>
+                <div class="languagess">
+                    <a href="viber://add?number=+37491430512" target="_blank">
+                        <img src="{{ asset('css/svg/viber.svg') }}" width="23" alt="Viber" />
+                    </a>
+                    <a href="https://wa.me/37491430512" target="_blank">
+                        <img src="{{ asset('css/svg/whatsapp.svg') }}" width="23" alt="WhatsApp" />
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <div class="mobile-drawer" id="mobileDrawer">
+            <div class="drawer-header">
+                <a href="#homepage"></a>
+            </div>
+            <nav class="drawer-menu">
+                <a href="#about"><img src="{{ asset('css/svg/aboute1.svg') }}" alt="ՄԵՐ ՄԱՍԻՆ" /></a>
+                <a href="#services"><img src="{{ asset('css/svg/services1.svg') }}" alt="ԾԱՌԱՅՈՒԹՅՈՒՆՆԵՐ" /></a>
+                <a href="#job"><img src="{{ asset('css/svg/job1.svg') }}" alt="ԱՇԽԱՏԱՆՔՆԵՐ" /></a>
+                <a href="#products"><img src="{{ asset('css/svg/jobs11.svg') }}" alt="Ապրանքներ" /></a>
+                <a href="#kap"><img src="{{ asset('css/svg/kap1.svg') }}" alt="ԿԱՊ" /></a>
+                <div class="drawer-languages">
+                    <a href="{{ route('homepage.hy') }}"><button>ՀԱՅ</button></a>
+                    <a href="{{ route('homepage.ru') }}"><button>РУ</button></a>
+                    <a href="{{ route('homepage.en') }}"><button>ENG</button></a>
+                </div>
+                <div class="drawer-socials">
+                    <a href="viber://add?number=+37491430512" target="_blank">
+                        <img src="{{ asset('css/svg/viber.svg') }}" width="23" alt="Viber" />
+                    </a>
+                    <a href="https://wa.me/37491430512" target="_blank">
+                        <img src="{{ asset('css/svg/whatsapp.svg') }}" width="23" alt="WhatsApp" />
+                    </a>
+                </div>
+            </nav>
+        </div>
+
+        <main id="homepage" class="content"></main>
+    </div>
+
+    @if ($about && $about->show_on_hy)
+        <section id="about" class="about-section">
+            <div class="about-text">
+                <h2 style="color: #D9EAF2; font-family: 'Montserrat Armenian';">ՄԵՐ ՄԱՍԻՆ</h2>
+                <div class="decor-line"></div>
+                <div class="about-license">
+                    <img src="{{ asset('css/svg/licenzia.svg') }}" alt="Լիցենզիա" onclick="openModal()" style="cursor: pointer;" />
+                </div>
+                <p style="font-family: 'Montserrat Armenian'; font-weight: 300; font-size: 17px;">
+                    {!! nl2br(e($about->description)) !!}
+                </p>
+            </div>
+            <div class="about-image">
+                @if ($about->image)
+                    <img src="{{ asset('storage/' . $about->image) }}" alt="Armenlift Image" />
+                @else
+                    <img src="{{ asset('img/placeholder.jpg') }}" alt="Default Image" />
+                @endif
+            </div>
+        </section>
+    @endif
+
+    @php
+        $hyServices = $services->filter(fn($s) => $s->show_on_hy);
+    @endphp
+
+    @if($hyServices->count())
+        <section id="services" class="services-section">
+            <h2 style="color: #2E4A5E;">ԾԱՌԱՅՈՒԹՅՈՒՆՆԵՐ</h2>
+            <div class="services-title-line"></div>
+            <div class="services-cards" id="services-cards">
+                @foreach ($hyServices as $service)
+                    <div class="service-card">
+                        <img src="{{ asset('storage/' . $service->main_image) }}" alt="service Image" />
+                        <div class="service-text">
+                            <div class="card-inner-line"></div>
+                            <p>{{ $service->title }}</p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </section>
+    @endif
+
+    @php
+        $hyJobs = $jobs->filter(fn($j) => $j->show_on_hy);
+    @endphp
+
+    @if($hyJobs->count())
+        <section id="job" class="jobs-section">
+            <h2 class="job-section-title">ԱՇԽԱՏԱՆՔՆԵՐ</h2>
+            <div class="jobs-title-line"></div>
+            <div class="job-header-bar"></div>
+            <div class="job-filter-buttons">
+                <img src="{{ asset('css/svg/hashy.svg') }}" alt="Հասարակական" class="job-filter-svg" onclick="filterJobs('public')" />
+                <img src="{{ asset('css/svg/bnhy.svg') }}" alt="Բնակելի" class="job-filter-svg" onclick="filterJobs('residential')" />
+            </div>
+            <div class="scroll-wrapper">
+                <div class="jobs-gallery">
+                    @foreach ($hyJobs as $job)
+                        <div class="job-item" data-type="{{ $job->type }}">
+                            <a href="{{ route('jobs.hy', $job->id) }}">
+                                <img src="{{ asset('storage/' . $job->main_image) }}" alt="{{ $job->title }}" />
+                            </a>
+                            <h3>{{ \Illuminate\Support\Str::limit($job->title, 24) }}</h3>
+                            @if ($job->address)
+                                <p class="job-address">
+                                    <svg width="13" height="16" viewBox="0 0 13 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block; vertical-align:middle; margin-right:5px;">
+                                        <path d="M6.5 0C4.77672 0.00196598 3.1246 0.66484 1.90606 1.84321C0.687511 3.02159 0.00203992 4.61924 6.91533e-06 6.28571C-0.00205706 7.64756 0.45795 8.97245 1.30946 10.0571C1.30946 10.0571 1.48673 10.2829 1.51569 10.3154L6.5 16L11.4867 10.3126C11.5127 10.2823 11.6905 10.0571 11.6905 10.0571L11.6911 10.0554C12.5422 8.97121 13.002 7.64693 13 6.28571C12.998 4.61924 12.3125 3.02159 11.0939 1.84321C9.8754 0.66484 8.22328 0.00196598 6.5 0ZM6.5 8.57143C6.03252 8.57143 5.57553 8.43737 5.18684 8.18622C4.79814 7.93506 4.49518 7.57808 4.31629 7.16042C4.13739 6.74276 4.09058 6.28318 4.18178 5.83979C4.27298 5.39641 4.4981 4.98913 4.82866 4.66947C5.15922 4.34981 5.58038 4.13211 6.03888 4.04392C6.49738 3.95572 6.97263 4.00099 7.40452 4.17399C7.83642 4.34699 8.20557 4.63996 8.46529 5.01584C8.72501 5.39172 8.86363 5.83364 8.86363 6.28571C8.86285 6.89169 8.61358 7.47263 8.17048 7.90112C7.72738 8.32961 7.12663 8.57067 6.5 8.57143Z" fill="url(#paint0_linear_1_886)" />
+                                        <defs>
+                                            <linearGradient id="paint0_linear_1_886" x1="6.5" y1="0" x2="6.5" y2="16" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#2E4A5E" />
+                                                <stop offset="1" stop-color="#609AC4" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                    <span>{{ $job->address }}</span>
+                                </p>
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
+
+    <section id="products" class="product-section">
+        <h2>ԿԱՏԱԼՈԳ</h2>
+        <div class="decor-line"></div>
+        <div class="product-grid">
+            @foreach ($products as $product)
+                @if ($product->locale === 'hy')
+                    <div class="product-card">
+                        <div class="header">{{ $product->title }}</div>
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->title }}">
+                        <div class="content">
+                            <p>{{ $product->description }}</p>
+                            @if (is_array($product->pdf) && count($product->pdf))
+                                <div class="pdf-button-group">
+                                    @foreach ($product->pdf as $pdf)
+                                        <a href="{{ asset('storage/' . $pdf['file']) }}" target="_blank" class="pdf-button">
+                                            📄 {{ $pdf['name'] ?? 'PDF ֆայլ' }}
+                                        </a>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+        </div>
+    </section>
+
+    <section id="kap" class="contact-section">
+        <h2 style="color: #D9EAF2;">ԿԱՊ ՄԵԶ ՀԵՏ</h2>
+        <div class="contact-title-line"></div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <ul>
+                    <li><img src="/css/svg/location.svg" alt="Հասցե" width="16" height="16" style="margin-right: 11px;"> Հասցե՝ 0076, ՀՀ, ք․Երևան, Ակսել Բակունց 4</li>
+                    <li><img src="/css/svg/telefon.svg" alt="Հասցե" width="16" height="16" style="margin-right: 11px;"> Հեռ․: +37491430512</li>
+                    <li><img src="/css/svg/gmail.svg" alt="Հասցե" width="16" height="16" style="margin-right: 11px;"> Էլ. փոստ․ armenlift@gmail.com</li>
+                </ul>
+                <div class="contact-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1543.7648850677285!2d44.571620621786245!3d40.19027842153545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406aa30027a212d9%3A0xbc637ff8aac8ecab!2sAlmaka!5e1!3m2!1sen!2sam!4v1750763459909!5m2!1sen!2sam" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+            <form class="contact-form">
+                <div class="form-row">
+                    <input type="text" placeholder="Անուն" />
+                    <input type="text" placeholder="Ազգանուն" />
+                </div>
+                <div class="form-row">
+                    <input type="text" placeholder="Հեռախոսահամար" />
+                    <input type="email" placeholder="Email" />
+                </div>
+                <textarea placeholder="Հաղորդագրություն..."></textarea>
+                <button type="submit">Ուղարկել</button>
+            </form>
+        </div>
+    </section>
+
+    <div id="imageModal" class="modal-overlay" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation();">
+            <img src="{{ asset('css/images/modal.png') }}" alt="Լիցենզիայի Նկար" />
+        </div>
+    </div>
+
+    {{-- Consolidated JavaScript --}}
     <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            document.getElementById('mobileDrawer').classList.toggle('open');
+        }
+
+        document.addEventListener('click', function(e) {
+            const drawer = document.getElementById('mobileDrawer');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            if (!drawer.contains(e.target) && !toggle.contains(e.target)) {
+                drawer.classList.remove('open');
+            }
+        });
+
+        // Background Slider
+        const desktopImages = [
+            '/css/images/hyb1.png',
+            '/css/images/hyb2.png',
+            '/css/images/hyb3.png'
+        ];
+        const mobileImages = [
+            '/css/images/hyb11.png',
+            '/css/images/hyb22.png',
+            '/css/images/hyb33.png'
+        ];
+        let currentIndex = 0;
+        const slider = document.getElementById('backgroundSlider');
+
+        function getCurrentImageArray() {
+            if (window.innerWidth < 900) {
+                return mobileImages;
+            } else {
+                return desktopImages;
+            }
+        }
+
+        function updateBackground() {
+            const images = getCurrentImageArray();
+            if(slider) {
+                slider.style.backgroundImage = `url('${images[currentIndex]}')`;
+            }
+        }
+
+        function nextSlide() {
+            const images = getCurrentImageArray();
+            currentIndex = (currentIndex + 1) % images.length;
+            updateBackground();
+        }
+
+        function prevSlide() {
+            const images = getCurrentImageArray();
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            updateBackground();
+        }
+        window.addEventListener('resize', updateBackground);
+        document.addEventListener('DOMContentLoaded', updateBackground);
+
+
+        // Services Auto-Scroller
+        const container = document.getElementById('services-cards');
+        if (container) {
+            let autoScrollDirection = 1;
+            const autoScrollSpeed = 1.5;
+            setInterval(() => {
+                container.scrollLeft += autoScrollDirection * autoScrollSpeed;
+                const maxScroll = container.scrollWidth - container.clientWidth;
+                const atRightEnd = container.scrollLeft >= (maxScroll - 2);
+                const atLeftEnd = container.scrollLeft <= 2;
+                if (atRightEnd) {
+                    autoScrollDirection = -1;
+                } else if (atLeftEnd) {
+                    autoScrollDirection = 1;
+                }
+            }, 16);
+        }
+
+        // Job Filtering
+        let currentFilter = 'all';
+        function filterJobs(type) {
+            const items = document.querySelectorAll('.job-item');
+            const buttons = document.querySelectorAll('.job-filter-svg');
+            if (currentFilter === type) {
+                currentFilter = 'all';
+                items.forEach(item => item.style.display = 'block');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                return;
+            }
+            currentFilter = type;
+            items.forEach(item => {
+                const jobType = item.getAttribute('data-type');
+                item.style.display = (jobType === type) ? 'block' : 'none';
+            });
+            buttons.forEach(btn => {
+                const alt = btn.getAttribute('alt');
+                if ((type === 'public' && alt.includes('Հասարակական')) || (type === 'residential' && alt.includes('Բնակելի'))) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        // Image Modal
         function openModal() {
             document.getElementById('imageModal').classList.add('active');
         }
