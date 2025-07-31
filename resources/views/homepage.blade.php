@@ -25,7 +25,7 @@
             <img src="/css/svg/arrow-left.svg" style="transform: rotate(180deg);" alt="Հաջորդ">
         </div>
         <header class="top-bar">
-            <div class="logo" >
+            <div class="logo">
                 <a href="#homepage">
                     <img src="{{ asset('css/images/logo.png') }}" alt="Ներսի նկար" class="inner-image" />
                 </a>
@@ -35,7 +35,7 @@
                 <div class="bar"></div>
 
                 <div class="bar"></div>
-                
+
                 <div class="bar"></div>
 
             </div>
@@ -101,11 +101,11 @@
 
 
         <style>
-
             .logo {
-            position: relative;
-            left: 20px;
+                position: relative;
+                left: 20px;
             }
+
             /* Համբուրգեր կոճակ */
             .mobile-menu-toggle {
                 display: none;
@@ -134,7 +134,7 @@
             }
 
             /* Hide the main logo when the mobile drawer is open */
-            .mobile-drawer.open + .top-bar .logo {
+            .mobile-drawer.open+.top-bar .logo {
                 display: none;
             }
 
@@ -195,13 +195,14 @@
 
                 .mobile-drawer.open {
                     left: 0;
-                    
+
                 }
 
                 .drawer-header {
                     text-align: center;
                     margin-bottom: 10px;
-                    margin-top: 100px; /* This was added in your last request, keeping it */
+                    margin-top: 100px;
+                    /* This was added in your last request, keeping it */
 
                 }
 
@@ -257,29 +258,63 @@
 
 
         <main id="homepage" class="content">
-            </main>
+        </main>
     </div>
     <script>
-        const images = [
+        // Սահմանում ենք նկարների 2 զանգված՝ մեծ և փոքր էկրանների համար
+        const desktopImages = [
             '/css/images/hyb1.png',
             '/css/images/hyb2.png',
             '/css/images/hyb3.png'
         ];
+
+        const mobileImages = [
+            '/css/images/hyb11.png',
+            '/css/images/hyb22.png',
+            '/css/images/hyb33.png'
+        ];
+
         let currentIndex = 0;
         const slider = document.getElementById('backgroundSlider');
+
+        // Ֆունկցիա, որը որոշում է, թե որ զանգվածն օգտագործել՝ կախված էկրանի լայնությունից
+        function getCurrentImageArray() {
+            if (window.innerWidth < 900) {
+                return mobileImages;
+            } else {
+                return desktopImages;
+            }
+        }
+
+        // Թարմացված ֆունկցիա, որը սահմանում է ֆոնի նկարը
         function updateBackground() {
+            const images = getCurrentImageArray(); // Ստանում ենք ընթացիկ զանգվածը
             slider.style.backgroundImage = `url('${images[currentIndex]}')`;
         }
+
+        // Սլայդը փոխելու ֆունկցիաներ
         function nextSlide() {
+            const images = getCurrentImageArray();
             currentIndex = (currentIndex + 1) % images.length;
             updateBackground();
         }
+
         function prevSlide() {
+            const images = getCurrentImageArray();
             currentIndex = (currentIndex - 1 + images.length) % images.length;
             updateBackground();
         }
+
+        // Ավելացնում ենք լսող (event listener)՝ էկրանի չափը փոխելու դեպքում ֆոնը թարմացնելու համար
+        window.addEventListener('resize', updateBackground);
+
+        // Սկզբնական պատկերի սահմանում էջը բացելիս
         updateBackground();
     </script>
+
+
+
+
     @if ($about && $about->show_on_hy)
         <section id="about" class="about-section">
             <div class="about-text">
@@ -316,6 +351,13 @@
             </div>
         </section>
     @endif
+    <style>
+        @media (max-width: 1000px) {
+            .about-image {
+                display: none;
+            }
+        }
+    </style>
     @php
         // Ֆիլտրում ենք միայն those ծառայությունները, որոնց show_on_hy=true
         $hyServices = $services->filter(fn($s) => $s->show_on_hy);
@@ -333,7 +375,7 @@
                             <div class="card-inner-line"></div>
                             <p>{{ $service->title }}</p>
                             @if ($service->description)
-                                @endif
+                            @endif
                         </div>
                     </div>
                 @endforeach
@@ -560,7 +602,7 @@
     <div id="imageModal" class="modal-overlay" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation();">
             <img src="{{ asset('css/images/modal.png') }}" alt="Լիցենզիայի Նկար" />
-            </div>
+        </div>
     </div>
     <style>
         .modal-overlay {

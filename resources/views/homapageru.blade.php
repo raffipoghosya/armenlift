@@ -109,34 +109,60 @@
 
 
         <main id="homepage" class="content">
-            </main>
+        </main>
 
         <script>
-            const images = [
+            // Սահմանում ենք նկարների 2 զանգված՝ մեծ և փոքր էկրանների համար
+            const desktopImages = [
                 '/css/images/rub1.png',
                 '/css/images/rub2.png',
                 '/css/images/rub3.png'
             ];
 
+            const mobileImages = [
+                '/css/images/rub11.png',
+                '/css/images/rub22.png',
+                '/css/images/rub33.png'
+            ];
+
             let currentIndex = 0;
             const slider = document.getElementById('backgroundSlider');
 
+            // Ֆունկցիա, որը որոշում է, թե որ զանգվածն օգտագործել՝ կախված էկրանի լայնությունից
+            function getCurrentImageArray() {
+                if (window.innerWidth < 900) {
+                    return mobileImages;
+                } else {
+                    return desktopImages;
+                }
+            }
+
+            // Թարմացված ֆունկցիա, որը սահմանում է ֆոնի նկարը
             function updateBackground() {
+                const images = getCurrentImageArray(); // Ստանում ենք ընթացիկ զանգվածը
                 slider.style.backgroundImage = `url('${images[currentIndex]}')`;
             }
 
+            // Սլայդը փոխելու ֆունկցիաներ
             function nextSlide() {
+                const images = getCurrentImageArray();
                 currentIndex = (currentIndex + 1) % images.length;
                 updateBackground();
             }
 
             function prevSlide() {
+                const images = getCurrentImageArray();
                 currentIndex = (currentIndex - 1 + images.length) % images.length;
                 updateBackground();
             }
 
-            // Սկզբնական պատկեր
+            // Ավելացնում ենք լսող (event listener)՝ էկրանի չափը փոխելու դեպքում ֆոնը թարմացնելու համար
+            window.addEventListener('resize', updateBackground);
+
+            // Սկզբնական պատկերի սահմանում էջը բացելիս
             updateBackground();
+
+
 
             // Mobile menu toggle script
             function toggleMenu() {
@@ -160,7 +186,8 @@
         /* Mobile Menu Specific Styles (copied from previous solution) */
         /* Hamburger button */
         .mobile-menu-toggle {
-            display: none; /* Hidden by default for desktop */
+            display: none;
+            /* Hidden by default for desktop */
             flex-direction: column;
             gap: 4px;
             cursor: pointer;
@@ -186,7 +213,7 @@
         }
 
         /* Hide the main logo when the mobile drawer is open */
-        .mobile-drawer.open + .top-bar .logo {
+        .mobile-drawer.open+.top-bar .logo {
             display: none;
         }
 
@@ -252,7 +279,8 @@
             .drawer-header {
                 text-align: center;
                 margin-bottom: 10px;
-                margin-top: 100px; /* Added for spacing at the top of the drawer */
+                margin-top: 100px;
+                /* Added for spacing at the top of the drawer */
             }
 
             .drawer-menu a img {
@@ -326,6 +354,13 @@
         </section>
     @endif
 
+    <style>
+        @media (max-width: 1000px) {
+            .about-image {
+                display: none;
+            }
+        }
+    </style>
 
 
     @php
@@ -346,40 +381,40 @@
                             <div class="card-inner-line"></div>
                             <p>{{ $service->title }}</p>
                             @if ($service->description)
-                                @endif
+                            @endif
                         </div>
                     </div>
                 @endforeach
             </div>
 
-            </section>
+        </section>
     @endif
 
 
     <script>
-    const container = document.getElementById('services-cards');
+        const container = document.getElementById('services-cards');
 
-    let autoScrollDirection = 1; // 1 = աջ, -1 = ձախ
-    const autoScrollSpeed = 1.5;
-    let scrollInterval;
+        let autoScrollDirection = 1; // 1 = աջ, -1 = ձախ
+        const autoScrollSpeed = 1.5;
+        let scrollInterval;
 
-    function startAutoScroll() {
-        scrollInterval = setInterval(() => {
-            container.scrollLeft += autoScrollDirection * autoScrollSpeed;
+        function startAutoScroll() {
+            scrollInterval = setInterval(() => {
+                container.scrollLeft += autoScrollDirection * autoScrollSpeed;
 
-            const maxScroll = container.scrollWidth - container.clientWidth;
-            const atRightEnd = container.scrollLeft >= (maxScroll - 2);
-            const atLeftEnd = container.scrollLeft <= 2;
+                const maxScroll = container.scrollWidth - container.clientWidth;
+                const atRightEnd = container.scrollLeft >= (maxScroll - 2);
+                const atLeftEnd = container.scrollLeft <= 2;
 
-            if (atRightEnd) {
-                autoScrollDirection = -1; // Թեքել ձախ
-            } else if (atLeftEnd) {
-                autoScrollDirection = 1; // Թեքել աջ
-            }
-        }, 16); // մոտավորապես 60fps
-    }
+                if (atRightEnd) {
+                    autoScrollDirection = -1; // Թեքել ձախ
+                } else if (atLeftEnd) {
+                    autoScrollDirection = 1; // Թեքել աջ
+                }
+            }, 16); // մոտավորապես 60fps
+        }
 
-    startAutoScroll();
+        startAutoScroll();
     </script>
 
 
@@ -605,7 +640,7 @@
     <div id="imageModal" class="modal-overlay" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation();">
             <img src="{{ asset('css/images/modal.png') }}" alt="Լիցենզիայի Նկար" />
-            </div>
+        </div>
     </div>
     <style>
         .modal-overlay {

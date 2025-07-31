@@ -71,6 +71,20 @@
 
             </div>
         </header>
+        <script>
+    function toggleMenu() {
+        const drawer = document.getElementById('mobileDrawer');
+        drawer.classList.toggle('open');
+    }
+
+    // Լրացուցիչ բարելավում։ Փակում է մենյուն, երբ սեղմում ենք հղման վրա։
+    document.querySelectorAll('.drawer-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            const drawer = document.getElementById('mobileDrawer');
+            drawer.classList.remove('open');
+        });
+    });
+</script>
 
         <div class="mobile-drawer" id="mobileDrawer">
             <div class="drawer-header">
@@ -242,49 +256,57 @@
         }
     </style>
 
+<script>
+    // Սահմանում ենք նկարների 2 զանգված՝ մեծ և փոքր էկրանների համար
+    const desktopImages = [
+        '/css/images/enb1.png',
+        '/css/images/enb2.png',
+        '/css/images/enb3.png'
+    ];
 
-    <script>
-        const images = [
-            '/css/images/enb1.png',
-            '/css/images/enb2.png',
-            '/css/images/enb3.png'
-        ];
+    const mobileImages = [
+        '/css/images/enb11.png',
+        '/css/images/enb22.png',
+        '/css/images/enb33.png'
+    ];
 
-        let currentIndex = 0;
-        const slider = document.getElementById('backgroundSlider');
+    let currentIndex = 0;
+    const slider = document.getElementById('backgroundSlider');
 
-        function updateBackground() {
-            slider.style.backgroundImage = `url('${images[currentIndex]}')`;
+    // Ֆունկցիա, որը որոշում է, թե որ զանգվածն օգտագործել՝ կախված էկրանի լայնությունից
+    function getCurrentImageArray() {
+        if (window.innerWidth < 900) {
+            return mobileImages;
+        } else {
+            return desktopImages;
         }
+    }
 
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % images.length;
-            updateBackground();
-        }
+    // Թարմացված ֆունկցիա, որը սահմանում է ֆոնի նկարը
+    function updateBackground() {
+        const images = getCurrentImageArray(); // Ստանում ենք ընթացիկ զանգվածը
+        slider.style.backgroundImage = `url('${images[currentIndex]}')`;
+    }
 
-        function prevSlide() {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            updateBackground();
-        }
-
-        // Սկզբնական պատկեր
+    // Սլայդը փոխելու ֆունկցիաներ
+    function nextSlide() {
+        const images = getCurrentImageArray();
+        currentIndex = (currentIndex + 1) % images.length;
         updateBackground();
+    }
 
-        // Mobile menu toggle script
-        function toggleMenu() {
-            document.getElementById('mobileDrawer').classList.toggle('open');
-        }
+    function prevSlide() {
+        const images = getCurrentImageArray();
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        updateBackground();
+    }
+    
+    // Ավելացնում ենք լսող (event listener)՝ էկրանի չափը փոխելու դեպքում ֆոնը թարմացնելու համար
+    window.addEventListener('resize', updateBackground);
 
-        document.addEventListener('click', function (e) {
-            const drawer = document.getElementById('mobileDrawer');
-            const toggle = document.querySelector('.mobile-menu-toggle');
-
-            // Check if the click is outside the drawer and outside the toggle button
-            if (drawer && toggle && !drawer.contains(e.target) && !toggle.contains(e.target)) {
-                drawer.classList.remove('open');
-            }
-        });
-    </script>
+    // Սկզբնական պատկերի սահմանում էջը բացելիս
+    updateBackground();
+</script>
 
 
     @if ($about && $about->show_on_en)
@@ -321,7 +343,13 @@
             </div>
         </section>
     @endif
-
+    <style>
+        @media (max-width: 1000px) {
+            .about-image {
+                display: none;
+            }
+        }
+    </style>
 
 
 @php
