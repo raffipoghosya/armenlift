@@ -212,13 +212,9 @@
                 flex-direction: column;
                 gap: 20px;
             }
-
-            
-
             .mobile-drawer.open {
                 left: 0;
             }
-
             .drawer-header {
                 text-align: center;
                 margin-bottom: 10px;
